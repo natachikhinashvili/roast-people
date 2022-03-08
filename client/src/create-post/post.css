@@ -1,0 +1,147 @@
+#post{
+    background-color: rgb(8, 8, 8);
+    width: 40vw;
+    padding-top: 4vw;
+    padding-bottom: 3vw;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 1px solid white;
+    border-radius: 1vw;
+    margin-top: 2vh;
+}
+#post-settings{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 40vw;
+    align-items: center;
+    margin-right: 3vw;
+}
+#post-pic{
+    width: 30vw;
+}
+#profile-pic{
+    max-width: 10vw;
+    height: 4vh;
+    border-radius: 100%;
+}
+#profilepic-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 27vw;
+}
+.like-btn{
+    background-color: rgba(31, 30, 30, 0);
+    color: white;
+    padding: 0.7vw;
+    border: none;
+    border-radius: 1vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 1em;
+    width: 5vw;
+    align-items: center;
+    justify-content: center;
+    height: 5vh;
+    margin-top: 1vh;
+}
+.like-btn-icon{
+    margin-right: .5vw;
+    filter: invert(100%);
+    width: 1.5vw;
+}
+.like-btn-p{
+    margin-top:1.5vw;
+    margin-left: 0.5vw
+}
+#delete-button{
+    background-color: transparent;
+    color: rgb(197, 197, 197);
+    border: none;
+    cursor: pointer;
+}
+#post-createdAt{
+    font-size: 0.7rem;
+    width: fit-content;
+}
+#feed-post-creator-createdAt{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+#post-title{
+    font-size: 1.3em;
+    margin: 2vw;
+}
+@media screen  and (max-width: 960px) {
+    .like-btn{
+        background-color: transparent;
+        color: rgb(255, 255, 255);
+        padding: 0.7vw;
+        border: none;
+        border-radius: 1vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        font-size: 1em;
+        width: 15vw;
+        align-items: center;
+        justify-content: center;
+        max-height: 3vh;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+        margin-right: 75vw;
+    }
+    .like-btn-icon{
+        margin-right: 1vw; 
+        filter: invert(100%);
+        width: 20px;
+    }
+    .like-btn-p{
+        margin-top:20px;
+        margin-left: 1vw
+    }    
+    #post{
+        width: 100vw;
+        color: white;
+        margin:0vh;
+        display: flex;
+        background-color: black;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border-radius: 1vw;
+        margin-top: 0vh;
+    }
+    .image-post{
+        width: 95vw;
+    }
+    #post-settings{
+        width: 100vw;
+        margin-right: 0vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    #post-pic{
+        width: 90vw;
+    }
+    #post-createdAt{
+        font-size: 0.7rem;
+        width: 40vw;
+    }
+    #profilepic-info{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        width: 70vw;
+    }
+}

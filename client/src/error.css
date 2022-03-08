@@ -1,0 +1,44 @@
+#error-message-body{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#goback-from-error{
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    color: rgb(208, 52, 255);
+    width: 10vw;
+    border-radius: 10vw;
+    padding: 1vw;
+    border: none;
+}
+#error-page-img{
+    width: 100vw;
+}
+#smthng-went-wrong{
+    position: absolute;
+    color: white;
+    top: 30vh;
+    font-size: 3rem;
+}
+
+@media screen  and (max-width: 960px) {
+    #error-page-img{
+        transform: rotate(90deg);
+        width: 100vh;
+        height: 100vw;
+    }
+
+    #smthng-went-wrong{
+        top: 40vh;
+        font-size: 2rem;
+    }
+
+    #goback-from-error{
+        width: 20vw;
+        padding: 2vw;
+    }
+}

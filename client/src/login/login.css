@@ -1,0 +1,58 @@
+  #login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+  }
+  #submit-login, #navigate-to-createacc{
+    background-color: #9450e2;
+    border: none;
+    color: white;
+    border-radius: 10vw;
+    margin-left: 2vw;
+    padding-left: 3vw;
+    padding-right : 3vw;
+    cursor: pointer;
+    margin-top: 2vw;
+    height: 3vh;
+  }
+  #submit-login{
+    background-color: black;
+    color: white;
+    margin-top: 5vw;
+    font-weight: bold;
+}
+  #new-acc-btn{
+    background-color: white;
+    color: #542d80;
+  }
+  #login-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+    color: white;
+  }
+  .login-labels{
+    margin: 2vw;
+    font-size:4.5vw;
+  }
+  #login-enter-username,
+  #login-enter-password{
+    width: 70vw ;
+    font-size: 1em;
+    padding: 2vw;
+    border: none;
+    border-radius: 10vw;
+    font-size: medium;
+    margin: 3vw;
+  }
+  #password-label{
+    margin-top: 5vw;
+  }
+  #login-h1{
+    font-size: 2rem;
+  }

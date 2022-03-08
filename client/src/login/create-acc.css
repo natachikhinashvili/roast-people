@@ -1,0 +1,61 @@
+#create-acc-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+.create-acc-label{
+    margin: 1vw;
+}
+#create-btn{
+    background-color: #9450e2;
+    border: none;
+    color: white;
+    padding: 1vw;
+    width: 20vw;
+    border-radius: 1vw;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4vh;
+}
+#create-acc-containter{
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+.isinvalid{ 
+    border: 1.3px solid red;
+}
+.form-warn{
+    margin-top: 1vh;
+}
+#create-acc-age-input, #create-acc-name-input, #create-acc-email-input, #create-acc-password-input{
+    width: 70vw;
+    font-size: 1em;
+    padding: 2vw;
+    border: none;
+    border-radius: 10vw;
+    font-size: medium;
+    margin: 3vw;
+}
+#c-a-a{
+    font-size: 2rem;
+}
+#pic-createaccform{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#login-increateacc-btn{
+    background-color: transparent;
+    color: #9450e2;
+    border: none;
+    margin-top: 2vh;
+    font-size: 1rem;
+}
