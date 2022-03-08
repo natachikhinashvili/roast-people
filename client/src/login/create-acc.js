@@ -76,13 +76,13 @@ pic: "${imagesrc}"
                    'Validation failed. email is already in use'
                )
            }
-           
+            
            console.log(resData)
            
       if(resData.errors){
         navigate('/error-page')
       }
-       })
+       }).then(navigate('/login'))
     }
     return(
         <div id="create-acc-containter">
@@ -113,7 +113,7 @@ pic: "${imagesrc}"
                     {agehaserror && (
                         <span>You should be at least 16 years old to use this app</span>
                     )}
-                    <button id='create-btn'>create</button>  
+                    <button id='create-btn' type='submit'>create</button>  
                     { clicked && hasError && emailhaserror && passwordhasError && agehaserror &&
                         <span className="form-warn">You must fill entire form to create account!</span>
                     } 
