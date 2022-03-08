@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require('mongoose')
 const graphqlHttp = require('express-graphql').graphqlHTTP
 const cors = require('cors');
+const path = require('path');
 const graphqlSchema = require('./graphql/schema')
 const graphqlResolver = require('./graphql/resolvers')
 const auth = require('./middleware/is-auth')
@@ -9,6 +10,10 @@ const routes = require('./routes/feed')
 var wrtc = require('wrtc')
 const authroutes = require('./routes/auth');
 const app = express();
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.resolve(__dirname, "./client/build")));
+}
 
 app.use(cors())
 app.use((req,res,next) => {
