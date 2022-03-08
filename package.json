@@ -20,14 +20,6 @@
     "url": "https://github.com/natachikhinashvili/Roast/issues"
   },
   "homepage": "https://github.com/natachikhinashvili/Roast#readme",
-  "devDependencies": {
-    "ejs": "^3.1.6",
-    "express": "^4.17.3",
-    "mysql2": "^2.3.3",
-    "nodemon": "^2.0.15",
-    "sequelize": "^6.14.0",
-    "ws": "^8.5.0"
-  },
   "dependencies": {
     "axios": "^0.25.0",
     "bcryptjs": "^2.4.3",
@@ -44,7 +36,13 @@
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1",
     "validator": "^13.7.0",
-    "wrtc": "^0.4.7"
+    "wrtc": "^0.4.7",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.14.0",
+    "ws": "^8.5.0"
   },
   "engines": {
     "node": "16.x"

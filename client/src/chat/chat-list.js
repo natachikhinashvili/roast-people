@@ -7,7 +7,7 @@ function ChatList(){
     const [users, setUsers] = useState(null)
     const userId = localStorage.getItem('userid')
     useEffect(() => {
-        fetch('http://localhost:8080/auth/chat-users', {method: 'GET'})
+        fetch('https://roast-people.herokuapp.com/auth/chat-users', {method: 'GET'})
         .then((result) => result.json()
         ).then((users) => {
             setUsers(users.users)

@@ -16,7 +16,7 @@ function EditRoom(){
     const slug = useParams()
     const navigate = useNavigate();
 
-    const socket = openSocket('http://localhost:8080');
+    const socket = openSocket('https://roast-people.herokuapp.com');
 
     const token = localStorage.getItem('token')
     const userId = localStorage.getItem('userid')
@@ -36,7 +36,7 @@ function EditRoom(){
                 }
             `
         }
-        fetch('http://localhost:8080/graphql',{ 
+        fetch('https://roast-people.herokuapp.com/graphql',{ 
             method: "POST",
             headers: {
               Authorization: token, //bearer+token
@@ -52,7 +52,7 @@ function EditRoom(){
             setuser(resData.data.user)
             }
         })
-        fetch('http://localhost:8080/auth/chat-users', {method: 'GET'})
+        fetch('https://roast-people.herokuapp.com/auth/chat-users', {method: 'GET'})
         .then((result) => result.json()
         ).then((users) => {
             setsecond(users.users)

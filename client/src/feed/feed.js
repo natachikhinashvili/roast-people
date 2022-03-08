@@ -22,7 +22,7 @@ export default function Feed(){
       }
     `
   }
-   * fetch('http://localhost:8080/graphql',
+   * fetch('https://roast-people.herokuapp.com/graphql',
     { 
       method: "POST",
       headers: {
@@ -55,7 +55,7 @@ export default function Feed(){
       }
     `
   }
-     *  fetch('http://localhost:8080/graphql',
+     *  fetch('https://roast-people.herokuapp.com/graphql',
     { 
       method: "POST",
       headers: {
@@ -95,7 +95,7 @@ export default function Feed(){
       }
     `
   }
-    fetch('http://localhost:8080/graphql',
+    fetch('https://roast-people.herokuapp.com/graphql',
     { 
       method: "POST",
       headers: {

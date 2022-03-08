@@ -1,7 +1,7 @@
 import openSocket from 'socket.io-client';
 import pc from './webrtc-connection';
 
-const socket = openSocket('http://localhost:8080');
+const socket = openSocket('https://roast-people.herokuapp.com');
 
 function Calling(){
 

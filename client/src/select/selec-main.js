@@ -9,7 +9,7 @@ function Select(){
     const [num, setNum] = useState(0);
     const userId = localStorage.getItem('userid')
 useEffect(() => {
-    fetch('http://localhost:8080/auth/chat-users', {method: 'GET'})
+    fetch('https://roast-people.herokuapp.com/auth/chat-users', {method: 'GET'})
     .then((result) => result.json()
     ).then((users) => {
         const filteredusers = users.users.filter((user) => {
