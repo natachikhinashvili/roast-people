@@ -3,7 +3,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 60vh;
+    height: 100vh;
+    margin-top: 5vh;
   }
   #submit-login, #navigate-to-createacc{
     background-color: #9450e2;
@@ -14,8 +15,8 @@
     padding-left: 3vw;
     padding-right : 3vw;
     cursor: pointer;
-    margin-top: 2vw;
     height: 3vh;
+    margin: 1vw;
   }
   #submit-login{
     background-color: black;
@@ -38,21 +39,43 @@
   }
   .login-labels{
     margin: 2vw;
-    font-size:4.5vw;
+    font-size:2rem;
   }
   #login-enter-username,
   #login-enter-password{
-    width: 70vw ;
-    font-size: 1em;
-    padding: 2vw;
+    width: 40vw ;
+    font-size: 10.5em;
+    padding: 1vw;
     border: none;
     border-radius: 10vw;
     font-size: medium;
-    margin: 3vw;
+    margin: 1vw;
   }
   #password-label{
     margin-top: 5vw;
   }
   #login-h1{
+    font-size: 2.5rem;
+    position: absolute;
+    top: 5vh;
+  }
+
+@media screen  and (max-width: 960px) {
+
+  #login-h1{
     font-size: 2rem;
   }
+  #login-enter-username,
+  #login-enter-password{
+    width: 70vw ;
+    margin: 3vw;
+    padding: 2vw;
+  }
+  .login-labels{
+    margin: 2vw;
+    font-size:1rem;
+  }
+  #submit-login{
+    margin-top: 10vh;
+  }
+}

@@ -87,9 +87,7 @@ pic: "${imagesrc}"
     return(
         <div id="create-acc-containter">
             <h1 id='c-a-a'>Create An Account</h1>
-            
-            <div id='pic-createaccform'>
-                <div>
+                <div id='create-acc-profile-pic-zone'>
                     <h1>select profile picture</h1>
                     <DropZone></DropZone>
                     <div id='files-here'></div>
@@ -119,10 +117,10 @@ pic: "${imagesrc}"
                     { clicked && hasError && emailhaserror && passwordhasError && agehaserror &&
                         <span className="form-warn">You must fill entire form to create account!</span>
                     } 
-<Link to='/login'>
-<button id='login-increateacc-btn'>login</button> </Link>
+                    <Link to='/login'>
+                        <button id='login-increateacc-btn'>login</button> 
+                    </Link>
                 </form>
-            </div>
         </div>
     )
 }
