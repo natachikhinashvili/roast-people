@@ -2,6 +2,10 @@
     width: 100vw;
     background-color: black;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 } 
 #profile-container-body{
     width: 45vw;
@@ -9,12 +13,14 @@
     display: flex;
     justify-content: center;
     background-color: rgb(0, 0, 0);
-    margin-left: 27vw;
+    margin-left: 0vw;
 }
 #goback-profile-to-home{
     background-color: rgb(0, 0, 0);
     border: none;
     padding: 0.5vw;
+    position: absolute;
+    left: 0;
     border-radius: 10vw;
     cursor: pointer;
     margin: 2vw;
@@ -48,13 +54,12 @@
 #header{
     height: fit-content;
     background-color: rgb(0, 0, 0);
-    margin-left: 0.5vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin-top: 10vh;
-    width: 100vw;
+    width: 50vw;
 }
 
 #userpost{
@@ -117,6 +122,9 @@
     display: flex;
     justify-content: center;
     background-color: black;
+}
+#profileposts{
+    width: 100vw;
 }
 
 @media screen  and (max-width: 960px) {

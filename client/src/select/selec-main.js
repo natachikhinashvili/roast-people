@@ -51,13 +51,14 @@ useEffect(() => {
               </Link>
                 
             </div>
+            <body id='select-card-body'>
 <h1 id='select-card-name'>{name && name}</h1>
 <img id='select-card-img' alt='pictureofperson' src={img}/>
+                </body>
                 <div id='select-card-footer'>
                     <button id='select-card-nextbtn' onClick={handleClick}>next</button>
                    <Link to={'/chat/' + _id + '-' + userId}> <button id='select-card-roastbtn'>roast</button> </Link>
                 </div>
-
             </div>
             )}
         </div>

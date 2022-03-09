@@ -4,17 +4,20 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+} 
+#select-card-body{
+    height: fit-content;
 }
 #person-card{
     background-color: #15131d;
-    height: 70vh;
+    height: 80vh;
     width: 80vw;
     display: flex;
     border-radius: 2vw;
-    justify-content: space-around;
     flex-direction: column;
     align-items: center;
     color: white;
+    justify-content: center;
 }
 #select-card-name{
     font-size: 2em;
@@ -39,10 +42,12 @@
 #select-card-nextbtn {
     background-color: rgb(170, 0, 0);
     color: white;
+    box-shadow: 1px 1px 20px rgb(158, 0, 0);
 }
 #select-card-roastbtn{
     background-color: rgb(23, 149, 199);
     color: white;
+    box-shadow: 1px 1px 20px rgb(23, 149, 199);
 }
 #person-card-header{
     display: flex;
@@ -51,16 +56,17 @@
     position: relative;
 }
 
-#person-card-viewprofile,
-#person-card-exit{
+#person-card-viewprofile{
     border: none;    
     padding: 1.5vw;
     background-color: rgb(150, 17, 202);
+    box-shadow: 1px 1px 20px rgb(150, 17, 202);
     color: rgb(255, 255, 255);
     border-radius: 10px;
     cursor: pointer;
 }
 #select-card-img{
-    width: 50vw;
-    margin-bottom: 5vh;
+    width: 20vw;
+    height: 50vh;
+    object-fit: cover;
 }

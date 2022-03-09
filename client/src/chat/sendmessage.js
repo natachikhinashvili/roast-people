@@ -43,7 +43,7 @@ export default function SendMessage(){
               }
             `
         }
-        fetch('https://roast-people.herokuapp.com/graphql',{
+        fetch('http://roast-people.herokuapp.com/graphql',{
           method: "POST",
           body: JSON.stringify(graphqlQuery),
           headers: {

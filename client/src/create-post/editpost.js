@@ -4,6 +4,7 @@ import image from '../arrow.png'
 import { Link } from 'react-router-dom';
 import DropZone from './dropzone';
 import { useNavigate } from 'react-router-dom';
+import {FiImage}  from 'react-icons/fi'
 export default function EditPost(){
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
@@ -47,8 +48,7 @@ let imagesrc= ''
       if(resData.errors){
         navigate('/error-page')
       }
-      console.log(resData)
-    })
+    }).then(navigate('/feed'))
     .catch(err => console.log(err))
   }
   return (
@@ -58,14 +58,14 @@ let imagesrc= ''
           <img id='goback'alt='logo' src={image}/>     
         </Link> 
       </button>
-      <input 
-            placeholder='Edit your post here' 
-            name='post-title' 
-            value={curtitle} 
-            onChange={(event) => setcurtitle(event.target.value)} 
-            className="post-input"
-        />
-        <DropZone></DropZone>
+        <textarea 
+        id='editpost-textarea'
+        placeholder='Edit your post here' 
+        name='post-title' 
+        value={curtitle} 
+        onChange={(event) => setcurtitle(event.target.value)} 
+        ></textarea>
+          <DropZone></DropZone>
 
       <div id='edit-post-background'>
       <div id='files-here'></div>

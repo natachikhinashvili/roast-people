@@ -62,7 +62,7 @@ function Profile(){
 <div id='header'>
 {state.imagesrc &&<img alt='profile' src={state.imagesrc}/>}
     <h1 id='username-profile'>{state.name}</h1>
-    <div>{state.posts.map((post) => <UsersPost post={post}/>)}</div>
+    <div id ='profileposts'>{state.posts.map((post) => <UsersPost post={post}/>)}</div>
 </div>
             )}      
             </div>
