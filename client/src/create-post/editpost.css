@@ -84,4 +84,7 @@
     color: white;
     margin-top: 15vw;
   }
+  #files{
+    width: 50vw;
+  }
 }

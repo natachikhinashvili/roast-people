@@ -18,7 +18,7 @@ useEffect(() => {
        setUsers(filteredusers)
     })
     .catch(err => console.log(err))
-},[])
+},[userId])
     function handleClick(){
         if(users.length > 1){
         if(num + 1 > users.length - 1){

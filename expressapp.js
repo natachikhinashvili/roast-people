@@ -55,6 +55,7 @@ mongoose
 .connect('mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages')
 .then(result => {
   const port = process.env.PORT || 8080
+
   const server =  app.listen(port);   
   const io = require('socket.io')(server, {
     cors: {

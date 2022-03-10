@@ -14,9 +14,24 @@ import Othersprofile from "./userprofile/otherprofile";
 import MeetingList from "./chat/videochat/meeting-list";
 import EditRoom from "./chat/videochat/edit-meeting";
 import ErrorMessage from "./error";
+import { 
+  ApolloProvider,
+  InMemoryCache,
+  HttpLink,
+  from,
+  ApolloClient
+} from '@apollo/client'
 function App() {
+  const link = from([
+    new HttpLink({url: 'https://roast-people.herokuapp.com/graphql'})
+  ])
+  const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link: link
+  })
   return (
     <div>
+      <ApolloProvider client={client}>
       <style>
     @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap');
     </style>
@@ -36,6 +51,7 @@ function App() {
         <Route path="/create-room/:id" element={<EditRoom />} />
         <Route path="/error-page" element={<ErrorMessage />} />
       </Routes>
+      </ApolloProvider>
     </div>
   );
 }

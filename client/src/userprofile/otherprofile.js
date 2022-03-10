@@ -20,6 +20,7 @@ function Othersprofile(){
                     name
                     pic
                     posts{
+                        _id
                         title
                         imageUrl
                         createdAt
@@ -57,8 +58,8 @@ function Othersprofile(){
                 <h1 id='otheruser-username'>{user.data.otheruser.name}</h1>
                 </div>
                 <div id='otheruser-map'>
-                {user.data.otheruser.posts.map(post => <UsersPost post={post}/>)}
-            </div> 
+                    {user.data.otheruser.posts.map(post => <UsersPost key={post._id} post={post}/>)}
+                </div> 
             </div>
         )}
         </div>

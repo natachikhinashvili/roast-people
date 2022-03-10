@@ -70,3 +70,14 @@
     height: 50vh;
     object-fit: cover;
 }
+@media screen  and (max-width: 960px) {
+    #select-card-img{
+        width: 60vw;
+        height: 40vh;
+        object-fit: cover;
+    }
+    #person-card{
+        align-items: center;
+        justify-content: space-around;
+    }
+}
