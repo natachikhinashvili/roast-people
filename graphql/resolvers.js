@@ -108,7 +108,7 @@ const user = await User.findById(req.userId)
   },
 
   usersposts: async function({id}, req){
-    const posts = await Post.find( {creator: req.userId})
+    const posts = await Post.find( {creator: id})
     return posts
   },
 

@@ -92,7 +92,6 @@ const UsersPost = ({ post }) => {
     return (
         <div id='userpost-background'>
         <div id = 'userpost'>
-        <h4 id="post-createdAt">{  post.createdAt.toString().slice(0,21) }</h4>
                 <div id='userpost__header'>
                     <h1 id="post-title">{post.title}</h1>
                     <button id="delete-button" onClick={deletehandler}>delete</button>

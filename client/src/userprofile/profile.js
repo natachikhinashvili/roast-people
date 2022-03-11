@@ -10,18 +10,20 @@ import {gql, useQuery} from '@apollo/client'
 const userId = localStorage.getItem('userid')
 const LOAD_user = gql`
     query {
-        user {
+        user(id: "${userId}") {
             name
-            posts {
-                _id
-            }
             pic
         }  
+        usersposts(id: "${userId}"){
+            _id
+            title
+            createdAt
+            imageUrl
+        }
     }
 `
 function Profile(){
     const [state, setState] = useState({name : '', posts: [], imagesrc: ''})
-    const token = localStorage.getItem('token')
     const navigate = useNavigate()
     const {error, loading, data} = useQuery(LOAD_user)
     useEffect(() => {  
@@ -30,7 +32,7 @@ function Profile(){
             navigate('/error-page')
         }
         if(data){
-            console.log(data)
+            setState({name: data.user.name , posts: data.usersposts, imagesrc: data.user.pic})
         }
     }, [data,loading,error, navigate])
 
