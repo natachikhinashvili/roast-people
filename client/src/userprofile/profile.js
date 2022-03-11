@@ -5,50 +5,34 @@ import { useEffect, useState } from 'react';
 import UsersPost from './userspost';
 import React from 'react';
 import {FiLoader} from "react-icons/fi";
+import {gql, useQuery} from '@apollo/client'
+
+const userId = localStorage.getItem('userid')
+const LOAD_user = gql`
+    query {
+        user {
+            name
+            posts {
+                _id
+            }
+            pic
+        }  
+    }
+`
 function Profile(){
     const [state, setState] = useState({name : '', posts: [], imagesrc: ''})
     const token = localStorage.getItem('token')
     const navigate = useNavigate()
+    const {error, loading, data} = useQuery(LOAD_user)
     useEffect(() => {  
-    const qraphqlQuery = {
-        query: `
-            {
-                user {
-                    name
-                    posts {
-                        _id
-                    }
-                    pic
-                }
-                usersposts {
-                    title
-                    createdAt
-                    imageUrl
-                }             
-            }
-        `
-    }  
-    fetch('https://roast-people.herokuapp.com/graphql',
-    { 
-      method: "POST",
-      headers: {
-        Authorization: token, //bearer+token
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(qraphqlQuery)
-    }
-    )
-    .then(res => res.json())
-    .then(resData => {
-      if(resData.errors){
-          console.log(resData)
-          navigate('/error-page')
-      }
-      console.log(resData)
-      setState({name: resData.data.user.name, posts: resData.data.usersposts, imagesrc: resData.data.user.pic})
-    })
-    .catch(err => console.log(err))
- }, [])
+        console.log(loading, error,data)
+        if(error){
+            navigate('/error-page')
+        }
+        if(data){
+            console.log(data)
+        }
+    }, [data,loading,error, navigate])
 
     return (
         <div id='profile-container'>
@@ -58,13 +42,13 @@ function Profile(){
                 </button>
             </Link>
             <div id='profile-container-body'>      
-            {state.name === '' ? <div id='profile-loader'><FiLoader color='#ffff'/></div> : (
-<div id='header'>
-{state.imagesrc &&<img alt='profile' src={state.imagesrc}/>}
-    <h1 id='username-profile'>{state.name}</h1>
-    <div id ='profileposts'>{state.posts.map((post) => <UsersPost post={post}/>)}</div>
-</div>
-            )}      
+                {state.name === '' ? <div id='profile-loader'><FiLoader color='#ffff'/></div> : (
+                <div id='header'>
+                    {state.imagesrc &&<img alt='profile' src={state.imagesrc}/>}
+                    <h1 id='username-profile'>{state.name}</h1>
+                    <div id ='profileposts'>{state.posts.map((post) => <UsersPost post={post}/>)}</div>
+                </div>
+                )}      
             </div>
         </div>
     )

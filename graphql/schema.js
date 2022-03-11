@@ -58,7 +58,7 @@ module.exports = buildSchema(`
         posts: [Post!]!
         post(id: ID!): Post!
         usersposts : [Post!] 
-        user: User!
+        user(id: ID!): User!
         users: [User!]! 
         messages(id: ID!): [Message!]!
         otheruser(id: ID!): User!

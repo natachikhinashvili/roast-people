@@ -33,6 +33,13 @@
   border-radius: 100vw;
   object-fit: cover;
 }
+#messages-filoader{
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #chatlist-users-container{
   display: flex;
   flex-direction: row;

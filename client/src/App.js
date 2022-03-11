@@ -14,6 +14,7 @@ import Othersprofile from "./userprofile/otherprofile";
 import MeetingList from "./chat/videochat/meeting-list";
 import EditRoom from "./chat/videochat/edit-meeting";
 import ErrorMessage from "./error";
+import {onError} from '@apollo/client/link/error'
 import { 
   ApolloProvider,
   InMemoryCache,
@@ -21,36 +22,44 @@ import {
   from,
   ApolloClient
 } from '@apollo/client'
+
+const errorLink = onError(({graphqlErrors, networkError}) => {
+  if(graphqlErrors){
+    graphqlErrors.map(({message, location, path}) => {
+     return console.log(message,location,path)
+    })
+  }
+  if(networkError){
+    console.log(networkError)
+  }
+})
 function App() {
-  const link = from([
-    new HttpLink({url: 'https://roast-people.herokuapp.com/graphql'})
-  ])
   const client = new ApolloClient({
     cache: new InMemoryCache(),
-    link: link
+    link: from([errorLink, new HttpLink({uri: ' https://roast-people.herokuapp.com/graphql'})])
   })
   return (
     <div>
       <ApolloProvider client={client}>
-      <style>
-    @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap');
-    </style>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/feed" element={<Feed />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/chat" element={<ChatList />} />
-        <Route path="/chat/:id" element={<SendMessage />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/create-account" element={<CreateAcc />} />
-        <Route path="/edit-post/:status" element={<EditPost />} />
-        <Route path="/select" element={<Select />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/profile/:id" element={<Othersprofile />} />
-        <Route path="/meetings" element={<MeetingList />} />
-        <Route path="/create-room/:id" element={<EditRoom />} />
-        <Route path="/error-page" element={<ErrorMessage />} />
-      </Routes>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap');
+        </style>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/chat" element={<ChatList />} />
+          <Route path="/chat/:id" element={<SendMessage />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/create-account" element={<CreateAcc />} />
+          <Route path="/edit-post/:status" element={<EditPost />} />
+          <Route path="/select" element={<Select />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Othersprofile />} />
+          <Route path="/meetings" element={<MeetingList />} />
+          <Route path="/create-room/:id" element={<EditRoom />} />
+          <Route path="/error-page" element={<ErrorMessage />} />
+        </Routes>
       </ApolloProvider>
     </div>
   );

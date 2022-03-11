@@ -101,6 +101,7 @@ module.exports = {
     };
   },
   messages: async function({id}, req){
+    console.log('req',req)
 const user = await User.findById(req.userId)
   const messages = await Message.find().populate('creator')
   return messages 
@@ -177,14 +178,15 @@ const user = await User.findById(req.userId)
     await user.save()
     return true
   },
-  user: async function(args, req){ 
+  user: async function({id}, req){ 
 
     //if(!req.isAuth){
     //  const error = new Error('Not authenticated!')
     //   error.code = 401;
     //  throw error
     //}
-    const user = await User.findById(req.userId)
+    console.log(id)
+    const user = await User.findById(id)
     if(!user) {
       const error = new Error('No post found!')
       error.code = 404

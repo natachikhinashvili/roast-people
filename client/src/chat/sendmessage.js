@@ -1,104 +1,42 @@
-import React, { useEffect } from "react";
-import { useRef } from "react";
-import './messenger.css';
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { FiNavigation, FiLoader } from "react-icons/fi";
+import {gql, useQuery} from '@apollo/client'
+
 import image from '../arrow.png'
-import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import './messenger.css';
+
 export default function SendMessage(){
     const token = localStorage.getItem('token')
     const myid = localStorage.getItem('userid')
     const [edit, setedit] = useState({ messages: false , name : ''})
     const [otheruserstate, setotheruser] = useState(false)
-    const [isMine, setismine] = useState()
     const navigate = useNavigate()
     const messageref = useRef()
     const slug = useParams()
+
+
+    const LOAD_MESSAGES = gql`
+    query {
+      messages(id: "${slug.id.split('-')[1]}") {
+        _id 
+        text
+        place
+      }
+    }
+    `
     function handleSubmit(e){
         e.preventDefault()
     }
-    /**
-     * createRoom(){
-     *    return id1 + - + id2
-     * }
-     * if(user1id === id1 && user2id === id2)
-     * ro gagzavni mesijs qondes rumis addressi da tu im adress emtxveva rac linkshia mashin achvenos.
-     */
+
+    const  {error, loading, data} = useQuery(LOAD_MESSAGES)
     function send(e){
         e.preventDefault();  
-        let graphqlQuery = {
-            query: `
-              mutation {
-                createMessage(messageInput: {text: "${messageref.current.value}", place: "${slug.id}"}){
-                    _id
-                    text
-                    creator {
-                      name
-                      _id
-                      pic
-                    }
-                }
-              }
-            `
-        }
-        fetch('http://roast-people.herokuapp.com/graphql',{
-          method: "POST",
-          body: JSON.stringify(graphqlQuery),
-          headers: {
-            Authorization:token,
-            'Content-Type': 'application/json'
-          }
-        }).then(res => res.json())
-        .then((resData) => {
-          setedit({ messages: [...edit.messages] , name: resData.data.createMessage.creator.name}) 
-        })
-        .catch(err => console.log(err))
     }
 
     useEffect(() => {
-      const qraphqlQuery = {
-        query: `{
-            messages(id: "${slug.id.split('-')[1]}") {
-              _id 
-              text
-              creator {
-                _id
-                name
-                pic
-              }
-              place
-            }
-        }`
-      }
-      fetch('https://roast-people.herokuapp.com/graphql',
-      { 
-        method: "POST",
-        headers: {
-          Authorization: token,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(qraphqlQuery)
-      }
-      )
-      .then(res => res.json())
-      .then(resData => {
-        if(resData.errors){
-          navigate('/error-page')
-        }else{
-        const filtered = resData.data.messages.filter(message => {
-          return message.place === slug.id || message.place === slug.id.split('-').reverse().join('-')
-        })
-        setedit({ messages: filtered }) 
-        const otheruser = edit.messages.filter((message) => {
-         return message.creator._id !== myid
-        })
-        setotheruser(otheruser[0])
-      }
-      }) 
-      .catch(err => console.log(err))
-    },[token, edit.messages, myid, slug.id, navigate])
+      console.log(data, error,loading)
+    },[data, error, loading])
     return (
         <div id='full-messages'>
           <header id='chat-header'>
@@ -110,7 +48,7 @@ export default function SendMessage(){
         {!otheruserstate ? <FiLoader color="#ffff"/> : <h1 id='chat-header-username' style={{color:"white"}}>{otheruserstate.creator.name}</h1>}
         </header>
             <div id='current-chat'>
-              {!edit.messages ? <FiLoader color="#ffff"/> : (
+              {!edit.messages ? <div id='messages-filoader'><FiLoader color="#ffff"/></div> : (
                 <div id='messages-container'>
                   {edit.messages.map(message => {
                     return (
