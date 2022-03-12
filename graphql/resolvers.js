@@ -79,7 +79,7 @@ module.exports = {
     };
   },
   createMessage: async function({ messageInput }, req){
-    const user = await User.findById(req.userId)
+    const user = await User.findById(messageInput.id)
     if(!user){
       const error = new Error('Invalid user.');
       error.code = 401;
@@ -101,10 +101,9 @@ module.exports = {
     };
   },
   messages: async function({id}, req){
-    console.log('req',req)
-const user = await User.findById(req.userId)
-  const messages = await Message.find().populate('creator')
-  return messages 
+    const user = await User.findById(id)
+    const messages = await Message.find().populate('creator')
+    return messages 
   },
 
   usersposts: async function({id}, req){

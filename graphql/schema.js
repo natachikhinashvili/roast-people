@@ -51,6 +51,7 @@ module.exports = buildSchema(`
     input MessageInputData {
         text: String!
         place: String!
+        id: String!
     }
 
     type RootQuery {

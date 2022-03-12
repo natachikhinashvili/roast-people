@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './post.css'
 import { FiThumbsUp } from 'react-icons/fi'
-const Post = ({ post }) => {
+const Post = ({ post, user, profile }) => {
     const navigate = useNavigate();
     const token = useSelector((state) => state.token.token);
     const [like, setlike] = useState(0)
@@ -35,7 +35,7 @@ const Post = ({ post }) => {
             setlike(result.data.post.likes)
         })
         .catch(err => console.log(err))
-    }, [])
+    }, [post._id, token])
     const graphqlQuery = {
         query: `
             mutation {
@@ -91,9 +91,9 @@ const Post = ({ post }) => {
         <div id = 'post'>
                     <div id='post-settings'>
                         <div id='profilepic-info'>
-                            <img alt='profile' src={post.creator.pic} id='profile-pic'/>
+                            <img alt='profile' src={profile} id='profile-pic'/>
                             <div id='feed-post-creator-createdAt'>
-                                <h3>{post.creator.name}</h3>
+                                <h3>{user}</h3>
                                 <h4 id="post-createdAt">{ post.createdAt.toString().slice(0,21) }</h4>
                             </div>
                         </div>

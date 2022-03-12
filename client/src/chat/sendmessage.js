@@ -15,13 +15,17 @@ export default function SendMessage(){
     const messageref = useRef()
     const slug = useParams()
 
-
+console.log(slug.id.split('-')[1])
     const LOAD_MESSAGES = gql`
     query {
       messages(id: "${slug.id.split('-')[1]}") {
         _id 
         text
         place
+        creator {
+          name
+          pic
+        }
       }
     }
     `
@@ -35,6 +39,7 @@ export default function SendMessage(){
     }
 
     useEffect(() => {
+     // setedit({messages: data.messages})
       console.log(data, error,loading)
     },[data, error, loading])
     return (

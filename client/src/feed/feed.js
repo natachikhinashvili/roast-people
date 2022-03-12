@@ -27,8 +27,7 @@ const LOAD_POSTS = gql`
 export default function Feed(){
   const [state, setState] = useState([]);  
     
-  const {error, loading, data} = useQuery(LOAD_POSTS)
-    const userId = localStorage.getItem('userid')
+    const {error, loading, data} = useQuery(LOAD_POSTS)
     const navigate = useNavigate()
 
     useEffect(() => {  
@@ -61,7 +60,7 @@ export default function Feed(){
         </header>
           {loading && <div id='loader-feed'><FiLoader/></div>}
         <div id='posts-container'>
-          {state && state.map((post) => <Post key={post._id} post={post} />)}
+          {state && state.map((post) => <Post key={post._id} user={post.creator.name} profile={post.creator.pic} post={post} />)}
         </div>
       </div>
       <footer id='feed-footer'>
