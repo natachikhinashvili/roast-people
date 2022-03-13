@@ -46,7 +46,7 @@ function Profile(){
             <div id='profile-container-body'>      
                 {state.name === '' ? <div id='profile-loader'><FiLoader color='#ffff'/></div> : (
                 <div id='header'>
-                    {state.imagesrc &&<img alt='profile' src={state.imagesrc}/>}
+                    {state.imagesrc &&<img alt='profile' id='myprofile' src={state.imagesrc}/>}
                     <h1 id='username-profile'>{state.name}</h1>
                     <div id ='profileposts'>{state.posts.map((post) => <Post user={state.name} profile={state.imagesrc} post={post}/>)}</div>
                 </div>

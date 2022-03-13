@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { FiNavigation, FiLoader } from "react-icons/fi";
-import {gql, useQuery} from '@apollo/client'
+import {gql, useQuery, useMutation} from '@apollo/client'
 
 import image from '../arrow.png'
 import './messenger.css';
@@ -9,71 +9,87 @@ import './messenger.css';
 export default function SendMessage(){
     const token = localStorage.getItem('token')
     const myid = localStorage.getItem('userid')
-    const [edit, setedit] = useState({ messages: false , name : ''})
+    const [edit, setedit] = useState(false)
     const [otheruserstate, setotheruser] = useState(false)
     const navigate = useNavigate()
     const messageref = useRef()
     const slug = useParams()
 
-console.log(slug.id.split('-')[1])
     const LOAD_MESSAGES = gql`
-    query {
-      messages(id: "${slug.id.split('-')[1]}") {
-        _id 
-        text
-        place
-        creator {
-          name
-          pic
+      query {
+        messages(id: "${slug.id.split('-')[1]}") {
+          _id 
+          text
+          place
+          creator {
+            name
+            pic
+          }
         }
       }
-    }
     `
+    let graphqlQuery = gql`
+      mutation createMessage($messageInput: MessageInputData!, 
+        $text: String!
+        $place: String!
+        $id: String!){
+        createMessage(messageInput: $messageInput, text: $text,place :$place,id:$id ){
+          _id
+          text
+          creator {
+            name
+            _id
+            pic
+          }
+        }
+      }
+    `
+    const  [createmessage, {senderror}] = useMutation(graphqlQuery)
+    console.log(senderror)
     function handleSubmit(e){
-        e.preventDefault()
+      e.preventDefault()
+      createmessage(messageref.current.value, slug.id)
     }
 
     const  {error, loading, data} = useQuery(LOAD_MESSAGES)
-    function send(e){
-        e.preventDefault();  
-    }
-
     useEffect(() => {
-     // setedit({messages: data.messages})
       console.log(data, error,loading)
+      if(data){
+        setedit( data.messages)
+      }
     },[data, error, loading])
     return (
         <div id='full-messages'>
           <header id='chat-header'>
-        <button id='goback-from-chat'>
-          <Link to='/'>
-            <img id='goback'alt='logo' src={image}/>     
-          </Link> 
-        </button>
-        {!otheruserstate ? <FiLoader color="#ffff"/> : <h1 id='chat-header-username' style={{color:"white"}}>{otheruserstate.creator.name}</h1>}
-        </header>
-            <div id='current-chat'>
-              {!edit.messages ? <div id='messages-filoader'><FiLoader color="#ffff"/></div> : (
-                <div id='messages-container'>
-                  {edit.messages.map(message => {
-                    return (
-                      <div id='message-body-container'>
-                        <img alt='profile' className="pic" src={message.creator.pic}/>
-                        <div id="message" className={message.creator._id !== slug.id.split('-')[0] ? 'mine' : 'elses'}>
-                          <p>{message.text}</p>
-                        </div>
+            <button id='goback-from-chat'>
+              <Link to='/'>
+                <img id='goback'alt='logo' src={image}/> 
+              </Link> 
+            </button>
+            {!otheruserstate ? <FiLoader color="#ffff"/> : <h1 id='chat-header-username' style={{color:"white"}}>{otheruserstate.creator.name}</h1>}
+          </header>
+          <div id='current-chat'>
+            {!edit.messages ? <div id='messages-filoader'><FiLoader color="#ffff"/></div> : (
+              <div id='messages-container'>
+                {edit.messages.map(message => {
+                  return (
+                    <div id='message-body-container'>
+                      <img alt='profile' className="pic" src={message.creator.pic}/>
+                      <div id="message" className={message.creator._id !== slug.id.split('-')[0] ? 'mine' : 'elses'}>
+                        <p>{message.text}</p>
                       </div>
-                    )
-                 })})
-                </div>
-              )}
-              <div id='message-form'>
-              <form id='form-msg'onSubmit={handleSubmit}>
-                  <input id='message-input' type="text" ref={messageref}/>
-                  <button id='send-btn' onClick={send}><FiNavigation color='#9f6cff' id='icon'/></button>
-              </form>
+                    </div>
+                  )
+               })})
               </div>
+            )}
+            <div id='message-form'>
+              <form id='form-msg'onSubmit={handleSubmit}>
+                <input id='message-input' type="text" ref={messageref}/>
+                <button id='send-btn' onClick={handleSubmit} type='submit'><FiNavigation color='#9f6cff' id='icon'/></button>
+              </form>
             </div>
-        </div>
+          </div>
+      </div>
     )
 }

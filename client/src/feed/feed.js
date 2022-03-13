@@ -60,7 +60,7 @@ export default function Feed(){
         </header>
           {loading && <div id='loader-feed'><FiLoader/></div>}
         <div id='posts-container'>
-          {state && state.map((post) => <Post key={post._id} user={post.creator.name} profile={post.creator.pic} post={post} />)}
+          {state && state.map((post) => <Post key={post._id} creatorid={post.creator._id} user={post.creator.name} profile={post.creator.pic} post={post} />)}
         </div>
       </div>
       <footer id='feed-footer'>
