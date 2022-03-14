@@ -9,7 +9,7 @@ function SearchUsersList(){
     const [users,setusers] = useState(false)
     const userid = localStorage.getItem('userid')
     const searchref = useRef()
-    const [val, setval] = useState('nat')
+    const [val, setval] = useState('')
     const loadusers = gql`
         query {
             users{
@@ -20,32 +20,19 @@ function SearchUsersList(){
         }
     `
     const {error, loading, data} = useQuery(loadusers)
-    let searchloadusers = gql`
-        query {
-            searchusers(name: "nat"){
-              _id
-              name
-              pic
-            } 
-        }
-    `;
-    const {searcherror, searchloading, searchdata} = useQuery(searchloadusers)
-    console.log(searcherror, searchloading, searchdata)
     useEffect(() => {
-        if(data){
-            let filtered = data.users.filter(user => userid !== user._id)
+        if(data)
+        {let filtered
+            if(val === ''){
+            filtered = data.users.filter(user => userid !== user._id)
+            }else{
+                filtered = data.users.filter(user => val.toLowerCase() === user.name.toLowerCase().slice(0, val.length))
+            }
             setusers(filtered)
         }
-    }, [data,error, userid])
-    function handleSubmit(e){
-        e.preventDefault()
-        // send query that searchs with targeted value 
-        setval(searchref.current.value)
-        console.log(searchref.current.value)
-    }
+    }, [data,error, userid,val])
     function handlechange(){
         setval(searchref.current.value)
-        console.log(searchref.current.value)
     }
     return (
         <div id="SearchUsersList">
@@ -55,12 +42,10 @@ function SearchUsersList(){
             <img id='goback'alt='logo' src={image}/> 
           </Link> 
         </button>
-            <form id="SearchUsersList-form" onSubmit={handleSubmit}>
+            <form id="SearchUsersList-form">
                 <input ref={searchref} id="search" onChange={handlechange}/>
-                <button type="submit" id='SearchUsersList-search-btn'>
-                    <FiSearch color='#9f6cff'/>
-                </button>
-            </form></header>
+            </form>
+            </header>
             <div id='search-users-container'>
                 {loading && <FiLoader color="#fff"/>}
                 {users && users.map(user => {

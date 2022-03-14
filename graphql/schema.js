@@ -59,7 +59,6 @@ module.exports = buildSchema(`
         messages(id: ID!): [Message!]!
         otheruser(id: ID!): User!
         message : Message
-        searchusers(name: String!): [User!]
     }
 
     type roomData{
