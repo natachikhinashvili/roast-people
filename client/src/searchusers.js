@@ -9,37 +9,38 @@ function SearchUsersList(){
     const [users,setusers] = useState(false)
     const userid = localStorage.getItem('userid')
     const searchref = useRef()
-    const [val, setval] = useState('')
+    const [val, setval] = useState('nat')
     const loadusers = gql`
         query {
             users{
-              _id
-              name
-              pic
+                _id
+                name
+                pic
             } 
         }
     `
     const {error, loading, data} = useQuery(loadusers)
-    const searchloadusers = gql`
+    let searchloadusers = gql`
         query {
-            searchusers(name: "${val}"){
+            searchusers(name: "nat"){
               _id
               name
               pic
             } 
         }
-    `
+    `;
     const {searcherror, searchloading, searchdata} = useQuery(searchloadusers)
+    console.log(searcherror, searchloading, searchdata)
     useEffect(() => {
-        console.log(searcherror, searchloading, searchdata)
         if(data){
             let filtered = data.users.filter(user => userid !== user._id)
             setusers(filtered)
         }
-        console.log(searchref.current)
-    }, [data,error, userid, searchref,searcherror, searchloading, searchdata])
-    function handleSubmit(){
+    }, [data,error, userid])
+    function handleSubmit(e){
+        e.preventDefault()
         // send query that searchs with targeted value 
+        setval(searchref.current.value)
         console.log(searchref.current.value)
     }
     function handlechange(){

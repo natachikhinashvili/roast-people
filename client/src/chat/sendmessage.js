@@ -16,21 +16,21 @@ export default function SendMessage(){
     const messageref = useRef()
     const slug = useParams()
 
-    let graphqlQuery = gql`
-      mutation createMessage($text: String!,$place: String!,$id: ID!){
-        createMessage(text: $text,place :$place,id:$id ){
-          _id
-          text
-          creator {
-            name
-            _id
-            pic
-          }
-        }
-    }
-    `
-    const  [createmessage, {create_message_data}] = useMutation(graphqlQuery)
-      console.log(create_message_data)
+    //let graphqlQuery = gql`
+    //  mutation createMessage($text: String!,$place: String!,$id: ID!){
+    //    createMessage(text: $text,place :$place,id:$id ){
+    //      _id
+    //      text
+    //      creator {
+    //        name
+    //        _id
+    //        pic
+    //      }
+    //    }
+    //}
+    //`
+    //const  [createmessage, {create_message_data}] = useMutation(graphqlQuery)
+    //  console.log(create_message_data)
 
     useEffect(() => {
      // console.log(data, error,loading)
@@ -64,14 +64,7 @@ export default function SendMessage(){
               </div>
             )}
             <div id='message-form'>
-              <form id='form-msg' onSubmit={e => {      
-                e.preventDefault()
-                createmessage({variables: {
-                  text: messageref.current.value,
-                  place: slug.id,
-                  id: slug.id.split('-')[1]
-                }})
-              }}>
+              <form id='form-msg'>
                 <input id='message-input' type="text" ref={messageref}/>
                 <button id='send-btn' type='submit'><FiNavigation color='#9f6cff' id='icon'/></button>
               </form>

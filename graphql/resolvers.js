@@ -280,8 +280,9 @@ likepost: async function({id, userid}, req){
     likes : saved.like
   }
 },
-searchusers: async function(username, req){
-  const found = User.find({name: username})
+searchusers: async function({username}, req){
+  console.log('here')
+  const found = await User.find({name: username})
   return found
 }
 };

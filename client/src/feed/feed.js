@@ -5,7 +5,6 @@ import Post from '../create-post/post';
 import selecticon from '../search (1).png'
 import profileIcon from '../profile-user.png'
 import {FiLoader, FiSettings, FiSearch} from "react-icons/fi";
-import { SiGotomeeting } from "react-icons/si";
 import { useNavigate } from 'react-router-dom';
 import {gql, useQuery} from '@apollo/client'
 
