@@ -11,8 +11,6 @@ import Login from "./login/login";
 import ChatList from "./chat/chat-list";
 import Main from "./main";
 import Othersprofile from "./userprofile/otherprofile";
-import MeetingList from "./chat/videochat/meeting-list";
-import EditRoom from "./chat/videochat/edit-meeting";
 import ErrorMessage from "./error";
 import SearchUsersList from "./searchusers";
 import {onError} from '@apollo/client/link/error'
@@ -57,8 +55,6 @@ function App() {
           <Route path="/select" element={<Select />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id" element={<Othersprofile />} />
-          <Route path="/meetings" element={<MeetingList />} />
-          <Route path="/create-room/:id" element={<EditRoom />} />
           <Route path="/search" element={<SearchUsersList />} />
           <Route path="/error-page" element={<ErrorMessage />} />
         </Routes>

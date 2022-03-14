@@ -47,11 +47,6 @@ export default function Feed(){
               <FiSettings  color='#9f6cff'/>
             </button>
           </Link>
-          <Link to='/meetings'>
-            <button id='settings'> 
-              <SiGotomeeting color='#9f6cff'/>
-            </button>
-          </Link>
           <Link to={'/search'}>
             <button id='search-btn'>
               <FiSearch color='#9f6cff'/>

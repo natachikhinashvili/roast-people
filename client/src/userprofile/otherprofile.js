@@ -12,6 +12,7 @@ function Othersprofile(){
     const slug = useParams()
     const [user,setuser] = useState([])
     const navigate = useNavigate()
+    const userid = localStorage.getItem('userid')
 
     const LOAD_user = gql`
     query {
@@ -50,6 +51,9 @@ const {error, loading, data} = useQuery(LOAD_user)
             <div id='header'>
                 <img src={user.otheruser.pic} id='otheruserprofile-pic' alt="" />
                 <h1 id='otheruser-username'>{user.otheruser.name}</h1>
+                <Link to={'/chat/' + user.otheruser._id + '-' + userid}>
+                    <button>Roast</button>
+                </Link>
                 </div>
                 <div id='otheruser-map'>
                     {user.otheruser.posts.map(post => <Post key={post._id} profile={user.otheruser.pic} user={user.otheruser.name} post={post}/>)}

@@ -1,10 +1,76 @@
-import React from "react"
+import React, { useRef } from "react"
 import './searchusers.css'
+import {gql, useQuery} from '@apollo/client'
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { FiLoader, FiSearch } from "react-icons/fi"
+import image from './arrow.png'
 function SearchUsersList(){
+    const [users,setusers] = useState(false)
+    const userid = localStorage.getItem('userid')
+    const searchref = useRef()
+    const [val, setval] = useState('')
+    const loadusers = gql`
+        query {
+            users{
+              _id
+              name
+              pic
+            } 
+        }
+    `
+    const {error, loading, data} = useQuery(loadusers)
+    const searchloadusers = gql`
+        query {
+            searchusers(name: "${val}"){
+              _id
+              name
+              pic
+            } 
+        }
+    `
+    const {searcherror, searchloading, searchdata} = useQuery(searchloadusers)
+    useEffect(() => {
+        console.log(searcherror, searchloading, searchdata)
+        if(data){
+            let filtered = data.users.filter(user => userid !== user._id)
+            setusers(filtered)
+        }
+        console.log(searchref.current)
+    }, [data,error, userid, searchref,searcherror, searchloading, searchdata])
+    function handleSubmit(){
+        // send query that searchs with targeted value 
+        console.log(searchref.current.value)
+    }
+    function handlechange(){
+        setval(searchref.current.value)
+        console.log(searchref.current.value)
+    }
     return (
         <div id="SearchUsersList">
-            <input id="search"/>
-            <div id='search-users-container'></div>
+            <header id="SearchUsersList-header">
+        <button id='goback-from-chat'>
+          <Link to='/'>
+            <img id='goback'alt='logo' src={image}/> 
+          </Link> 
+        </button>
+            <form id="SearchUsersList-form" onSubmit={handleSubmit}>
+                <input ref={searchref} id="search" onChange={handlechange}/>
+                <button type="submit" id='SearchUsersList-search-btn'>
+                    <FiSearch color='#9f6cff'/>
+                </button>
+            </form></header>
+            <div id='search-users-container'>
+                {loading && <FiLoader color="#fff"/>}
+                {users && users.map(user => {
+                    return (
+                        <Link style={{ textDecoration: 'none' }} id='searchusers-user' to={'/profile/' + user._id}>
+                            <img src={user.pic} alt='profile' id='searchusers-profile'/>
+                            <h1>{user.name}</h1>
+                        </Link>
+                    )
+                })}
+            </div>
         </div>
     )
 }
