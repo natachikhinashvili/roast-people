@@ -11,29 +11,14 @@ export default function SendMessage(){
     const myid = localStorage.getItem('userid')
     const [edit, setedit] = useState(false)
     const [otheruserstate, setotheruser] = useState(false)
+    const [vars, setvars] = useState({messagevar: '', placevar: '', idvar: ''})
     const navigate = useNavigate()
     const messageref = useRef()
     const slug = useParams()
 
-    const LOAD_MESSAGES = gql`
-      query {
-        messages(id: "${slug.id.split('-')[1]}") {
-          _id 
-          text
-          place
-          creator {
-            name
-            pic
-          }
-        }
-      }
-    `
     let graphqlQuery = gql`
-      mutation createMessage($messageInput: MessageInputData!, 
-        $text: String!
-        $place: String!
-        $id: String!){
-        createMessage(messageInput: $messageInput, text: $text,place :$place,id:$id ){
+      mutation createMessage($text: String!,$place: String!,$id: ID!){
+        createMessage(text: $text,place :$place,id:$id ){
           _id
           text
           creator {
@@ -42,22 +27,17 @@ export default function SendMessage(){
             pic
           }
         }
-      }
-    `
-    const  [createmessage, {senderror}] = useMutation(graphqlQuery)
-    console.log(senderror)
-    function handleSubmit(e){
-      e.preventDefault()
-      createmessage(messageref.current.value, slug.id)
     }
+    `
+    const  [createmessage, {create_message_data}] = useMutation(graphqlQuery)
+      console.log(create_message_data)
 
-    const  {error, loading, data} = useQuery(LOAD_MESSAGES)
     useEffect(() => {
-      console.log(data, error,loading)
-      if(data){
-        setedit( data.messages)
-      }
-    },[data, error, loading])
+     // console.log(data, error,loading)
+     // if(data){
+     //   setedit( data.messages)
+     // }
+    },[])
     return (
         <div id='full-messages'>
           <header id='chat-header'>
@@ -84,9 +64,16 @@ export default function SendMessage(){
               </div>
             )}
             <div id='message-form'>
-              <form id='form-msg'onSubmit={handleSubmit}>
+              <form id='form-msg' onSubmit={e => {      
+                e.preventDefault()
+                createmessage({variables: {
+                  text: messageref.current.value,
+                  place: slug.id,
+                  id: slug.id.split('-')[1]
+                }})
+              }}>
                 <input id='message-input' type="text" ref={messageref}/>
-                <button id='send-btn' onClick={handleSubmit} type='submit'><FiNavigation color='#9f6cff' id='icon'/></button>
+                <button id='send-btn' type='submit'><FiNavigation color='#9f6cff' id='icon'/></button>
               </form>
             </div>
           </div>

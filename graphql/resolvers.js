@@ -110,6 +110,11 @@ module.exports = {
     const posts = await Post.find( {creator: id})
     return posts
   },
+  users: async function(args,req){
+    const userslist = await User.find()
+    return userslist;
+  }
+  ,
 
   updatePost: async function({id, postInput}, req){
     if(!req.isAuth){

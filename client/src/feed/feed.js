@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Post from '../create-post/post';
 import selecticon from '../search (1).png'
 import profileIcon from '../profile-user.png'
-import {FiLoader, FiSettings} from "react-icons/fi";
+import {FiLoader, FiSettings, FiSearch} from "react-icons/fi";
 import { SiGotomeeting } from "react-icons/si";
 import { useNavigate } from 'react-router-dom';
 import {gql, useQuery} from '@apollo/client'
@@ -50,6 +50,11 @@ export default function Feed(){
           <Link to='/meetings'>
             <button id='settings'> 
               <SiGotomeeting color='#9f6cff'/>
+            </button>
+          </Link>
+          <Link to={'/search'}>
+            <button id='search-btn'>
+              <FiSearch color='#9f6cff'/>
             </button>
           </Link>
           <Link  style={{ textDecoration: 'none' }} to="/chat" >

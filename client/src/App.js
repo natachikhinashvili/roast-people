@@ -14,6 +14,7 @@ import Othersprofile from "./userprofile/otherprofile";
 import MeetingList from "./chat/videochat/meeting-list";
 import EditRoom from "./chat/videochat/edit-meeting";
 import ErrorMessage from "./error";
+import SearchUsersList from "./searchusers";
 import {onError} from '@apollo/client/link/error'
 import { 
   ApolloProvider,
@@ -58,6 +59,7 @@ function App() {
           <Route path="/profile/:id" element={<Othersprofile />} />
           <Route path="/meetings" element={<MeetingList />} />
           <Route path="/create-room/:id" element={<EditRoom />} />
+          <Route path="/search" element={<SearchUsersList />} />
           <Route path="/error-page" element={<ErrorMessage />} />
         </Routes>
       </ApolloProvider>

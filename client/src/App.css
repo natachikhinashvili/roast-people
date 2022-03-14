@@ -91,7 +91,7 @@ button{
 #feed-form{
   display: none;
 }
-#settings{
+#settings, #search-btn{
   background-color: transparent;
   color: white;
   border: none;
