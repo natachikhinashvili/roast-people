@@ -3,7 +3,7 @@ import './searchusers.css'
 import {gql, useQuery} from '@apollo/client'
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { FiLoader, FiSearch } from "react-icons/fi"
+import { FiLoader } from "react-icons/fi"
 import image from './arrow.png'
 function SearchUsersList(){
     const [users,setusers] = useState(false)

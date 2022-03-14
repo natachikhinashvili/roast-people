@@ -335,7 +335,10 @@ video::-webkit-media-controls {
   justify-content: space-evenly;
   width: 20vw;
 }
-
+#chat-otheruser-topbar{
+  display: flex;
+  flex-direction: row;
+}
 @media screen  and (max-width: 960px) {
   #start-roasting-btn{
     height: 5vh;

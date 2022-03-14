@@ -16,28 +16,54 @@ export default function SendMessage(){
     const messageref = useRef()
     const slug = useParams()
 
-    //let graphqlQuery = gql`
-    //  mutation createMessage($text: String!,$place: String!,$id: ID!){
-    //    createMessage(text: $text,place :$place,id:$id ){
-    //      _id
-    //      text
-    //      creator {
-    //        name
-    //        _id
-    //        pic
-    //      }
-    //    }
-    //}
-    //`
-    //const  [createmessage, {create_message_data}] = useMutation(graphqlQuery)
-    //  console.log(create_message_data)
+
+    const LOAD_MESSAGES = gql`
+      query {
+        messages(id: "${slug.id.split('-')[1]}") {
+          _id 
+          text
+          place
+          creator {
+            name
+            pic
+          }
+        }
+        otheruser(id: "${slug.id.split('-')[0]}"){
+          pic
+          name
+        }
+      }
+    `
+    const  {error, loading, data} = useQuery(LOAD_MESSAGES)
+
+    let graphqlQuery = gql`
+      mutation CreateMessage{
+        createMessage(text: "fe",place :"621a592e0a6512330dab3989-6216ad0f274c007ff6d2df8c",id:"6216ad0f274c007ff6d2df8c" ){
+          _id
+          text
+          creator {
+            name
+            _id
+            pic
+          }
+        }
+    }
+    `
+    const  [createmessage, {create_message_data}] = useMutation(graphqlQuery)
+      console.log(create_message_data)
 
     useEffect(() => {
-     // console.log(data, error,loading)
-     // if(data){
-     //   setedit( data.messages)
-     // }
-    },[])
+      console.log(data, error,loading)
+      if(data){
+        setedit({messages: data.messages})
+        console.log(data.otheruser)
+        setotheruser(data.otheruser)
+      }
+    },[data, error,loading])
+    function handlesubmit(e){
+      e.preventDefault()
+      createmessage()
+    }
     return (
         <div id='full-messages'>
           <header id='chat-header'>
@@ -46,7 +72,7 @@ export default function SendMessage(){
                 <img id='goback'alt='logo' src={image}/> 
               </Link> 
             </button>
-            {!otheruserstate ? <FiLoader color="#ffff"/> : <h1 id='chat-header-username' style={{color:"white"}}>{otheruserstate.creator.name}</h1>}
+            {!otheruserstate ? <FiLoader color="#ffff"/> : <div id='chat-otheruser-topbar'><img alt='profile'src={otheruserstate.pic}/><h1 id='chat-header-username' style={{color:"white"}}>{otheruserstate.name}</h1></div>}
           </header>
           <div id='current-chat'>
             {!edit.messages ? <div id='messages-filoader'><FiLoader color="#ffff"/></div> : (
@@ -64,7 +90,7 @@ export default function SendMessage(){
               </div>
             )}
             <div id='message-form'>
-              <form id='form-msg'>
+              <form id='form-msg' onSubmit={handlesubmit}>
                 <input id='message-input' type="text" ref={messageref}/>
                 <button id='send-btn' type='submit'><FiNavigation color='#9f6cff' id='icon'/></button>
               </form>

@@ -78,17 +78,17 @@ module.exports = {
       likes: 0
     };
   },
-  createMessage: async function({ messageInput }, req){
-    const user = await User.findById(messageInput.id)
+  createMessage: async function({ text,place,id }, req){
+    const user = await User.findById(id)
     if(!user){
       const error = new Error('Invalid user.');
       error.code = 401;
       throw error;
     }
     const message = new Message({
-      text: messageInput.text,
+      text: text,
       creator: user,
-      place: messageInput.place
+      place: place
     });
     const createdMessage = await message.save();
     user.messages.push(createdMessage);
