@@ -116,7 +116,7 @@ module.exports = {
   }
   ,
 
-  updatePost: async function({id, postInput}, req){
+  updatePost: async function({id, text,place}, req){
     if(!req.isAuth){
       const error = new Error('Not authenticated!')
       error.code = 401;

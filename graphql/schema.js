@@ -44,9 +44,6 @@ module.exports = buildSchema(`
         password: String!
     }
 
-    input PostInputData {
-    }
-
     type RootQuery {
         login(email: String!, password: String!): AuthData!
         posts: [Post!]!
@@ -68,7 +65,7 @@ module.exports = buildSchema(`
         createUser(userInput: UserInputData): User!
         createPost(title: String!,imageUrl: String!, id: ID!): Post!
         createMessage(text: String!,place: String!,id: ID!): Message!
-        updatePost(id: ID!, postInput: PostInputData): Post!
+        updatePost(id: ID!,text: String!,place: String!): Post!
         deletePost(id: ID!): Boolean!
         updateStatus(status : String): User!
         likepost(id : ID!, userid: ID!): Post!

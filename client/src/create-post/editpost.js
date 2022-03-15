@@ -1,14 +1,11 @@
+
 import React, { useState } from 'react';
 import './editpost.css'
 import image from '../arrow.png'
 import { Link } from 'react-router-dom';
 import DropZone from './dropzone';
 import {gql, useMutation} from '@apollo/client'
-import { useNavigate } from 'react-router-dom';
-import {FiImage}  from 'react-icons/fi'
 export default function EditPost(){
-  const navigate = useNavigate()
-  const token = localStorage.getItem('token')
 const [curtitle, setcurtitle] = useState('')
 let imagesrc= ''
 

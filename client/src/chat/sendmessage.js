@@ -7,7 +7,6 @@ import image from '../arrow.png'
 import './messenger.css';
 
 export default function SendMessage(){
-    const token = localStorage.getItem('token')
     const myid = localStorage.getItem('userid')
     const [edit, setedit] = useState(false)
     const [otheruserstate, setotheruser] = useState(false)
