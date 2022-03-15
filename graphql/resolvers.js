@@ -61,11 +61,11 @@ module.exports = {
     );
     return { token: token, userId: user._id.toString() };
   },
-  createPost: async function({ postInput }, req) {
-    const user = await User.findById(req.userId)
+  createPost: async function({ title, imageUrl, id }, req) {
+    const user = await User.findById(id)
     const post = new Post({
-      title: postInput.title,
-      imageUrl: postInput.imageUrl,
+      title: title,
+      imageUrl: imageUrl,
       creator: user,
       like: 0
     });

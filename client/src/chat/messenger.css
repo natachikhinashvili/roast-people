@@ -6,7 +6,8 @@
   width: fit-content;
   margin-left: 30vw;
   padding-top: 1vw;
-  border-top: 1px solid #9f6cff
+  border-top: 1px solid #9f6cff;
+  background-color: #000000;
 }
 #other-chats-sidebar{
   width: 30vw;
@@ -28,8 +29,8 @@
   border: none;
 }
 .pic{
-  width: 10vh;
-  height: 10vh;
+  width: 50px;
+  height: 50px;
   border-radius: 100vw;
   object-fit: cover;
 }
@@ -59,7 +60,8 @@
   justify-content: flex-start;
   border-bottom: #ffffff 1px solid;
   align-items: center;
-  height: 5vh;
+  height: 7vh;
+  max-height: 10vh;
 }
 #chat-header-username{
   margin-left: 5vw;
@@ -265,6 +267,12 @@ video::-webkit-media-controls {
   text-align: center;
   border-radius: 10vw;
   font-weight: bolder;
+}
+#chat-otheruser-topbar-profilepic{
+  width: 40px;
+  object-fit: cover;
+  height: 40px;
+  border-radius: 100vw;
 }
 #edit-meeting-header-body{
   display: flex;

@@ -3,6 +3,7 @@ import './editpost.css'
 import image from '../arrow.png'
 import { Link } from 'react-router-dom';
 import DropZone from './dropzone';
+import {gql, useMutation} from '@apollo/client'
 import { useNavigate } from 'react-router-dom';
 import {FiImage}  from 'react-icons/fi'
 export default function EditPost(){
@@ -18,38 +19,25 @@ let imagesrc= ''
     }
   }
 
-  function handlePost(){  
-    console.log('yr', document.getElementById('files-here'))
-    let graphqlQuery = {
-    query: `
-      mutation {
-        createPost(postInput: {title: "${curtitle}", imageUrl: "${imagesrc}"}){
-          _id
-          title
-          imageUrl
-          creator {
-            name
-           }
-          createdAt
-          likes
-        }
+
+    const ADD_POST = gql`
+    mutation CreatePost{
+      createPost(postInput: {title: "${curtitle}", imageUrl: "${imagesrc}"}){
+        _id
+        title
+        imageUrl
+        creator {
+          name
+         }
+        createdAt
+        likes
       }
-    `
-  }
-  fetch('https://roast-people.herokuapp.com/graphql',{
-    method: "POST",
-    body: JSON.stringify(graphqlQuery),
-    headers: {
-      Authorization:token,
-      'Content-Type': 'application/json'
-    }
-  }).then(res => res.json())
-    .then(resData => {
-      if(resData.errors){
-        navigate('/error-page')
-      }
-    }).then(navigate('/feed'))
-    .catch(err => console.log(err))
+    }`
+
+    const [createPost, {create_message_data}]  = useMutation(ADD_POST)
+  function handlePost(e){  
+    e.preventDefault()
+    createPost()
   }
   return (
     <div id='edit-post-container'>

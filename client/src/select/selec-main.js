@@ -1,4 +1,5 @@
 import '../select/select.css'
+import {gql, useQuery} from '@apollo/client'
 import '../normalize.css'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -8,17 +9,22 @@ function Select(){
     const [users, setUsers] = useState([])
     const [num, setNum] = useState(0);
     const userId = localStorage.getItem('userid')
-useEffect(() => {
-    fetch('https://roast-people.herokuapp.com/auth/chat-users', {method: 'GET'})
-    .then((result) => result.json()
-    ).then((users) => {
-        const filteredusers = users.users.filter((user) => {
-            return user._id !== userId
-        })
-       setUsers(filteredusers)
-    })
-    .catch(err => console.log(err))
-},[userId])
+    const loadusers = gql`
+        query {
+            users{
+                _id
+                name
+                pic
+            } 
+        }
+    `
+    const {error, loading, data} = useQuery(loadusers)
+    useEffect(() => {
+        if(data){
+            let filtered=data.users.filter(user => userId !== user._id)
+            setUsers(filtered)
+        }
+    }, [data,error, userId])
     function handleClick(){
         if(users.length > 1){
         if(num + 1 > users.length - 1){

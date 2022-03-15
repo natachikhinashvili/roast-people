@@ -11,7 +11,7 @@ export default function SendMessage(){
     const myid = localStorage.getItem('userid')
     const [edit, setedit] = useState(false)
     const [otheruserstate, setotheruser] = useState(false)
-    const [vars, setvars] = useState({messagevar: '', placevar: '', idvar: ''})
+    const [vars, setvars] = useState('')
     const navigate = useNavigate()
     const messageref = useRef()
     const slug = useParams()
@@ -38,7 +38,7 @@ export default function SendMessage(){
 
     let graphqlQuery = gql`
       mutation CreateMessage{
-        createMessage(text: "fe",place :"621a592e0a6512330dab3989-6216ad0f274c007ff6d2df8c",id:"6216ad0f274c007ff6d2df8c" ){
+        createMessage(text: "${vars}",place :"${slug.id}",id:"${myid}" ){
           _id
           text
           creator {
@@ -50,7 +50,6 @@ export default function SendMessage(){
     }
     `
     const  [createmessage, {create_message_data}] = useMutation(graphqlQuery)
-      console.log(create_message_data)
 
     useEffect(() => {
       console.log(data, error,loading)
@@ -62,7 +61,11 @@ export default function SendMessage(){
     },[data, error,loading])
     function handlesubmit(e){
       e.preventDefault()
+      console.log(data)
       createmessage()
+    }
+    function handlechange(){
+      setvars(messageref.current.value)
     }
     return (
         <div id='full-messages'>
@@ -72,7 +75,7 @@ export default function SendMessage(){
                 <img id='goback'alt='logo' src={image}/> 
               </Link> 
             </button>
-            {!otheruserstate ? <FiLoader color="#ffff"/> : <div id='chat-otheruser-topbar'><img alt='profile'src={otheruserstate.pic}/><h1 id='chat-header-username' style={{color:"white"}}>{otheruserstate.name}</h1></div>}
+            {!otheruserstate ? <FiLoader color="#ffff"/> : <div id='chat-otheruser-topbar'><img alt='profile' id='chat-otheruser-topbar-profilepic' src={otheruserstate.pic}/><h1 id='chat-header-username' style={{color:"white"}}>{otheruserstate.name}</h1></div>}
           </header>
           <div id='current-chat'>
             {!edit.messages ? <div id='messages-filoader'><FiLoader color="#ffff"/></div> : (
@@ -91,7 +94,7 @@ export default function SendMessage(){
             )}
             <div id='message-form'>
               <form id='form-msg' onSubmit={handlesubmit}>
-                <input id='message-input' type="text" ref={messageref}/>
+                <input id='message-input' onChange={handlechange} type="text" ref={messageref}/>
                 <button id='send-btn' type='submit'><FiNavigation color='#9f6cff' id='icon'/></button>
               </form>
             </div>
