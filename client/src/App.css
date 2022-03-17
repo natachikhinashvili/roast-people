@@ -48,7 +48,7 @@ button{
   color: white;
   flex-direction: row;
   justify-content: space-around;
-  height: 10vh;
+  height: 7vh;
   width: 100vw;
   position: sticky;
   top: 0;
@@ -167,6 +167,7 @@ button{
   bottom: 0;
   flex-direction: row;
   justify-content: space-evenly;
+  height: 7vh;
   align-items: flex-end;
 }
 #loader-feed{

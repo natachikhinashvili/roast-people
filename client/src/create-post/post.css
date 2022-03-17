@@ -1,5 +1,5 @@
 #post{
-    background-color: rgb(8, 8, 8);
+    background-color: rgb(4, 4, 5);
     width: 40vw;
     padding-top: 4vw;
     padding-bottom: 3vw;
@@ -8,7 +8,6 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border-bottom: 1px solid white;
     border-radius: 1vw;
     margin-top: 2vh;
 }
@@ -24,8 +23,9 @@
     width: 30vw;
 }
 #profile-pic{
-    max-width: 10vw;
-    height: 4vh;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
     border-radius: 100%;
 }
 #profilepic-info{

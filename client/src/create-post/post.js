@@ -63,52 +63,51 @@ const Post = ({ creatorid, post, user, profile }) => {
     function handleLike(){     
         setcolor('#cc9afa')
         const likegraphqlQuery = {
-        query: `
-            mutation {
-                likepost(id: "${post._id}", userid: "${userId}"){
-                    likes
+            query: `
+                mutation {
+                    likepost(id: "${post._id}", userid: "${userId}"){
+                        likes
+                    }
                 }
-            }
-        `
-    }
+            `
+        }
         fetch('https://roast-people.herokuapp.com/graphql', 
-    {
-        method: 'POST',
-        headers: {
-            Authorization: token,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(likegraphqlQuery)
-}
+        {
+            method: 'POST',
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(likegraphqlQuery)
+        }
     )
     .then(res => res.json())
-.then(result => {
-    setlike(result.data.likepost.likes)
-})
+    .then(result => setlike(result.data.likepost.likes))
     .catch(err => console.log(err))
     }
     return (
         <div id = 'post'>
-                    <div id='post-settings'>
-                        <Link to={'/profile/' + creatorid}  style={{ textDecoration: 'none', color: 'white' }} > 
-                        <div id='profilepic-info'>
-                            <img alt='profile' src={profile} id='profile-pic'/>
-                            <div id='feed-post-creator-createdAt'>
-                                <h3>{user}</h3>
-                                <h4 id="post-createdAt">{ post.createdAt.toString().slice(0,21) }</h4>
-                            </div>
-                        </div></Link>
-                        <button id="delete-button" onClick={deletehandler}>delete</button>
+            <div id='post-settings'>
+                <Link to={'/profile/' + creatorid}  style={{ textDecoration: 'none', color: 'white' }} > 
+                    <div id='profilepic-info'>
+                        <img alt='profile' src={profile} id='profile-pic'/>
+                        <div id='feed-post-creator-createdAt'>
+                            <h3>{user}</h3>
+                            <h4 id="post-createdAt">{ post.createdAt.toString().slice(0,21) }</h4>
+                        </div>
                     </div>
-                    <h1 id="post-title">{post.title}</h1>
-                    <div id='pic-container'>
-                        {post.imageUrl !== '' && <img src={post.imageUrl} id='post-pic' alt='post'/>}
-                    </div>
-                    <div>
-                        <button id='like' onClick={handleLike}>
-                            <FiThumbsUp color={color}></FiThumbsUp> | {like}
-                        </button>
-                    </div>
+                </Link>
+                <button id="delete-button" onClick={deletehandler}>delete</button>
+            </div>
+            <h1 id="post-title">{post.title}</h1>
+            <div id='pic-container'>
+                {post.imageUrl !== '' && <img src={post.imageUrl} id='post-pic' alt='post'/>}
+            </div>
+            <div>
+                <button id='like' onClick={handleLike}>
+                    <FiThumbsUp color={color}></FiThumbsUp> | {like}
+                </button>
+            </div>
         </div>
     )
 }

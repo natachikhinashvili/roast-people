@@ -279,5 +279,12 @@ likepost: async function({id, userid}, req){
   return {
     likes : saved.like
   }
-}
+},
+  addroaster: async function({userid, myid}, req){
+    const user = User.findById(myid)
+    const otheruser = User.findById(userid)
+    console.log(user, user.roasters)
+    user.roasters.push(otheruser);
+    return user
+  }
 };

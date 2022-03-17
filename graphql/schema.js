@@ -26,6 +26,7 @@ module.exports = buildSchema(`
         status: String!
         posts: [Post!]! 
         likedposts: [Post]
+        roasts: [User!]
     }
 
     type PostData {
@@ -70,6 +71,7 @@ module.exports = buildSchema(`
         updateStatus(status : String): User!
         likepost(id : ID!, userid: ID!): Post!
         createRoom(userInput: ID!): roomData!
+        addroaster(userid: ID!, myid: ID!): User!
     }
 
     schema {

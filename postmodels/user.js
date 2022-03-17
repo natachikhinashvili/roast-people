@@ -41,6 +41,9 @@ const userSchema = new Schema({
     ],
     likedposts: {
         type: Array
+    },
+    roasters: {
+        type: Array
     }
 })
 
