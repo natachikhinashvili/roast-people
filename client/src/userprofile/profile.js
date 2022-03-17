@@ -29,7 +29,7 @@ function Profile(){
     useEffect(() => {  
         console.log(loading, error,data)
         if(error){
-            navigate('/error-page')
+            console.log(error)
         }
         if(data){
             setState({name: data.user.name , posts: data.usersposts, imagesrc: data.user.pic})

@@ -5,7 +5,7 @@ import image from '../arrow.png'
 import {FiLoader} from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import Post from '../create-post/post';
-import {gql, useQuery} from '@apollo/client'
+import {gql, useQuery, useMutation} from '@apollo/client'
 import { useNavigate } from 'react-router-dom';
 
 function Othersprofile(){
@@ -14,6 +14,13 @@ function Othersprofile(){
     const navigate = useNavigate()
     const userid = localStorage.getItem('userid')
 
+    const addroasterquery = gql`
+        mutation Addroaster{
+            addroaster(userid: "${slug.id}", myid: "${userid}"){
+                name
+            }
+        }
+    `
     const LOAD_user = gql`
     query {
         otheruser(id: "${slug.id}"){
@@ -30,6 +37,7 @@ function Othersprofile(){
     }
 `
 const {error, loading, data} = useQuery(LOAD_user)
+const [createroaster, {errorcreating}] = useMutation(addroasterquery)
     useEffect(() => {
         console.log(loading,error,data)
         if(data){
@@ -39,6 +47,9 @@ const {error, loading, data} = useQuery(LOAD_user)
         navigate('/error-page')
       }
     }, [slug.id,data,loading,error,navigate])
+    function handleroast(){
+        createroaster()
+    }
     return (
         <div id='otheruser-profile-body'>
         <Link to='/'>
@@ -52,7 +63,7 @@ const {error, loading, data} = useQuery(LOAD_user)
                 <img src={user.otheruser.pic} id='otheruserprofile-pic' alt="" />
                 <h1 id='otheruser-username'>{user.otheruser.name}</h1>
                 <Link to={'/chat/' + user.otheruser._id + '-' + userid}>
-                    <button id='roast-btn'>Roast</button>
+                    <button onClick={handleroast} id='roast-btn'>Roast</button>
                 </Link>
                 </div>
                 <div id='otheruser-map'>
