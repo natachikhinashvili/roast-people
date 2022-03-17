@@ -142,6 +142,13 @@
     border-radius: 100%;
     object-fit: cover;
 }
+#roast-btn{
+    color: white;
+    border: none;
+    background-color: #8355da;
+    border-radius: 2vw;
+    padding: 2vw;
+}
 @media screen  and (max-width: 960px) {
 
     #myprofile{

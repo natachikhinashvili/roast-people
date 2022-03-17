@@ -24,12 +24,12 @@ const LOAD_POSTS = gql`
     }
 `
 export default function Feed(){
-  const [state, setState] = useState([]);  
-    
+  const [state, setState] = useState([]);
     const {error, loading, data} = useQuery(LOAD_POSTS)
     const navigate = useNavigate()
 
     useEffect(() => {  
+      console.log(data)
       if(data){
         setState(data.posts);
       }

@@ -54,29 +54,18 @@ app.use('/auth', authroutes)
 mongoose
 .connect('mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages')
 .then(result => {
-  const port = process.env.PORT || 8080
-
-  const server =  app.listen(port);   
-  const io = require('socket.io')(server, {
+  const port = process.env.PORT || 8080   
+  const io = require('socket.io')(app.listen(port), {
     cors: {
-          origin: '*',
-          methods: ['GET', 'POST'],
-        },
-        secure: true
+      origin: '*',
+      methods: ['GET', 'POST'],
+    },
+    secure: true
   })
   io.on('connection', (socket) => {
-    socket.on('offer', ({ userToCall, signalData, from })  =>{
-      io.to(userToCall).emit('offer', { signal: signalData, from })
-      console.log(userToCall, signalData, from)
+    socket.on('message', (message)  =>{
+      io.emit('message', `${message}`)
     })    
-    socket.on('calling', ({from, to}) => {
-      return to
-    })
-    //socket.on('answer', answer =>{
-    //  console.log('answer', answer)
-    //  io.to(answer.to).emit('accepted', answer.signal)
-    //})
   })
-
 })
 .catch(err => console.log(err));

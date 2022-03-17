@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import DropZone from './dropzone';
 import {gql, useMutation} from '@apollo/client'
 export default function EditPost(){
+  const userid = localStorage.getItem('userid')
 const [curtitle, setcurtitle] = useState('')
 let imagesrc= ''
 
@@ -19,7 +20,7 @@ let imagesrc= ''
 
     const ADD_POST = gql`
     mutation CreatePost{
-      createPost(postInput: {title: "${curtitle}", imageUrl: "${imagesrc}"}){
+      createPost(title: "${curtitle}", imageUrl: "${imagesrc}", id: "${userid}"){
         _id
         title
         imageUrl

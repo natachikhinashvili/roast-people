@@ -52,7 +52,7 @@ const {error, loading, data} = useQuery(LOAD_user)
                 <img src={user.otheruser.pic} id='otheruserprofile-pic' alt="" />
                 <h1 id='otheruser-username'>{user.otheruser.name}</h1>
                 <Link to={'/chat/' + user.otheruser._id + '-' + userid}>
-                    <button>Roast</button>
+                    <button id='roast-btn'>Roast</button>
                 </Link>
                 </div>
                 <div id='otheruser-map'>
