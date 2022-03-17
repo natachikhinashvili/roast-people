@@ -389,6 +389,8 @@ video::-webkit-media-controls {
   }
 
   #users-list-div-container{
+    border-left: none;
+    border-right: none;
     width: 95vw;
     margin-top: 0;
     max-height: 100vh;

@@ -62,9 +62,7 @@ const [createroaster, {errorcreating}] = useMutation(addroasterquery)
             <div id='header'>
                 <img src={user.otheruser.pic} id='otheruserprofile-pic' alt="" />
                 <h1 id='otheruser-username'>{user.otheruser.name}</h1>
-                <Link to={'/chat/' + user.otheruser._id + '-' + userid}>
                     <button onClick={handleroast} id='roast-btn'>Roast</button>
-                </Link>
                 </div>
                 <div id='otheruser-map'>
                     {user.otheruser.posts.map(post => <Post key={post._id} profile={user.otheruser.pic} user={user.otheruser.name} post={post}/>)}

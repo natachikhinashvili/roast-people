@@ -91,7 +91,7 @@ button{
 #feed-form{
   display: none;
 }
-#settings, #search-btn{
+#settings{
   background-color: transparent;
   color: white;
   border: none;
@@ -99,6 +99,15 @@ button{
   padding: 1vw;
   margin-top: 2vh;
   cursor: pointer;
+}
+#search-btn{
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 1vw;
+  padding: 1vw;
+  cursor: pointer;
+  margin-top: 1vh;
 }
 #posts-container{
   display: flex;
