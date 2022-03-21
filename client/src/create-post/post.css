@@ -1,8 +1,7 @@
 #post{
     background-color: rgb(4, 4, 5);
-    width: 40vw;
-    padding-top: 4vw;
-    padding-bottom: 3vw;
+    width: fit-content;
+    padding: 2vw;
     color: white;
     display: flex;
     justify-content: center;
@@ -14,10 +13,9 @@
 #post-settings{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    width: 40vw;
+    justify-content: flex-start;
+    width:  30vw;
     align-items: center;
-    margin-right: 3vw;
 }
 #post-pic{
     width: 30vw;
@@ -73,13 +71,21 @@
 #feed-post-creator-createdAt{
     width: fit-content;
     display: flex;
+    align-items: flex-start;
     flex-direction: column;
+    margin-left: 1vw;
 }
 #post-title{
     font-size: 1.3em;
     margin: 2vw;
 }
 @media screen  and (max-width: 960px) {
+    #profile-pic{
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 100%;
+    }
     .like-btn{
         background-color: transparent;
         color: rgb(255, 255, 255);
@@ -112,7 +118,9 @@
         color: white;
         margin:0vh;
         display: flex;
+        padding: 0;
         background-color: black;
+        margin: 6vw;
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -123,25 +131,21 @@
         width: 95vw;
     }
     #post-settings{
-        width: 100vw;
-        margin-right: 0vw;
+        width: 90vw;
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
+        justify-content: flex-start;
+        align-items: center;
+        margin-left: 0vw;
     }
-
     #post-pic{
         width: 90vw;
     }
-    #post-createdAt{
-        font-size: 0.7rem;
-        width: 40vw;
-    }
     #profilepic-info{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-around;
-        width: 70vw;
+        justify-content: flex-end;
+        width: fit-content;
     }
 }

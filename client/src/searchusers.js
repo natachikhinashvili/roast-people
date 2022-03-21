@@ -22,11 +22,10 @@ function SearchUsersList(){
     const {error, loading, data} = useQuery(loadusers)
     useEffect(() => {
         if(data)
-        {let filtered
-            if(val === ''){
-            filtered = data.users.filter(user => userid !== user._id)
-            }else{
-                filtered = data.users.filter(user => val.toLowerCase() === user.name.toLowerCase().slice(0, val.length))
+        {
+            let filtered = data.users.filter(user => userid !== user._id)
+            if(val !== ''){
+                filtered = filtered.filter(user => val.toLowerCase().trim() === user.name.toLowerCase().slice(0, val.length))
             }
             setusers(filtered)
         }

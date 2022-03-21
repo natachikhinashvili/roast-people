@@ -17,9 +17,13 @@ export default function Login(){
                 userId
             }
         }
-    `
+    ` 
 const {error,  loading, data} = useQuery(graphqlQuery)
-    async function handleSubmit(formval){
+    async function handleSubmit(formval){        
+        if(error){
+            console.log(error)
+            //navigate('/error-page')
+        }
         formval.preventDefault()
         if(data){
         localStorage.setItem('userid',data.login.userId)

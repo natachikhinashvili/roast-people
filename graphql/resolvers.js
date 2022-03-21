@@ -40,6 +40,7 @@ module.exports = {
   },
   login: async function({ email, password }) {
     const user = await User.findOne({ email: email });
+    console.log('executing')
     if (!user) {
       const error = new Error('User not found.');
       error.code = 401;
@@ -48,6 +49,7 @@ module.exports = {
     const isEqual = await bcrypt.compare(password, user.password);
     if (!isEqual) {
       const error = new Error('Password is incorrect.');
+      console.log(error)
       error.code = 401;
       throw error;
     }

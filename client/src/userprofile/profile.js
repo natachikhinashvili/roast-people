@@ -11,6 +11,7 @@ const userId = localStorage.getItem('userid')
 const LOAD_user = gql`
     query {
         user(id: "${userId}") {
+            _id
             name
             pic
         }  
@@ -32,10 +33,10 @@ function Profile(){
             console.log(error)
         }
         if(data){
-            setState({name: data.user.name , posts: data.usersposts, imagesrc: data.user.pic})
+            setState({name: data.user.name , posts: data.usersposts, imagesrc: data.user.pic, id: data.user._id})
         }
     }, [data,loading,error, navigate])
-
+    
     return (
         <div id='profile-container'>
             <Link to='/'>
@@ -48,7 +49,7 @@ function Profile(){
                 <div id='header'>
                     {state.imagesrc &&<img alt='profile' id='myprofile' src={state.imagesrc}/>}
                     <h1 id='username-profile'>{state.name}</h1>
-                    <div id ='profileposts'>{state.posts.map((post) => <Post user={state.name} profile={state.imagesrc} post={post}/>)}</div>
+                    <div id ='profileposts'>{state.posts.map((post) => <Post creatorid={state.id} user={state.name} profile={state.imagesrc} post={post}/>)}</div>
                 </div>
                 )}      
             </div>

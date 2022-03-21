@@ -11,12 +11,11 @@ export default function SendMessage(){
   const [edit, setedit] = useState(false)
   const [otheruserstate, setotheruser] = useState(false)
   const [socetmessages, setsocetmessages] = useState([])
-  const [me, setme] = useState({})
   const [vars, setvars] = useState('')
   const navigate = useNavigate()
   const messageref = useRef()
   const slug = useParams()
-  const socket = openSocket('http://localhost:8080');
+  const socket = openSocket('https://roast-people.herokuapp.com/');
 
   const LOAD_MESSAGES = gql`
     query {
@@ -59,23 +58,24 @@ export default function SendMessage(){
   const  [createmessage, {create_message_data}] = useMutation(graphqlQuery)
   useEffect(() => {
     if(data){
-      console.log()
       let filtered = data.messages.filter(message => message.place === slug.id || message.place === slug.id.split('-').reverse().join('-'))
       setedit({messages: filtered})
       setotheruser(data.otheruser)
     }
   },[data, error,loading, slug.id])
+
+  function handlesubmit(e){
+    const params = {id:  myid,txt: messageref.current.value, pic: data.user.pic}
+    socket.emit('message' , JSON.stringify(params))
+    e.preventDefault()
+    console.log('insubmit')
+    createmessage()
+  }
   socket.on('message', (params) => {
     const parsed = JSON.parse(params)
     const messagel = {text: parsed.txt, pic: parsed.pic, _id: parsed.id, place: slug.id}
     setsocetmessages(socetmessages.concat(messagel))
   })
-  function handlesubmit(e){
-    const params = {id:  myid,txt: messageref.current.value, pic: data.user.pic}
-    socket.emit('message' , JSON.stringify(params))
-    e.preventDefault()
-    createmessage()
-  }
   function handlechange(){
     setvars(messageref.current.value)
   }
@@ -103,9 +103,8 @@ export default function SendMessage(){
                 )
               })}
               {socetmessages!==[]&& socetmessages.map(message => {
-                if(message.place === slug.id){
                   return (
-                    <div id='message-body-container'>
+                      message.place === slug.id && <div id='message-body-container'>
                       <img alt='profile' className="pic" src={message.pic}/>
                       <div id="message" className={message._id !== slug.id.split('-')[0] ? 'mine' : 'elses'}>
                         <p>{message.text}</p>
@@ -113,7 +112,7 @@ export default function SendMessage(){
                     </div>
                   )
                 }
-              })
+          )
             }
             </div>
           )}

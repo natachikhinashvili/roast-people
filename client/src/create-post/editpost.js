@@ -4,9 +4,11 @@ import './editpost.css'
 import image from '../arrow.png'
 import { Link } from 'react-router-dom';
 import DropZone from './dropzone';
+import { useNavigate } from 'react-router-dom';
 import {gql, useMutation} from '@apollo/client'
 export default function EditPost(){
   const userid = localStorage.getItem('userid')
+  const navigate = useNavigate()
 const [curtitle, setcurtitle] = useState('')
 let imagesrc= ''
 
@@ -33,9 +35,10 @@ let imagesrc= ''
     }`
 
     const [createPost, {create_message_data}]  = useMutation(ADD_POST)
-  function handlePost(e){  
+  async function handlePost(e){  
     e.preventDefault()
-    createPost()
+    await createPost()
+    navigate('/feed')
   }
   return (
     <div id='edit-post-container'>

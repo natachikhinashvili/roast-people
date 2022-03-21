@@ -85,19 +85,17 @@ const Post = ({ creatorid, post, user, profile }) => {
     .then(result => setlike(result.data.likepost.likes))
     .catch(err => console.log(err))
     }
+    console.log(creatorid, userId)
     return (
-        <div id = 'post'>
+        <div id='post'>
             <div id='post-settings'>
-                <Link to={'/profile/' + creatorid}  style={{ textDecoration: 'none', color: 'white' }} > 
-                    <div id='profilepic-info'>
-                        <img alt='profile' src={profile} id='profile-pic'/>
-                        <div id='feed-post-creator-createdAt'>
-                            <h3>{user}</h3>
-                            <h4 id="post-createdAt">{ post.createdAt.toString().slice(0,21) }</h4>
-                        </div>
-                    </div>
+                <Link to={userId === creatorid ? '/profile' : '/profile/' + creatorid}  style={{ textDecoration: 'none', color: 'white' }} > 
+                    <img alt='profile' src={profile} id='profile-pic'/>
                 </Link>
-                <button id="delete-button" onClick={deletehandler}>delete</button>
+                <div id='feed-post-creator-createdAt'>
+                    <h3>{user}</h3>
+                    <h4 id="post-createdAt">{ post.createdAt.toString().slice(0,21) }</h4>
+                </div>
             </div>
             <h1 id="post-title">{post.title}</h1>
             <div id='pic-container'>
@@ -107,6 +105,7 @@ const Post = ({ creatorid, post, user, profile }) => {
                 <button id='like' onClick={handleLike}>
                     <FiThumbsUp color={color}></FiThumbsUp> | {like}
                 </button>
+                {creatorid === userId && <button id="delete-button" onClick={deletehandler}>delete</button>}
             </div>
         </div>
     )

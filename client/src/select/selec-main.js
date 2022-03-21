@@ -27,12 +27,12 @@ function Select(){
     }, [data,error, userId])
     function handleClick(){
         if(users.length > 1){
-        if(num + 1 > users.length - 1){
-            setNum(prevState => prevState - 1);
-        }else{
-            setNum(prevState => prevState + 1);
+            if(num + 1 > users.length - 1){
+                setNum(0);
+            }else{
+                setNum(prevState => prevState + 1);
+            }
         }
-    }
     }
     let name;
     let _id;
@@ -58,13 +58,13 @@ function Select(){
                 
             </div>
             <body id='select-card-body'>
-<h1 id='select-card-name'>{name && name}</h1>
-<img id='select-card-img' alt='pictureofperson' src={img}/>
-                </body>
-                <div id='select-card-footer'>
-                    <button id='select-card-nextbtn' onClick={handleClick}>next</button>
-                   <Link to={'/chat/' + _id + '-' + userId}> <button id='select-card-roastbtn'>roast</button> </Link>
-                </div>
+                <h1 id='select-card-name'>{name && name}</h1>
+                <img id='select-card-img' alt='pictureofperson' src={img}/>
+            </body>
+            <div id='select-card-footer'>
+                <button id='select-card-nextbtn' onClick={handleClick}>next</button>
+                <Link to={'/chat/' + _id + '-' + userId}> <button id='select-card-roastbtn'>roast</button> </Link>
+            </div>
             </div>
             )}
         </div>

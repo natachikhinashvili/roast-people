@@ -125,7 +125,8 @@
   align-items: flex-end;
   justify-content: flex-start;
   flex-direction: column;
-  height: 90vh; animation: 10s linear 1s infinite;
+  height: 80vh; 
+  animation: 10s linear 1s infinite;
 }
 #chatlist-username{
   color: white;

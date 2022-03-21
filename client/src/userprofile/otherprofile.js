@@ -14,13 +14,6 @@ function Othersprofile(){
     const navigate = useNavigate()
     const userid = localStorage.getItem('userid')
 
-    const addroasterquery = gql`
-        mutation Addroaster{
-            addroaster(userid: "${slug.id}", myid: "${userid}"){
-                name
-            }
-        }
-    `
     const LOAD_user = gql`
     query {
         otheruser(id: "${slug.id}"){
@@ -37,7 +30,6 @@ function Othersprofile(){
     }
 `
 const {error, loading, data} = useQuery(LOAD_user)
-const [createroaster, {errorcreating}] = useMutation(addroasterquery)
     useEffect(() => {
         console.log(loading,error,data)
         if(data){
@@ -47,9 +39,7 @@ const [createroaster, {errorcreating}] = useMutation(addroasterquery)
         navigate('/error-page')
       }
     }, [slug.id,data,loading,error,navigate])
-    function handleroast(){
-        createroaster()
-    }
+
     return (
         <div id='otheruser-profile-body'>
         <Link to='/'>
@@ -62,7 +52,9 @@ const [createroaster, {errorcreating}] = useMutation(addroasterquery)
             <div id='header'>
                 <img src={user.otheruser.pic} id='otheruserprofile-pic' alt="" />
                 <h1 id='otheruser-username'>{user.otheruser.name}</h1>
-                    <button onClick={handleroast} id='roast-btn'>Roast</button>
+        <Link to={'/chat/' + slug.id + '-' + userid}>
+                    <button id='roast-btn'>Roast</button>
+                    </Link>
                 </div>
                 <div id='otheruser-map'>
                     {user.otheruser.posts.map(post => <Post key={post._id} profile={user.otheruser.pic} user={user.otheruser.name} post={post}/>)}
