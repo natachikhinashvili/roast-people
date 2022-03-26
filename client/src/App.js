@@ -57,6 +57,7 @@ function App() {
           <Route path="/profile/:id" element={<Othersprofile />} />
           <Route path="/search" element={<SearchUsersList />} />
           <Route path="/error-page" element={<ErrorMessage />} />
+          <Route path="*" element={<ErrorMessage />} />
         </Routes>
       </ApolloProvider>
     </div>
