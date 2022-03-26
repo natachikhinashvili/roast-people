@@ -13,10 +13,14 @@ export default function SendMessage(){
   const [edit, setedit] = useState([])
   const messageref = useRef()
   const [vars,setvars] = useState('')
+  const [me,setme] = useState('')
   const slug = useParams()
   const socket = openSocket('https://roast-people.herokuapp.com/');
   const LOAD_MESSAGES = gql`
     query {
+      user(id: "${slug.id.split('-')[1]}"){
+        pic
+      }
       otheruser(id: "${slug.id.split('-')[0]}"){
         _id
         pic
@@ -57,6 +61,7 @@ export default function SendMessage(){
       let filteredmess = data.messages.filter(message => message.place === slug.id || message.place === slug.id.split('-').reverse().join('-'))
       setedit({messages: filteredmess})
       setotheruser(data.otheruser)
+      setme(data.user)
     }
     socket.once('message', (params) => {
       const parsed = JSON.parse(params)
@@ -67,7 +72,7 @@ export default function SendMessage(){
 
   function handlesubmit(e){
     e.preventDefault()  
-    const params = {id:  myid,txt: messageref.current.value}
+    const params = {id:  myid,txt: messageref.current.value, pic: me.pic}
     socket.emit('message' , JSON.stringify(params))
     createmessage()
   }
@@ -81,6 +86,7 @@ export default function SendMessage(){
   function handlechange(){
     setvars(messageref.current.value)
   }
+  console.log(socetmessages)
   return (
       <div id='full-messages'>
         <header id='chat-header'>
@@ -97,6 +103,7 @@ export default function SendMessage(){
               edit.messages.map(message => {
                 return (
                   <div id='message-body-container'>
+                    <img alt="profile" id="chat-profile-pic" src={message.creator.pic}/>
                     <div id="message" className={message.creator._id !== slug.id.split('-')[0] ? 'mine' : 'elses'}>
                       <p>{message.text}</p>
                     </div>
@@ -107,7 +114,8 @@ export default function SendMessage(){
             )}
             {socetmessages!==[] && filtered.map(message => {
                 return (
-                  message.place === slug.id && <div id='message-body-container' key={message._id}>
+                  message.place === slug.id && <div id='message-body-container' key={message._id}>                    
+                  <img alt="profile" id="chat-profile-pic" src={message.pic}/>
                     <div id="message" align="left" className={message._id !== slug.id.split('-')[0] ? 'mine' : 'elses'}>
                       <p>{message.text}</p>
                     </div>
