@@ -59,8 +59,7 @@ mongoose
     cors: {
       origin: '*',
       methods: ['GET', 'POST'],
-    },
-    secure: true
+    }
   })
   
   io.on('connection', (socket) => {

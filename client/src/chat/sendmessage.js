@@ -77,12 +77,14 @@ export default function SendMessage(){
     createmessage()
   }
   const filtered = socetmessages.filter((message) => {
-  const messindex = socetmessages[socetmessages.indexOf(message) + 1]
-  if(messindex !== undefined) {
-    return message._id !== messindex._id
-  }
-  return true
+    const messindex = socetmessages[socetmessages.indexOf(message) + 1]
+    if(messindex !== undefined) {
+      console.log('k')
+      return message._id !== messindex._id
+    }
+    return true
   })
+  console.log(filtered)
   function handlechange(){
     setvars(messageref.current.value)
   }
