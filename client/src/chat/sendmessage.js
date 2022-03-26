@@ -77,9 +77,9 @@ export default function SendMessage(){
     createmessage()
   }
   const filtered = socetmessages.filter((message) => {
-    const messindex = socetmessages[socetmessages.indexOf(message) - 1]
+    const messindex = socetmessages[socetmessages.indexOf(message) + 1]
     if(messindex !== undefined) {
-      return message._id !== messindex._id
+      return message._id === messindex._id
     }
     return true
   })
