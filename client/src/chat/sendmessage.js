@@ -82,6 +82,7 @@ export default function SendMessage(){
     if(messindex !== undefined) {
       return message.messid !== messindex.messid
     }
+    return true
   })
   console.log(filtered)
   function handlechange(){
