@@ -117,7 +117,7 @@ export default function SendMessage(){
                   <div id='message-body-container'>
                     <img alt="profile" id="chat-profile-pic" src={message.creator.pic}/>
                     <div id="message" className={message.creator._id !== slug.id.split('-')[0] ? 'mine' : 'elses'}>
-                      <p>{message.createdAt.toString().slice(0,21)}</p>
+                      <p id='date'>{message.createdAt.toString().slice(0,21)}</p>
                       <p>{message.text}</p>
                     </div>
                   </div>
@@ -130,7 +130,7 @@ export default function SendMessage(){
                   message.place === slug.id && <div id='message-body-container' key={message._id}>                    
                   <img alt="profile" id="chat-profile-pic" src={message.pic}/>
                     <div id="message" align="left" className={message._id !== slug.id.split('-')[0] ? 'mine' : 'elses'}>
-                      <p>{message.createdAt.toString().slice(0,21)}</p>
+                      <p id='date'>{message.createdAt.toString().slice(0,21)}</p>
                       <p>{message.text}</p>
                     </div>
                   </div>

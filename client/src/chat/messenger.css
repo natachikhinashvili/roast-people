@@ -297,6 +297,9 @@ video::-webkit-media-controls {
   align-items: center;
   width: 5vw;
 }
+#date{
+  font-size: 0.7rem;
+}
 #invite-roasters{
   background-color: #ffffff;
   color: #9f6cff;
