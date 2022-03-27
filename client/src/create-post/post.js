@@ -85,7 +85,6 @@ const Post = ({ creatorid, post, user, profile }) => {
     .then(result => setlike(result.data.likepost.likes))
     .catch(err => console.log(err))
     }
-    console.log(creatorid, userId)
     return (
         <div id='post'>
             <div id='post-settings'>

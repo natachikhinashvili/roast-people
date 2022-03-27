@@ -31,7 +31,6 @@ function Othersprofile(){
 `
 const {error, loading, data} = useQuery(LOAD_user)
     useEffect(() => {
-        console.log(loading,error,data)
         if(data){
             setuser(data)
         }

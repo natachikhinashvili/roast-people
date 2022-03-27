@@ -7,12 +7,6 @@ import {FiLoader} from "react-icons/fi";
 function ChatList(){
     const [users, setUsers] = useState(null)
     const userId = localStorage.getItem('userid')   
-    const [messageplace, setmessageplace] = useState('')
-    /**
-     * user.id + 'userid' 
-     * load messages and if messages place equals to my id and otherusers id then show
-     * 
-     */
     const loadusers = gql`
         query {
             users{

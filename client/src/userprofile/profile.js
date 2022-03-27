@@ -28,7 +28,6 @@ function Profile(){
     const navigate = useNavigate()
     const {error, loading, data} = useQuery(LOAD_user)
     useEffect(() => {  
-        console.log(loading, error,data)
         if(error){
             console.log(error)
         }

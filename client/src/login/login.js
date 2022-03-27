@@ -29,7 +29,6 @@ const {error,  loading, data} = useQuery(graphqlQuery)
         localStorage.setItem('userid',data.login.userId)
         localStorage.setItem('token',data.login.token)
         }
-        console.log(error,  loading, data)
         if(!loading && data){
             navigate('/feed')
         }

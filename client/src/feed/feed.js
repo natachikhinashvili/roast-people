@@ -29,7 +29,6 @@ export default function Feed(){
     const navigate = useNavigate()
 
     useEffect(() => {  
-      console.log(data)
       if(data){
         setState(data.posts);
       }

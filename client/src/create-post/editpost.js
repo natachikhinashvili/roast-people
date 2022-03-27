@@ -15,7 +15,6 @@ let imagesrc= ''
   if(document.getElementById('files-here')){
     if( document.getElementById('files-here').childNodes.length > 0){
       imagesrc= document.getElementById('files-here').childNodes[0].src
-      console.log(imagesrc)
     }
   }
 

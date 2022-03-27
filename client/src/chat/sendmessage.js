@@ -93,12 +93,10 @@ export default function SendMessage(){
       }
   }
   
-  
-  console.log(filtered)
+
   function handlechange(){
     setvars(messageref.current.value)
   }
-  console.log(socetmessages)
   return (
       <div id='full-messages'>
         <header id='chat-header'>
