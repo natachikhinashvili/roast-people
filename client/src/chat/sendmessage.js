@@ -77,7 +77,21 @@ export default function SendMessage(){
     socket.emit('message' , JSON.stringify(params))
     createmessage()
   }
-  const filtered = socetmessages.filter((message, secmessage) => message.messid !== secmessage.messid)
+  const filtered = []
+  // socetmessages.filter((message, secmessage) => message.messid === secmessage.messid)
+
+  for (var i = 0; i < socetmessages.length; i++) {
+      if(i+1 !== socetmessages.length){
+          if(socetmessages[i].messid!== socetmessages[i + 1].messid){
+              filtered.push(socetmessages[i])
+          }
+      }
+      if(i+1 === socetmessages.length){
+          filtered.push(socetmessages[i])
+      }
+  }
+  
+  
   console.log(filtered)
   function handlechange(){
     setvars(messageref.current.value)
