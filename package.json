@@ -50,5 +50,8 @@
   },
   "engines": {
     "node": "16.x"
+  },
+  "devDependencies": {
+    "uuid": "^8.3.2"
   }
 }

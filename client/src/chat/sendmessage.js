@@ -4,6 +4,7 @@ import { FiNavigation, FiLoader } from "react-icons/fi";
 import {gql, useQuery, useMutation} from '@apollo/client'
 import openSocket from 'socket.io-client'
 import image from '../arrow.png'
+import { v4 as uuidv4 } from 'uuid';
 import './messenger.css';
 
 export default function SendMessage(){
@@ -72,14 +73,14 @@ export default function SendMessage(){
 
   function handlesubmit(e){
     e.preventDefault()  
-    const params = {id:  myid,txt: messageref.current.value, pic: me.pic}
+    const params = {id:  myid,txt: messageref.current.value, pic: me.pic, messid:uuidv4()}
     socket.emit('message' , JSON.stringify(params))
     createmessage()
   }
   const filtered = socetmessages.filter((message) => {
     const messindex = socetmessages[socetmessages.indexOf(message) + 1]
     if(messindex !== undefined) {
-      return message._id !== messindex._id
+      return message.messid !== messindex.messid
     }
   })
   console.log(filtered)
