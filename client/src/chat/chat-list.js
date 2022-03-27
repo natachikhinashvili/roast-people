@@ -7,6 +7,12 @@ import {FiLoader} from "react-icons/fi";
 function ChatList(){
     const [users, setUsers] = useState(null)
     const userId = localStorage.getItem('userid')   
+    const [messageplace, setmessageplace] = useState('')
+    /**
+     * user.id + 'userid' 
+     * load messages and if messages place equals to my id and otherusers id then show
+     * 
+     */
     const loadusers = gql`
         query {
             users{
@@ -14,12 +20,21 @@ function ChatList(){
                 name
                 pic
             } 
+            messages(id: "${userId}") {
+                place
+            }
         }
     `
     const {error, loading, data} = useQuery(loadusers)
     useEffect(() => {
         if(data){
-            let filtered=data.users.filter(user => userId !== user._id)
+            let filtered =data.users.filter(user => {
+                let istrue;
+            data.messages.map(mess => {
+                istrue = mess.place.split('-')[0] === user._id
+            })
+            return istrue
+            })
             setUsers(filtered)
         }
     }, [data,error, userId])
