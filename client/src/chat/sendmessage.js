@@ -77,13 +77,7 @@ export default function SendMessage(){
     socket.emit('message' , JSON.stringify(params))
     createmessage()
   }
-  const filtered = socetmessages.filter((message) => {
-    const messindex = socetmessages[socetmessages.indexOf(message) + 1]
-    if(messindex !== undefined) {
-      return message.messid !== messindex.messid
-    }
-    return true
-  })
+  const filtered = socetmessages.filter((message, secmessage) => message.messid !== secmessage.messid)
   console.log(filtered)
   function handlechange(){
     setvars(messageref.current.value)
