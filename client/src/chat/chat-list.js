@@ -28,14 +28,15 @@ function ChatList(){
     const {error, loading, data} = useQuery(loadusers)
     useEffect(() => {
         if(data){
-            let filtered =data.users.filter(user => {
-                let istrue;
-            data.messages.map(mess => {
-                istrue = mess.place.split('-')[0] === user._id
+            let filteredusers = []
+            data.users.map(user => {
+                data.messages.map(mess => {
+                    if(mess.place.split('-')[0] === user._id){
+                        filteredusers.push(user)
+                    }
+                })
             })
-            return istrue
-            })
-            setUsers(filtered)
+            setUsers(filteredusers)
         }
     }, [data,error, userId])
     return (
