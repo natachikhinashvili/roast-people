@@ -66,7 +66,7 @@ export default function SendMessage(){
     }
     socket.once('message', (params) => {
       const parsed = JSON.parse(params)
-      setsocetmessages(socetmessages => [...socetmessages,{text: parsed.txt, pic: parsed.pic, _id: parsed.id, place: slug.id} ])
+      setsocetmessages(socetmessages => [...socetmessages,{text: parsed.txt, pic: parsed.pic, _id: parsed.id, place: slug.id,  messid: parsed.messid} ])
       return socket.disconnect()
     })
   },[data,socetmessages])
