@@ -207,12 +207,12 @@ video{
   display: flex;
   flex-direction: column;
   min-width: fit-content;
-  width: 30vw;
+  width: 70vw;
   margin-top: 2vh;
   margin-bottom: 2vh;
 }
 #users-list-div :hover{
-  background-color: rgb(12, 11, 17);
+  background-color: rgb(13, 10, 24);
 }
 #FiLoader-chatlist-container{
   height: 100vh;
@@ -223,12 +223,11 @@ video{
 }
 #users-list-div-container{
   margin-top: 3vh;
-  background-color: rgba(0, 0, 0, 0.082);
+  background-color: rgb(4, 1, 10);
   padding-right: 2vw;
   padding-left: 2vw;
-  border-left: 1px white solid;
-  border-right: 1px white solid;
   max-height: 100vh;
+  margin-bottom: 3vh;
   height: 100vh;
 }
 #otherusers{

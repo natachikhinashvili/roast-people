@@ -36,6 +36,7 @@ export default function SendMessage(){
           _id
           pic
         }
+        createdAt
       }
     }
   `
@@ -51,6 +52,7 @@ export default function SendMessage(){
           _id
           pic
         }
+        createdAt
       }
   }
   `
@@ -66,14 +68,14 @@ export default function SendMessage(){
     }
     socket.once('message', (params) => {
       const parsed = JSON.parse(params)
-      setsocetmessages(socetmessages => [...socetmessages,{text: parsed.txt, pic: parsed.pic, _id: parsed.id, place: slug.id,  messid: parsed.messid} ])
+      setsocetmessages(socetmessages => [...socetmessages,{text: parsed.txt, pic: parsed.pic, _id: parsed.id, place: slug.id,  messid: parsed.messid, createdAt: parsed.createdAt} ])
       return socket.disconnect()
     })
   },[data,socetmessages])
 
   function handlesubmit(e){
     e.preventDefault()  
-    const params = {id:  myid,txt: messageref.current.value, pic: me.pic, messid:uuidv4()}
+    const params = {id:  myid,txt: messageref.current.value, pic: me.pic, messid:uuidv4(), createdAt: new Date()}
     socket.emit('message' , JSON.stringify(params))
     createmessage()
   }
@@ -115,6 +117,7 @@ export default function SendMessage(){
                   <div id='message-body-container'>
                     <img alt="profile" id="chat-profile-pic" src={message.creator.pic}/>
                     <div id="message" className={message.creator._id !== slug.id.split('-')[0] ? 'mine' : 'elses'}>
+                      <p>{message.createdAt.toString().slice(0,21)}</p>
                       <p>{message.text}</p>
                     </div>
                   </div>
@@ -127,6 +130,7 @@ export default function SendMessage(){
                   message.place === slug.id && <div id='message-body-container' key={message._id}>                    
                   <img alt="profile" id="chat-profile-pic" src={message.pic}/>
                     <div id="message" align="left" className={message._id !== slug.id.split('-')[0] ? 'mine' : 'elses'}>
+                      <p>{message.createdAt.toString().slice(0,21)}</p>
                       <p>{message.text}</p>
                     </div>
                   </div>
