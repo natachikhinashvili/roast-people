@@ -51,6 +51,9 @@ app.use((error,req,res,next) => {
 })
 app.use(routes)
 app.use('/auth', authroutes)
+app.use('*', (req,res,next) => {
+  return res.send('something went wrong')
+})
 mongoose
 .connect('mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages')
 .then(result => {
