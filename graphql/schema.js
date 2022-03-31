@@ -18,6 +18,13 @@ module.exports = buildSchema(`
         createdAt: String!
     }
 
+    type Comment {
+        _id: ID!
+        text: String!
+        creator: User!
+        place: String!
+        createdAt: String!
+    }
     type User {
         _id: ID!
         name: String!
@@ -56,6 +63,7 @@ module.exports = buildSchema(`
         messages(id: ID!): [Message!]!
         otheruser(id: ID!): User!
         message : Message
+        comments(id: ID!): [Comment!]!
     }
 
     type roomData{
@@ -73,6 +81,7 @@ module.exports = buildSchema(`
         likepost(id : ID!, userid: ID!): Post!
         createRoom(userInput: ID!): roomData!
         addroaster(userid: ID!, myid: ID!): User!
+        addComment(text: String!,place: String!,id: ID!): Comment!
     }
 
     schema {

@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../postmodels/user');
 const Post = require('../postmodels/post'); 
+const Comment = require('../postmodels/comments'); 
 const Message = require('../postmodels/message')
 module.exports = {
   createUser: async function({ userInput }, req) {
@@ -288,5 +289,31 @@ likepost: async function({id, userid}, req){
     const otheruser = await User.findById(userid)
     user.roasters.push(otheruser);
     return user
+  },
+  comments: async function({id}, req){
+    const comments = await Comment.find({place: id}).populate('creator')
+    return comments 
+  },
+  addComment: async function({ text,place,id }, req){
+    const user = await User.findById(id)
+    if(!user){
+      const error = new Error('Invalid user.');
+      error.code = 401;
+      throw error;
+    }
+    const comment = new Comment({
+      text: text,
+      creator: user,
+      place: place
+    });
+    const createComment = await comment.save();
+    user.comments.push(createComment);
+    await user.save()
+    return {
+      ...createdMessage._doc,
+      _id: createdMessage._id.toString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
   }
 };

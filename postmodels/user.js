@@ -42,9 +42,12 @@ const userSchema = new Schema({
     likedposts: {
         type: Array
     },
-    roasters: {
-        type: Array
-    }
+    comments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ],
 })
 
 module.exports = mongoose.model('User' , userSchema)
