@@ -236,7 +236,7 @@ module.exports = {
  //     error.code = 401;
  //     throw error
  // }
-  const post = await Post.findById(id).populate('creator')
+  const post = await Post.findById(id)
   console.log(post)
   if(!post) {
     const error = new Error('No post found!')

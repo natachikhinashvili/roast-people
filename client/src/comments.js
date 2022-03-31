@@ -7,7 +7,9 @@ export default function Comments(){
             query {
                 post(id: "${slug.id}"){
                     title
-                    creator
+                    creator {
+                        name
+                    }
                     likes
                     createdAt
                 }
