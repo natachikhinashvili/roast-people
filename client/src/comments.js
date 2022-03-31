@@ -20,6 +20,7 @@ export default function Comments(){
     const post = gql`
             query {
                 post(id: "${slug.id}"){
+                    _id
                     title
                     creator {
                         _id
