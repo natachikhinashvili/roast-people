@@ -11,17 +11,46 @@
     background-color: transparent;
     border: none;
 }
+#comments-section{
+    margin-left: 2vw;
+}
 #add-comment{
     background-color: transparent;
     color: white;
     border: 1px gray solid;
+    min-width: 40vw;
     border-radius: 10vw;
     padding-right: 10vw;
     padding-left: 1vw;
     padding-top: 1vh;
     padding-bottom: 1vh;
 }
-#previous-comments{
+#comment{
+    color: white;
+    background-color: rgb(134, 125, 143);
+    border-radius: 10vw;
+    min-width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 1vw;
+    padding-right: 1vw;
+}
+#comment-createdat{
+    font-size: 0.8rem;
+}
+#comment-text{
+    font-size: 1.2rem;
+}
+#comment-creator-pic{
+    width: 40px;
+    height: 40px;
+    border-radius: 10vw;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+    margin: 10px;
 }
 #comment-form{
     position: absolute;
