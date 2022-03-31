@@ -105,7 +105,7 @@ const Post = ({ creatorid, post, user, profile }) => {
                     <FiThumbsUp color={color}></FiThumbsUp> | {like}
                 </button>
                 <button id='like'>
-                    <Link style={{textDecoration: 'none'}} to={'/post/comments/' + post._id}>
+                    <Link style={{textDecoration: 'none',color: 'white'}} to={'/post/comments/' + post._id}>
                         comments
                     </Link>
                 </button>

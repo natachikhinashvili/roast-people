@@ -80,7 +80,6 @@ export default function SendMessage(){
     createmessage()
   }
   const filtered = []
-  // socetmessages.filter((message, secmessage) => message.messid === secmessage.messid)
 
   for (var i = 0; i < socetmessages.length; i++) {
       if(i+1 !== socetmessages.length){

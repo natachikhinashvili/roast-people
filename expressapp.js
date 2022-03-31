@@ -69,7 +69,11 @@ mongoose
     socket.on('message', (message)  =>{
       console.log(message)
       io.emit('message', `${message}`)
-    })    
+    })       
+    socket.on('comment', (comment)  =>{
+      console.log(comment)
+      io.emit('comment', `${comment}`)
+    }) 
   })
 })
 .catch(err => console.log(err));

@@ -5,13 +5,18 @@ import image from './arrow.png'
 import { FiNavigation } from "react-icons/fi";
 import Post from "./create-post/post"
 import { useEffect, useRef, useState } from "react"
+import openSocket from 'socket.io-client'
 
+import { v4 as uuidv4 } from 'uuid';
 export default function Comments(){
     const slug = useParams()
     const commentref = useRef()
     const [state, setState] = useState(false)
     const myid = localStorage.getItem('userid')
     const [vars, setvars] = useState('')
+    const [socetcomments, setsocetcomments] = useState([])
+    const [me, setme] = useState('')
+    const socket = openSocket('https://roast-people.herokuapp.com/');
     const post = gql`
             query {
                 post(id: "${slug.id}"){
@@ -34,6 +39,9 @@ export default function Comments(){
                     }
                     createdAt
                 }
+                user(id: "${myid}"){
+                  pic
+                }
             }
         `
         const {error, loading, data} = useQuery(post)
@@ -45,19 +53,39 @@ export default function Comments(){
         }
         `
         const  [createcomment, {create_comment_data}] = useMutation(createComment)
-        console.log(create_comment_data)
-        console.log(data,loading,error)
         useEffect(() => {
             setState(data)
-            console.log(data)
-        },[data,loading,error])
+            if(data){
+            setme(data.user)}
+            socket.once('message', (params) => {
+              const parsed = JSON.parse(params)
+              setsocetcomments(socetmessages => [...socetmessages,{place:params.place,text: parsed.txt, pic: parsed.pic, _id: parsed.id,  messid: parsed.messid, createdAt: parsed.createdAt} ])
+              return socket.disconnect()
+            })
+        },[data,loading,error, socetcomments])
 
         function handlechange(){
             setvars(commentref.current.value)
         }
         function handlesubmit(e){
             e.preventDefault()
+            let place = slug.id
+            const params = {id:  myid, place: place,txt: vars, pic: me.pic,messid:uuidv4(), createdAt: new Date()}
+            socket.emit('message' , JSON.stringify(params))
             createcomment()
+            commentref.current.value = ''
+        }
+        const filtered = []
+      
+        for (var i = 0; i < socetcomments.length; i++) {
+            if(i+1 !== socetcomments.length){
+                if(socetcomments[i].messid!== socetcomments[i + 1].messid){
+                    filtered.push(socetcomments[i])
+                }
+            }
+            if(i+1 === socetcomments.length){
+                filtered.push(socetcomments[i])
+            }
         }
     return (
         <div id='comments-page'>
@@ -78,6 +106,20 @@ export default function Comments(){
                                 </div>
                             </div>
                     })}
+                    
+            {socetcomments!==[] && filtered.map(comment => {
+                console.log(comment)
+                return (
+                    comment.place === slug.id && <div id="comment">
+                        <img id="comment-creator-pic" alt="" src={comment.pic}/>
+                        <div>
+                            <p id="comment-createdat">{comment.createdAt.toString().slice(0,21)}</p>
+                            <p id="comment-text">{comment.text}</p>
+                        </div>
+                    </div>
+                )
+              })
+            }
                 </div>
                 <form id='comment-form' onSubmit={handlesubmit}>
                     <input ref={commentref} onChange={handlechange} id='add-comment' placeholder="add comment"/>
