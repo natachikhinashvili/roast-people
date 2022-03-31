@@ -310,8 +310,8 @@ likepost: async function({id, userid}, req){
     user.comments.push(createComment);
     await user.save()
     return {
-      ...createdMessage._doc,
-      _id: createdMessage._id.toString(),
+      ...createComment._doc,
+      _id: createComment._id.toString(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };

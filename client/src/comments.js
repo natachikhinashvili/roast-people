@@ -22,6 +22,9 @@ export default function Comments(){
                     createdAt
                     imageUrl
                 }
+                comments(id: "${slug.id}"){
+                    
+                }
             }
         `
         const {error, loading, data} = useQuery(post)
