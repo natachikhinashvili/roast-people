@@ -1,89 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import  { Link, useNavigate } from 'react-router-dom';
+import  { Link } from 'react-router-dom';
 import './post.css'
+import {gql, useQuery, useMutation} from '@apollo/client'
 import { FiThumbsUp } from 'react-icons/fi'
 const Post = ({ creatorid, post, user, profile }) => {
-    const navigate = useNavigate();
     const token = useSelector((state) => state.token.token);
     const [like, setlike] = useState(0)
-    const [color, setcolor] = useState('#fff')
     const userId = localStorage.getItem('userid')
-    useEffect(() => {
-
-        const likegraphqlQuery = {
-            query: `
-                query {
-                    post(id: "${post._id}"){
-                        likes
-                    }
+    const loadlikegraphqlQuery = gql`
+            query {
+                post(id: "${post._id}"){
+                    likes
                 }
-            `
-        }
-        fetch('https://roast-people.herokuapp.com/graphql', 
-        {
-            method: 'POST',
-            headers: {
-                Authorization: token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(likegraphqlQuery)
-        }
-        )
-        .then(res => res.json())
-        .then(result =>{
-            setlike(result.data.post.likes)
-        })
-        .catch(err => console.log(err))
-    }, [post._id, token])
-    const graphqlQuery = {
-        query: `
-            mutation {
+            }
+        `
+    const deletepostquery = gql`
+            mutation DeletePost{
                 deletePost(id: "${post._id}")
             }
         `
+    const likeQuery = gql`
+            mutation {
+                likepost(id: "${post._id}", userid: "${userId}"){
+                    likes
+                }
+            }
+        `
+    const  {error, loading, data} = useQuery(loadlikegraphqlQuery)
+    const [deletePost] = useMutation(deletepostquery)
+    const [likepost] = useMutation(likeQuery)
+    useEffect(() => {
+        if(data){
+        console.log(data)
+        setlike(data.post.likes)
+        }
+}, [post._id, token, likepost,data,loading,error])
+    function likehandler(){
+        likepost()
     }
     function deletehandler(){
-        fetch('https://roast-people.herokuapp.com/graphql', 
-        {
-            method: 'POST',
-            headers: {
-                Authorization: token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(graphqlQuery)
-    }
-        )
-        .then(res => res.json())
-        .then(result => {
-            navigate('/feed')
-        })
-        .catch(err => console.log(err))
-    }
-    function handleLike(){     
-        setcolor('#cc9afa')
-        const likegraphqlQuery = {
-            query: `
-                mutation {
-                    likepost(id: "${post._id}", userid: "${userId}"){
-                        likes
-                    }
-                }
-            `
-        }
-        fetch('https://roast-people.herokuapp.com/graphql', 
-        {
-            method: 'POST',
-            headers: {
-                Authorization: token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(likegraphqlQuery)
-        }
-    )
-    .then(res => res.json())
-    .then(result => setlike(result.data.likepost.likes))
-    .catch(err => console.log(err))
+        deletePost()
     }
     return (
         <div id='post'>
@@ -101,8 +58,8 @@ const Post = ({ creatorid, post, user, profile }) => {
                 {post.imageUrl !== '' && <img src={post.imageUrl} id='post-pic' alt='post'/>}
             </div>
             <div>
-                <button id='like' onClick={handleLike}>
-                    <FiThumbsUp color={color}></FiThumbsUp> | {like}
+                <button id='like' onClick={likehandler}>
+                    <FiThumbsUp color='#fff'></FiThumbsUp> | {like}
                 </button>
                 <button id='like'>
                     <Link style={{textDecoration: 'none',color: 'white'}} to={'/post/comments/' + post._id}>
