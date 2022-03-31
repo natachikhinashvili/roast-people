@@ -243,9 +243,7 @@ module.exports = {
     throw error
   }
   return {
-    ...post._doc,
-    _id: post._id.toString(),
-    likes: post.like
+    post
   }
 },
 otheruser: async function({id}, req){

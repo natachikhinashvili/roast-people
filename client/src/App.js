@@ -14,6 +14,7 @@ import Othersprofile from "./userprofile/otherprofile";
 import ErrorMessage from "./error";
 import SearchUsersList from "./searchusers";
 import {onError} from '@apollo/client/link/error'
+import Comments from './comments.js'
 import { 
   ApolloProvider,
   InMemoryCache,
@@ -57,6 +58,7 @@ function App() {
           <Route path="/profile/:id" element={<Othersprofile />} />
           <Route path="/search" element={<SearchUsersList />} />
           <Route path="/error-page" element={<ErrorMessage />} />
+          <Route path="/post/comments/:id" element={<Comments />} />
           <Route path="*" element={<ErrorMessage />} />
         </Routes>
       </ApolloProvider>

@@ -104,6 +104,11 @@ const Post = ({ creatorid, post, user, profile }) => {
                 <button id='like' onClick={handleLike}>
                     <FiThumbsUp color={color}></FiThumbsUp> | {like}
                 </button>
+                <button id='like'>
+                    <Link style={{textDecoration: 'none'}} to={'/post/comments/' + post._id}>
+                        comments
+                    </Link>
+                </button>
                 {creatorid === userId && <button id="delete-button" onClick={deletehandler}>delete</button>}
             </div>
         </div>
