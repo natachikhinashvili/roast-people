@@ -59,7 +59,7 @@ export default function Comments(){
             setme(data.user)}
             socket.once('message', (params) => {
               const parsed = JSON.parse(params)
-              setsocetcomments(socetmessages => [...socetmessages,{place:params.place,text: parsed.txt, pic: parsed.pic, _id: parsed.id,  messid: parsed.messid, createdAt: parsed.createdAt} ])
+              setsocetcomments(socetmessages => [...socetmessages,{place:parsed.place,text: parsed.txt, pic: parsed.pic, _id: parsed.id,  messid: parsed.messid, createdAt: parsed.createdAt} ])
               return socket.disconnect()
             })
         },[data,loading,error, socetcomments])
@@ -69,8 +69,7 @@ export default function Comments(){
         }
         function handlesubmit(e){
             e.preventDefault()
-            let place = slug.id
-            const params = {id:  myid, place: place,txt: vars, pic: me.pic,messid:uuidv4(), createdAt: new Date()}
+            const params = {id:  myid, place: slug.id,txt: vars, pic: me.pic,messid:uuidv4(), createdAt: new Date()}
             socket.emit('message' , JSON.stringify(params))
             createcomment()
             commentref.current.value = ''
@@ -108,7 +107,6 @@ export default function Comments(){
                     })}
                     
             {socetcomments!==[] && filtered.map(comment => {
-                console.log(comment)
                 return (
                     comment.place === slug.id && <div id="comment">
                         <img id="comment-creator-pic" alt="" src={comment.pic}/>
