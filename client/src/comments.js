@@ -53,11 +53,12 @@ export default function Comments(){
           }
         }
         `
-        const  [createcomment, {create_comment_data}] = useMutation(createComment)
+        const [createcomment] = useMutation(createComment)
         useEffect(() => {
             setState(data)
             if(data){
-            setme(data.user)}
+                setme(data.user)
+            }
             socket.once('message', (params) => {
               const parsed = JSON.parse(params)
               setsocetcomments(socetmessages => [...socetmessages,{place:parsed.place,text: parsed.txt, pic: parsed.pic, _id: parsed.id,  messid: parsed.messid, createdAt: parsed.createdAt} ])

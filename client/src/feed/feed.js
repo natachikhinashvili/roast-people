@@ -37,27 +37,11 @@ export default function Feed(){
     return  (
     <div className="App">
       <header className="App-header">
-        <Link to='/settings'>
-          <button id='settings'> 
-            <FiSettings  color='#9f6cff'/>
+        <Link  style={{ textDecoration: 'none' }} to={"/profile"} >
+          <button id='navigate-profile'>
+            <FiUser color='#9f6cff'/>
           </button>
         </Link>
-        <Link to={'/search'}>
-          <button id='search-btn'>
-            <FiSearch color='#9f6cff'/>
-          </button>
-        </Link>
-        <Link  style={{ textDecoration: 'none' }} to="/chat" >
-          <button id='navigate-chat'>
-            <FiMail color='#9f6cff'/>
-            </button>
-        </Link>
-      </header>
-      {loading && <div id='loader-feed'><FiLoader/></div>}
-      <div id='posts-container'>
-          {state && state.map((post) => <Post key={post._id} creatorid={post.creator._id} user={post.creator.name} profile={post.creator.pic} post={post} />)}
-      </div>
-      <footer id='feed-footer'>
         <Link  style={{ textDecoration: 'none' }} to="/select" >
           <button id='navigate-select'>
             <FiUsers color='#9f6cff'/>
@@ -68,12 +52,26 @@ export default function Feed(){
             <FiEdit color='#fff'/>  
           </button>
         </Link>
-        <Link  style={{ textDecoration: 'none' }} to={"/profile"} >
-          <button id='navigate-profile'>
-            <FiUser color='#9f6cff'/>
+        <Link to={'/search'}>
+          <button id='search-btn'>
+            <FiSearch color='#9f6cff'/>
           </button>
         </Link>
-      </footer>
+        <Link to='/settings'>
+          <button id='settings'> 
+            <FiSettings  color='#9f6cff'/>
+          </button>
+        </Link>
+      </header>
+      {loading && <div id='loader-feed'><FiLoader/></div>}
+      <div id='posts-container'>
+          {state && state.map((post) => <Post key={post._id} creatorid={post.creator._id} user={post.creator.name} profile={post.creator.pic} post={post} />)}
+      </div>
+        <Link  style={{ textDecoration: 'none' }} to="/chat" >
+          <button id='navigate-chat'>
+            <FiMail color='#9f6cff'/>
+            </button>
+        </Link>
     </div>
   );
 }  
