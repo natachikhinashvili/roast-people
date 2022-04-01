@@ -284,12 +284,6 @@ likepost: async function({id, userid}, req){
     likes : saved.like
   }
 },
-  addroaster: async function({userid, myid}, req){
-    const user = await User.findById(myid)
-    const otheruser = await User.findById(userid)
-    user.roasters.push(otheruser);
-    return user
-  },
   comments: async function({id}, req){
     const comments = await Comment.find({place: id}).populate('creator')
     return comments 

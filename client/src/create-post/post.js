@@ -32,10 +32,9 @@ const Post = ({ creatorid, post, user, profile }) => {
     const [likepost] = useMutation(likeQuery)
     useEffect(() => {
         if(data){
-        console.log(data)
-        setlike(data.post.likes)
+            setlike(data.post.likes)
         }
-}, [post._id, token, likepost,data,loading,error])
+    }, [post._id, token, likepost,data,loading,error,like])
     function likehandler(){
         likepost()
     }
@@ -57,11 +56,11 @@ const Post = ({ creatorid, post, user, profile }) => {
             <div id='pic-container'>
                 {post.imageUrl !== '' && <img src={post.imageUrl} id='post-pic' alt='post'/>}
             </div>
-            <div>
+            <div id='post-footer'>
                 <button id='like' onClick={likehandler}>
-                    <FiThumbsUp color='#fff'></FiThumbsUp> | {like}
+                    <FiThumbsUp color='#fff'></FiThumbsUp> <p>{like}</p>
                 </button>
-                <button id='like'>
+                <button id='comment-btn'>
                     <Link style={{textDecoration: 'none',color: 'white'}} to={'/post/comments/' + post._id}>
                         comments
                     </Link>

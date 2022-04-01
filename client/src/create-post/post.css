@@ -1,5 +1,4 @@
 #post{
-    background-color: rgb(4, 4, 5);
     width: fit-content;
     padding: 2vw;
     color: white;
@@ -9,6 +8,7 @@
     flex-direction: column;
     border-radius: 1vw;
     margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 #post-settings{
     display: flex;
@@ -33,31 +33,6 @@
     justify-content: space-around;
     width: 27vw;
 }
-.like-btn{
-    background-color: rgba(31, 30, 30, 0);
-    color: white;
-    padding: 0.7vw;
-    border: none;
-    border-radius: 1vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    font-size: 1em;
-    width: 5vw;
-    align-items: center;
-    justify-content: center;
-    height: 5vh;
-    margin-top: 1vh;
-}
-.like-btn-icon{
-    margin-right: .5vw;
-    filter: invert(100%);
-    width: 1.5vw;
-}
-.like-btn-p{
-    margin-top:1.5vw;
-    margin-left: 0.5vw
-}
 #delete-button{
     background-color: transparent;
     color: rgb(197, 197, 197);
@@ -67,6 +42,10 @@
 #post-createdAt{
     font-size: 0.7rem;
     width: fit-content;
+}
+#comment-btn{
+    background-color: transparent;
+    border: none;
 }
 #feed-post-creator-createdAt{
     width: fit-content;
@@ -79,40 +58,30 @@
     font-size: 1.3em;
     margin: 2vw;
 }
+#post-footer{
+    width: 30vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+#like{
+    color:white;
+    border: none;
+    border-radius: 100vw;
+    background-color: transparent;
+    display: flex;
+    min-width: 3vw;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1vw;
+  }
 @media screen  and (max-width: 960px) {
     #profile-pic{
         width: 40px;
         height: 40px;
         object-fit: cover;
         border-radius: 100%;
-    }
-    .like-btn{
-        background-color: transparent;
-        color: rgb(255, 255, 255);
-        padding: 0.7vw;
-        border: none;
-        border-radius: 1vw;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        font-size: 1em;
-        width: 15vw;
-        align-items: center;
-        justify-content: center;
-        max-height: 3vh;
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        margin-right: 75vw;
-    }
-    .like-btn-icon{
-        margin-right: 1vw; 
-        filter: invert(100%);
-        width: 20px;
-    }
-    .like-btn-p{
-        margin-top:20px;
-        margin-left: 1vw
-    }    
+    } 
     #post{
         width: 100vw;
         color: white;
@@ -147,5 +116,11 @@
         align-items: center;
         justify-content: flex-end;
         width: fit-content;
+    }
+    #post-footer{
+        width: 100vw;
+    }
+    #like{
+        min-width: 10vw;
     }
 }

@@ -80,7 +80,6 @@ module.exports = buildSchema(`
         updateStatus(status : String): User!
         likepost(id : ID!, userid: ID!): Post!
         createRoom(userInput: ID!): roomData!
-        addroaster(userid: ID!, myid: ID!): User!
         addComment(text: String!,place: String!,id: ID!): Comment!
     }
 

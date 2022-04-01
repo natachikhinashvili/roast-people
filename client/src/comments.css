@@ -54,5 +54,65 @@
 }
 #comment-form{
     position: absolute;
+    background-color: black;
     bottom: 0;
+}
+#goback-from-comments{
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    margin: 1vw;
+}
+#previous-comments{
+    display: inline;
+    overflow: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 90vh; 
+    animation: 10s linear 1s infinite;
+}
+#load-comment{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media screen  and (max-width: 960px) {
+    #comments-page{
+        display: flex;
+        flex-direction: column;
+    }
+    #post{
+        margin: 0;
+    }
+    #add-comment{
+        min-width: 70vw;
+        margin: 2vw;
+    }
+    #comments-section{
+        margin-top: 2vh;
+        margin-left: 0vw;
+    }
+    #comment{
+        justify-content: flex-start;
+        align-items: center;
+        width: 90vw;
+    }
+    #comment-form{
+        position: sticky;
+        background-color: black;
+        bottom: 0;
+    }
+    #previous-comments{
+        display: inline;
+        overflow: auto;
+        display: flex;
+        align-items: center;
+        height: fit-content;
+        justify-content: flex-start;
+    }
 }

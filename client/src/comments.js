@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom"
 import {gql, useQuery, useMutation} from '@apollo/client'
 import './comments.css'
 import image from './arrow.png'
-import { FiNavigation } from "react-icons/fi";
+import { FiNavigation, FiLoader } from "react-icons/fi";
 import Post from "./create-post/post"
 import { useEffect, useRef, useState } from "react"
 import openSocket from 'socket.io-client'
@@ -89,12 +89,12 @@ export default function Comments(){
         }
     return (
         <div id='comments-page'>
-        <button id='goback-from-chat'>
+        <button id='goback-from-comments'>
           <Link to='/'>
             <img id='goback'alt='logo' src={image}/> 
           </Link> 
         </button>
-            {state && <Post creatorid={state.post.creator._id} user={state.post.creator.name} profile={state.post.creator.pic} post={state.post}/>}
+            {state ? <><Post creatorid={state.post.creator._id} user={state.post.creator.name} profile={state.post.creator.pic} post={state.post}/>
             <section id='comments-section'>
                 <div id="previous-comments">
                     {state && state.comments.map((comment) => {
@@ -124,7 +124,7 @@ export default function Comments(){
                     <input ref={commentref} onChange={handlechange} id='add-comment' placeholder="add comment"/>
                     <button type='submit' id='add-comment-btn'><FiNavigation color='#9f6cff' id='icon'/></button>
                 </form>
-            </section>
+            </section></>: <div id="load-comment"><FiLoader color="#fff"/></div>}
         </div>
     )
 }

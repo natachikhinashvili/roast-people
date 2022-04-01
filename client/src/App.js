@@ -42,7 +42,7 @@ function App() {
     <div>
       <ApolloProvider client={client}>
         <style>
-          @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400&display=swap');
         </style>
         <Routes>
           <Route path="/" element={<Main />} />
@@ -52,7 +52,7 @@ function App() {
           <Route path="/chat/:id" element={<SendMessage />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/create-account" element={<CreateAcc />} />
-          <Route path="/edit-post/:status" element={<EditPost />} />
+          <Route path="/edit-post/" element={<EditPost />} />
           <Route path="/select" element={<Select />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id" element={<Othersprofile />} />

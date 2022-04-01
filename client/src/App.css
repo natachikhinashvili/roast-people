@@ -3,8 +3,8 @@
   background-color:#000000;
   color: white;
   width: 100vw;
-  height: 100vh;
-  font-family: 'Kumbh Sans', sans-serif;
+  min-height: 100vh;
+  font-family: 'Mukta', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -16,19 +16,11 @@
 button{
   cursor: pointer;
 }
-#like{
-  color:white;
-  border: 2px solid #bb9ada;
-  border-radius: 1vw;
-  background-color: transparent;
-  padding: 1vw;
-  margin: 1vw;
-}
 #navigate-createpost{
-  background-color: transparent;
+  background-color: #9f6cff;
   color: white;
   border: none;
-  border-radius: 1vw;
+  border-radius: 10vw;
   padding: 1vw;
   cursor: pointer;
   margin-top: 2vh;
@@ -39,7 +31,7 @@ button{
   cursor: pointer;
 }
 .App-header {
-  background-color: rgb(7, 7, 7);
+  background-color: black;
   display: flex;
   color: white;
   flex-direction: row;
@@ -102,6 +94,9 @@ button{
   cursor: pointer;
   margin-top: 1vh;
 }
+#posts-contianer-body{
+  height: 50vh;
+}
 #posts-container{
   display: flex;
   margin-top: 2vh;
@@ -111,59 +106,10 @@ button{
   width: 100vw;
   background-color: black;
 }
-#chat,  #settings-icon{
-  width: 40px;
-  color: white;
-  height: 2.5vh;
-  filter: 
-  invert(100%) 
-  grayscale(100%) 
-  brightness(40%) 
-  sepia(100%) 
-  hue-rotate(-150deg) 
-  saturate(600%) 
-  contrast(0.9) 
-  drop-shadow(0 0 0.75rem rgba(255, 255, 255, 0.274));
-}
-#add-icon{
-  filter: 
-  invert(100%) 
-  grayscale(100%) 
-  brightness(40%) 
-  sepia(100%) 
-  hue-rotate(-150deg) 
-  saturate(600%) 
-  contrast(0.9) 
-  drop-shadow(0 0 0.75rem rgba(255, 255, 255, 0.274));
-}
-#select-icon{
-  width: 15px;
-  filter: 
-  invert(100%) 
-  grayscale(100%) 
-  brightness(40%) 
-  sepia(100%) 
-  hue-rotate(-150deg) 
-  saturate(600%) 
-  contrast(0.9) 
-  drop-shadow(0 0 0.75rem rgba(255, 255, 255, 0.274));
-}
-#profile-icon{
-  width: 15px;
-  filter: 
-  invert(100%) 
-  grayscale(100%) 
-  brightness(40%) 
-  sepia(100%) 
-  hue-rotate(-150deg) 
-  saturate(600%) 
-  contrast(0.9) 
-  drop-shadow(0 0 0.75rem rgba(255, 255, 255, 0.274));
-}
 #feed-footer{
   position: sticky;
   z-index: 1;
-  background-color: rgb(7, 7, 7);
+  background-color: black;
   width: 100vw;
   display: flex;
   bottom: 0;
