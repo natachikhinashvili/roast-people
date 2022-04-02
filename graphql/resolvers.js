@@ -269,6 +269,7 @@ likepost: async function({id, userid}, req){
   const user = await User.findById(userid)
   let liked = false
   user.likedposts.map(post => {
+    console.log(post)
     liked = post._id.toString() === id
   })
   if(liked){
