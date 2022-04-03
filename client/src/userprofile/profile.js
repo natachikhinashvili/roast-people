@@ -3,7 +3,7 @@ import image from '../arrow.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import React from 'react';
-import {FiLoader} from "react-icons/fi";
+import {FiLoader,FiSettings} from "react-icons/fi";
 import {gql, useQuery} from '@apollo/client'
 import Post from '../create-post/post';
 
@@ -38,6 +38,11 @@ function Profile(){
     
     return (
         <div id='profile-container'>
+        <Link to='/settings'>
+          <button id='settings'> 
+            <FiSettings  color='#9f6cff'/>
+          </button>
+        </Link>
             <Link to='/'>
                 <button id='goback-profile-to-home'>
                     <img id='goback'alt='logo' src={image}/>

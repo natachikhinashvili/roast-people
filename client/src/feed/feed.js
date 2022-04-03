@@ -39,39 +39,36 @@ export default function Feed(){
       <header className="App-header">
         <Link  style={{ textDecoration: 'none' }} to={"/profile"} >
           <button id='navigate-profile'>
-            <FiUser color='#9f6cff'/>
+            <FiUser size={25} color='#fff'/>
           </button>
-        </Link>
-        <Link  style={{ textDecoration: 'none' }} to="/select" >
-          <button id='navigate-select'>
-            <FiUsers color='#9f6cff'/>
-          </button>
-        </Link>
+        </Link>        
         <Link to='/edit-post'>
           <button id='navigate-createpost'>
-            <FiEdit color='#fff'/>  
+            <FiEdit size={20} color='#fff'/>  
           </button>
         </Link>
-        <Link to={'/search'}>
-          <button id='search-btn'>
-            <FiSearch color='#9f6cff'/>
-          </button>
-        </Link>
-        <Link to='/settings'>
-          <button id='settings'> 
-            <FiSettings  color='#9f6cff'/>
-          </button>
+        <Link  style={{ textDecoration: 'none' }} to="/chat" >
+          <button id='navigate-chat'>
+            <FiMail size={25} color='#fff'/>
+            </button>
         </Link>
       </header>
       {loading && <div id='loader-feed'><FiLoader/></div>}
       <div id='posts-container'>
           {state && state.map((post) => <Post key={post._id} creatorid={post.creator._id} user={post.creator.name} profile={post.creator.pic} post={post} />)}
       </div>
-        <Link  style={{ textDecoration: 'none' }} to="/chat" >
-          <button id='navigate-chat'>
-            <FiMail color='#9f6cff'/>
-            </button>
+      <footer id='feed-footer'>
+      <Link to={'/search'}>
+          <button id='search-btn'>
+            <FiSearch size={25} color='#fff'/>
+          </button>
         </Link>
+        <Link  style={{ textDecoration: 'none' }} to="/select" >
+          <button id='navigate-select'>
+            <FiUsers size={25} color='#fff'/>
+          </button>
+        </Link>
+      </footer>
     </div>
   );
 }  
