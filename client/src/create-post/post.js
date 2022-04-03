@@ -21,7 +21,7 @@ const Post = ({ creatorid, post, user, profile }) => {
             }
         `
     const likeQuery = gql`
-            mutation {
+            mutation Likepost{
                 likepost(id: "${post._id}", userid: "${userId}"){
                     likes
                 }

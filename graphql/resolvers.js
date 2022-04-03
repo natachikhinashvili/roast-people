@@ -269,11 +269,11 @@ likepost: async function({id, userid}, req){
   const user = await User.findById(userid)
   user.likedposts.map(post => {
     if(post._id.toString() === id){
-      post.like -= 1
-      user.likedposts.splice(user.likedposts.indexOf(post), 1)
+      foundpost.like -= 1
+      user.likedposts.splice(user.likedposts.indexOf(foundpost), 1)
     }else{
-      post.like += 1
-      user.likedposts.push(post)
+      foundpost.like += 1
+      user.likedposts.push(foundpost)
     }
   })
   const saved = await foundpost.save()
