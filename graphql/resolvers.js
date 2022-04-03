@@ -272,7 +272,8 @@ likepost: async function({id, userid}, req){
    liked = post._id.toString() === id
   })
   if(!liked){
-    foundpost.like++
+    foundpost.like++;
+    user.likedposts.push(foundpost)
   }else{
     foundpost.like--
   }
