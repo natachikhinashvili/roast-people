@@ -267,8 +267,13 @@ otheruser: async function({id}, req){
 likepost: async function({id, userid}, req){
   const foundpost = await Post.findById(id)
   const user = await User.findById(userid)
-  user.likedposts = [];
-  await user.save()
+  user.likedposts.map(post => {
+    if(post._id.toString() === id){
+      foundpost.like++
+    }else{
+      foundpost.like--
+    }
+  })
   const saved = await foundpost.save()
   await user.save()
   return {
