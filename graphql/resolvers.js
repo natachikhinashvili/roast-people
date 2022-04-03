@@ -276,6 +276,7 @@ likepost: async function({id, userid}, req){
     user.likedposts.push(foundpost)
   }else{
     foundpost.like--
+    user.likedposts.splice(user.likedposts.indexOf(foundpost),1)
   }
   const saved = await foundpost.save()
   await user.save()
