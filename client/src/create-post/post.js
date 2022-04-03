@@ -17,7 +17,9 @@ const Post = ({ creatorid, post, user, profile }) => {
         `
     const deletepostquery = gql`
             mutation DeletePost{
-                deletePost(id: "${post._id}")
+                deletePost(id: "${post._id}"){
+                    status
+                }
             }
         `
     const likeQuery = gql`
