@@ -1,0 +1,15 @@
+#goback{
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 2vw;
+}
+#goback:hover{
+    transform: translate(10px, 0px);
+    transition: transform 330ms ease-in-out;
+}
+#goback-icon{
+    width: 25px
+}

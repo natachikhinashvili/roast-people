@@ -12,9 +12,9 @@ import ChatList from "./chat/chat-list";
 import Main from "./main";
 import Othersprofile from "./userprofile/otherprofile";
 import ErrorMessage from "./error";
-import SearchUsersList from "./searchusers";
+import SearchUsersList from "./searchusersfolder/searchusers";
 import {onError} from '@apollo/client/link/error'
-import Comments from './comments.js'
+import Comments from './commentsfolder/comments'
 import { 
   ApolloProvider,
   InMemoryCache,

@@ -4,7 +4,7 @@ import {gql, useQuery} from '@apollo/client'
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { FiLoader } from "react-icons/fi"
-import image from './arrow.png'
+import GoBack from '../gobackfolder/goback'
 function SearchUsersList(){
     const [users,setusers] = useState(false)
     const userid = localStorage.getItem('userid')
@@ -36,14 +36,10 @@ function SearchUsersList(){
     return (
         <div id="SearchUsersList">
             <header id="SearchUsersList-header">
-        <button id='goback-from-chat'>
-          <Link to='/'>
-            <img id='goback'alt='logo' src={image}/> 
-          </Link> 
-        </button>
-            <form id="SearchUsersList-form">
-                <input ref={searchref} id="search" onChange={handlechange}/>
-            </form>
+                <GoBack/>
+                <form id="SearchUsersList-form">
+                    <input ref={searchref} placeholder='search...' id="search" onChange={handlechange}/>
+                </form>
             </header>
             <div id='search-users-container'>
                 {loading && <FiLoader color="#fff"/>}

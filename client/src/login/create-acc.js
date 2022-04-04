@@ -3,7 +3,6 @@ import React, {useRef, useState} from 'react'
 //import { useNavigate } from 'react-router'
 import useInput from './useformhook'
 import { useNavigate } from 'react-router-dom';
-import DropZone from '../create-post/dropzone'
 import {gql, useMutation} from '@apollo/client'
 import { Link } from 'react-router-dom'
 export default function CreateAcc(){
@@ -14,7 +13,25 @@ export default function CreateAcc(){
     const ageref = useRef()
     const [state, setState] = useState({imagesrc: '',password: '', name: '', email: '', age: 0})
     const [clicked] = useState(false)
-
+    function onFileLoad(e) {
+        //Get current selected or dropped file (it gives you the ability to load multiple images).
+        if( e.currentTarget.files[0]) {
+        const file = e.currentTarget.files[0];
+        //Create instance 
+        let fileReader = new FileReader();
+        //Register event listeners
+        fileReader.onload = () => {
+         let image = new Image();
+         image.src = fileReader.result
+         image.className = 'post-image'
+         document.getElementById('files-here').append(image)
+        }
+        //Read the file as a Data URL (which gonna give you a base64 encoded image data)
+        fileReader.readAsDataURL(file);
+    
+        console.log(e.currentTarget.files[0])
+      }
+      }
     let graphqlQuery = gql`
         mutation CreateUser{
             createUser(userInput: {email: "${state.email}",
@@ -52,8 +69,21 @@ export default function CreateAcc(){
         <div id="create-acc-containter">
             <h1 id='c-a-a'>Create An Account</h1>
                 <div id='create-acc-profile-pic-zone'>
-                    <h1>select profile picture</h1>
-                    <DropZone></DropZone>
+                    <h1>select profile picture</h1>      <div id='edit-area'>
+      <div id="draggable-container">
+              <label className="custom-file-upload">
+                <input 
+                  type="file"id="files"
+                  name="file-browser-input"
+                  onDragOver={(e) => {
+                  e.preventDefault();
+                     e.stopPropagation();
+                  }}
+                  onDrop={onFileLoad}
+                  onChange={onFileLoad}/>
+              </label>
+          </div>
+      </div>
                     <div id='files-here'></div>
                 </div>
                 <form  id='create-acc-form' noValidate onSubmit={handleSubmit}>

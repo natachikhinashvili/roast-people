@@ -1,13 +1,15 @@
-import { useParams, Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import {gql, useQuery, useMutation} from '@apollo/client'
 import './comments.css'
-import image from './arrow.png'
 import { FiNavigation, FiLoader } from "react-icons/fi";
-import Post from "./create-post/post"
+import Post from "../create-post/post"
 import { useEffect, useRef, useState } from "react"
 import openSocket from 'socket.io-client'
 
 import { v4 as uuidv4 } from 'uuid';
+
+import GoBack from '../gobackfolder/goback'
+
 export default function Comments(){
     const slug = useParams()
     const commentref = useRef()
@@ -90,11 +92,7 @@ export default function Comments(){
         }
     return (
         <div id='comments-page'>
-        <button id='goback-from-comments'>
-          <Link to='/'>
-            <img id='goback'alt='logo' src={image}/> 
-          </Link> 
-        </button>
+        <GoBack/>
             {state ? <><Post creatorid={state.post.creator._id} user={state.post.creator.name} profile={state.post.creator.pic} post={state.post}/>
             <section id='comments-section'>
                 <div id="previous-comments">

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import './messenger.css'
-import image from '../arrow.png'
 import {gql, useQuery} from '@apollo/client'
 import {FiLoader} from "react-icons/fi";
+import GoBack from '../gobackfolder/goback'
 function ChatList(){
     const [users, setUsers] = useState(null)
     const userId = localStorage.getItem('userid')   
@@ -25,7 +25,7 @@ function ChatList(){
             let filteredusers = []
             data.users.map(user => {
                 data.messages.map(mess => {
-                    if(mess.place.split('-')[0] === user._id){
+                    if(mess.place.split('-')[0] === user._id && user._id !== userId){
                         filteredusers.push(user)
                     }
                 })
@@ -35,11 +35,7 @@ function ChatList(){
     }, [data,error, userId])
     return (
         <div id="list">
-            <button id='goback-profile'>
-                <Link to='/'> 
-                    <img id='goback'alt='logo' src={image}/>
-                </Link> 
-            </button>
+            <GoBack/>
             <div id={users ? "users-list-div-container" : 'FiLoader-chatlist-container'} >
                 {users ? users.map(user => {
                     return (
@@ -53,6 +49,16 @@ function ChatList(){
                         </div>
                     ) 
                     }): <div><FiLoader color="#ffff"/></div> }
+                    {users && users.length === 0 && (
+                        <div id="no-connections-found">
+                            <h1 id="nofound-h1">No connections found</h1>
+                            <Link to={'/search'} style={{ textDecoration: 'none', color:'white' }}>
+                                <button id="nofound-find">
+                                    find people
+                                </button>
+                            </Link>
+                        </div>
+                    )}
             </div>
         </div>
     )

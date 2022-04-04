@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FiNavigation, FiLoader } from "react-icons/fi";
 import {gql, useQuery, useMutation} from '@apollo/client'
 import openSocket from 'socket.io-client'
-import image from '../arrow.png'
 import { v4 as uuidv4 } from 'uuid';
+
+import GoBack from '../gobackfolder/goback'
+
 import './messenger.css';
 
 export default function SendMessage(){
@@ -99,11 +101,7 @@ export default function SendMessage(){
   return (
       <div id='full-messages'>
         <header id='chat-header'>
-          <button id='goback-from-chat'>
-            <Link to='/'>
-              <img id='goback'alt='logo' src={image}/> 
-            </Link> 
-          </button>
+          <GoBack/>
           {!otheruserstate ? <FiLoader color="#ffff"/> : <div id='chat-otheruser-topbar'><img alt='profile' id='chat-otheruser-topbar-profilepic' src={otheruserstate.pic}/><h1 id='chat-header-username' style={{color:"white"}}>{otheruserstate.name}</h1></div>}
         </header>
         <div id='current-chat'>
@@ -120,7 +118,6 @@ export default function SendMessage(){
                   </div>
                 )
               })
-              
             )}
             {socetmessages!==[] && filtered.map(message => {
                 return (

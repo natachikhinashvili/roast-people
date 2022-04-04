@@ -7,6 +7,9 @@
 } 
 #select-card-body{
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #person-card{
     background-color: #15131d;
@@ -21,6 +24,7 @@
 }
 #select-card-name{
     font-size: 2em;
+    margin-bottom: 5vh;
 }
 #select-card-bio{
     font-size: 1.3em;

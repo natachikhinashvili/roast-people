@@ -5,8 +5,10 @@ import image from '../arrow.png'
 import {FiLoader} from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import Post from '../create-post/post';
-import {gql, useQuery, useMutation} from '@apollo/client'
+import {gql, useQuery} from '@apollo/client'
 import { useNavigate } from 'react-router-dom';
+
+import GoBack from '../gobackfolder/goback'
 
 function Othersprofile(){
     const slug = useParams()
@@ -41,11 +43,7 @@ const {error, loading, data} = useQuery(LOAD_user)
 
     return (
         <div id='otheruser-profile-body'>
-        <Link to='/'>
-            <button id='goback-otherprofile-to-home'>
-                <img id='goback'alt='logo' src={image}/>
-            </button>
-        </Link>
+        <GoBack/>
         {!user.otheruser ? <div id='otherprofile-loader'><FiLoader/> </div>: (
             <div>
             <div id='header'>

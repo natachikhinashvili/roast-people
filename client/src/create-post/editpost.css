@@ -23,18 +23,24 @@
 }
 #editpost-textarea{
   width: 60vw;
-  height: 30vh;
-  font-size: 2rem;
+  font-size: 1rem;
+  height: 100vh;
   background-color: black;
   color: white;
-  margin-top: 10vw;
+  border: none;
+}
+.disabled{
+
+  background-color: rgb(146, 146, 146);
+}
+.valid{
+  background-color: rgb(64, 9, 194);
 }
 #post-btn{
   margin-top: 10vh;
   width:6vw;
   border-radius: 20vw;
   padding: 0.5vw;
-  background-color: rgb(132, 86, 241);
   color: white;
   border: none;
   cursor: pointer;
@@ -61,7 +67,18 @@
   cursor: pointer;
   color: white;
 }
-
+#edit-area{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: rgb(14, 14, 14);
+  height: 20vh;
+  margin-top:10vh;
+  padding: 2vw;
+  border-radius: 1vw;
+  box-shadow: 0px 0px 5px rgb(15, 0, 20);
+}
 @media screen  and (max-width: 960px) {
   #post-btn{
     margin-top: 5vh;

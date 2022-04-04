@@ -7,6 +7,8 @@ import {FiLoader,FiSettings} from "react-icons/fi";
 import {gql, useQuery} from '@apollo/client'
 import Post from '../create-post/post';
 
+import GoBack from '../gobackfolder/goback'
+
 const userId = localStorage.getItem('userid')
 const LOAD_user = gql`
     query {
@@ -43,11 +45,7 @@ function Profile(){
             <FiSettings  color='#9f6cff'/>
           </button>
         </Link>
-            <Link to='/'>
-                <button id='goback-profile-to-home'>
-                    <img id='goback'alt='logo' src={image}/>
-                </button>
-            </Link>
+            <GoBack/>
             <div id='profile-container-body'>      
                 {state.name === '' ? <div id='profile-loader'><FiLoader color='#ffff'/></div> : (
                 <div id='header'>
