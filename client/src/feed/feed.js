@@ -40,16 +40,19 @@ export default function Feed(){
         <Link  style={{ textDecoration: 'none' }} to={"/profile"} >
           <button id='navigate-profile'>
             <FiUser size={25} color='#fff'/>
+            <p>profile</p>
           </button>
         </Link>        
         <Link to='/edit-post'>
           <button id='navigate-createpost'>
             <FiEdit size={20} color='#fff'/>  
+            <p>create post</p>
           </button>
         </Link>
         <Link  style={{ textDecoration: 'none' }} to="/chat" >
           <button id='navigate-chat'>
             <FiMail size={25} color='#fff'/>
+            <p>message</p>
             </button>
         </Link>
       </header>
@@ -61,11 +64,13 @@ export default function Feed(){
       <Link to={'/search'}>
           <button id='search-btn'>
             <FiSearch size={25} color='#fff'/>
+            <p>search</p>
           </button>
         </Link>
         <Link  style={{ textDecoration: 'none' }} to="/select" >
           <button id='navigate-select'>
             <FiUsers size={25} color='#fff'/>
+            <p>choose and roast</p>
           </button>
         </Link>
       </footer>

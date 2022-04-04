@@ -73,8 +73,13 @@
     display: flex;
     min-width: 3vw;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
     margin: 1vw;
+  }
+  #like-count{
+      margin: 1vw;
   }
 @media screen  and (max-width: 960px) {
     #profile-pic{
@@ -86,16 +91,14 @@
     #post{
         width: 100vw;
         color: white;
-        margin:0vh;
         display: flex;
         padding: 0;
         background-color: black;
-        margin: 6vw;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         border-radius: 1vw;
-        margin-top: 0vh;
+        padding-top: 5vh;
     }
     .image-post{
         width: 95vw;

@@ -7,33 +7,31 @@ import GoBack from '../gobackfolder/goback'
 export default function EditPost(){
   const userid = localStorage.getItem('userid')
   const navigate = useNavigate()
-const [curtitle, setcurtitle] = useState('')
-const [imagesrc, setimagesrc] =useState('')
+  const [curtitle, setcurtitle] = useState('')
+  const [imagesrc, setimagesrc] =useState('')
 
   if(document.getElementById('files-here') && document.getElementById('files-here').childNodes.length > 0){
       setimagesrc(document.getElementById('files-here').childNodes[0].src)
-      setcurtitle('')
   }
 
   function onFileLoad(e) {
-    //Get current selected or dropped file (it gives you the ability to load multiple images).
+
     if( e.currentTarget.files[0]) {
     const file = e.currentTarget.files[0];
-    //Create instance 
-    let fileReader = new FileReader();
-    //Register event listeners
-    fileReader.onload = () => {
-     let image = new Image();
-     setimagesrc(image.src)
-     image.src = fileReader.result
-     image.className = 'post-image'
-     document.getElementById('files-here').append(image)
-    }
-    //Read the file as a Data URL (which gonna give you a base64 encoded image data)
-    fileReader.readAsDataURL(file);
 
-    console.log(e.currentTarget.files[0])
+    let fileReader = new FileReader();
+    fileReader.onload = () => {
+      let image = new Image();      
+      image.src = fileReader.result
+      image.className = 'post-image'
+      image.style.maxHeight = '100px'
+      image.style.maxWidth = '100px'
+      document.getElementById('files-here').append(image)
+    }
+
+    fileReader.readAsDataURL(file);
   }
+
   }
     const ADD_POST = gql`
     mutation CreatePost{
@@ -67,19 +65,19 @@ const [imagesrc, setimagesrc] =useState('')
         value={curtitle} 
         onChange={(event) => setcurtitle(event.target.value)} 
       ></textarea>
-      <div id="draggable-container">
-              <label className="custom-file-upload">
-                <input 
-                  type="file"id="files"
-                  name="file-browser-input"
-                  onDragOver={(e) => {
-                  e.preventDefault();
-                     e.stopPropagation();
-                  }}
-                  onDrop={onFileLoad}
-                  onChange={onFileLoad}/>
-              </label>
-          </div>
+        <div id="draggable-container">
+          <label className="custom-file-upload">
+            <input 
+              type="file"id="files"
+              name="file-browser-input"
+              onDragOver={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              onDrop={onFileLoad}
+              onChange={onFileLoad}/>
+          </label>
+        </div>
       </div>
       <div id='edit-post-background'>
         <div id='files-here'></div>

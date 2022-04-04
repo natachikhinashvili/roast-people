@@ -45,11 +45,11 @@ const {error,  loading, data} = useQuery(graphqlQuery)
                 <input id='login-enter-username'onChange={handleChange} ref={emailref} placeholder='email'/>
                 <label id='password-label' className='login-labels'>Enter your password</label>
                 <input id='login-enter-password' onChange={handleChange} ref={passref} placeholder='password'/>
-                    <button id='submit-login' type='submit'>Log in</button>
-                    <Link to='/create-account'>
-                        <button id='navigate-to-createacc'>create new account</button>
-                    </Link>
-            </form>
+                <button id='submit-login' type='submit'>Log in</button>
+            </form>                    
+            <Link to='/create-account'>
+                <button id='navigate-to-createacc'>create account</button>
+            </Link>
         </div>
     )
 }

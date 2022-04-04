@@ -60,7 +60,7 @@ const Post = ({ creatorid, post, user, profile }) => {
             </div>
             <div id='post-footer'>
                 <button id='like' onClick={likehandler}>
-                    <FiThumbsUp color='#fff'></FiThumbsUp> <p>{like}</p>
+                    <FiThumbsUp color='#fff' size={20}></FiThumbsUp> <p id='like-count'>{like}</p>
                 </button>
                 <button id='comment-btn'>
                     <Link style={{textDecoration: 'none',color: 'white'}} to={'/post/comments/' + post._id}>
