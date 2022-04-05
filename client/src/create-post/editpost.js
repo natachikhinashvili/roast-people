@@ -8,10 +8,10 @@ export default function EditPost(){
   const userid = localStorage.getItem('userid')
   const navigate = useNavigate()
   const [curtitle, setcurtitle] = useState('')
-  const [imagesrc, setimagesrc] =useState('')
+  let imagesrc
 
   if(document.getElementById('files-here') && document.getElementById('files-here').childNodes.length > 0){
-      setimagesrc(document.getElementById('files-here').childNodes[0].src)
+    imagesrc = document.getElementById('files-here').childNodes[0].src
   }
 
   function onFileLoad(e) {
@@ -23,6 +23,7 @@ export default function EditPost(){
     fileReader.onload = () => {
       let image = new Image();      
       image.src = fileReader.result
+      setcurtitle('')
       image.className = 'post-image'
       image.style.maxHeight = '100px'
       image.style.maxWidth = '100px'
@@ -59,13 +60,13 @@ export default function EditPost(){
       <GoBack/>
       <div id='edit-area'>
       <textarea 
-        id='editpost-textarea'
+      id='editpost-textarea'
         placeholder='Edit your post here' 
         name='post-title' 
         value={curtitle} 
         onChange={(event) => setcurtitle(event.target.value)} 
       ></textarea>
-        <div id="draggable-container">
+        <div id="draggable-container" style={{display: curtitle !== '' && 'none' }}>
           <label className="custom-file-upload">
             <input 
               type="file"id="files"
