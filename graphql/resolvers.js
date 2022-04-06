@@ -161,7 +161,7 @@ module.exports = {
     createdAt: updatedPost.createdAt.toISOString(),
     updatedAt: updatedPost.updatedAt.toISOString() }
   },
-  deletePost: async function({id}, req){
+  deletePost: async function({id, userid}, req){
     //const token = localStorage.getItem('token')
     //if(!req.isAuth & !token){
     //  const error = new Error('Not authenticated!')
@@ -180,7 +180,8 @@ module.exports = {
     //  throw error
     //}
     await Post.findByIdAndRemove(id);
-    const user = await User.findById(req.userId)
+    const user = await User.findById(userid)
+    user.posts.pull(id)
     await user.save()
     return true
   },

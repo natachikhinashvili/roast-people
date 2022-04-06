@@ -76,7 +76,7 @@ module.exports = buildSchema(`
         createPost(title: String!,imageUrl: String!, id: ID!): Post!
         createMessage(text: String!,place: String!,id: ID!): Message!
         updatePost(id: ID!,text: String!,place: String!): Post!
-        deletePost(id: ID!): Boolean!
+        deletePost(id: ID!, userid: ID!): Boolean!
         updateStatus(status : String): User!
         likepost(id : ID!, userid: ID!): Post!
         createRoom(userInput: ID!): roomData!
