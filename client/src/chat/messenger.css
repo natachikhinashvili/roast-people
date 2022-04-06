@@ -60,7 +60,7 @@
   max-height: 10vh;
 }
 #goback-block{
-  margin-bottom: 5vh;
+  margin-bottom: 50vh;
 }
 #othersuser-chat-container{
   display: flex;
@@ -352,11 +352,6 @@ video::-webkit-media-controls {
     height: 100vh;
     padding-right: 2vw;
     padding-top: 5vh;
-  }
-  .pic{
-    width: 8vh;
-    height: 8vh;
-    object-fit: cover;
   }
   #chat-otheruser-topbar{
     margin-left: 10vw;

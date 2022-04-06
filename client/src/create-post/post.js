@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import  { Link } from 'react-router-dom';
 import './post.css'
 import {gql, useQuery, useMutation} from '@apollo/client'
 import { FiThumbsUp } from 'react-icons/fi'
 const Post = ({ creatorid, post, user, profile }) => {
-    const token = useSelector((state) => state.token.token);
     const [like, setlike] = useState(0)
     const userId = localStorage.getItem('userid')
 
@@ -29,21 +27,18 @@ const Post = ({ creatorid, post, user, profile }) => {
             }
         `
     const  {error, loading, data} = useQuery(loadlikegraphqlQuery)
-    const [deletePost, {errdata}] = useMutation(deletepostquery)
+    const [deletePost] = useMutation(deletepostquery)
     const [likepost] = useMutation(likeQuery)
     useEffect(() => {
         if(data){
             setlike(data.post.likes)
         }
-    }, [post._id, token, likepost,data,loading,error,like])
+    }, [post._id, likepost,data,loading,error,like])
     function likehandler(){
         likepost()
     }
     function deletehandler(){
         deletePost()
-        if(errdata){
-            console.log(errdata)
-        }
     }
     return (
         <div id='post'>

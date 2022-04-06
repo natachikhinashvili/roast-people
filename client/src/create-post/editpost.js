@@ -8,7 +8,7 @@ export default function EditPost(){
   const userid = localStorage.getItem('userid')
   const navigate = useNavigate()
   const [curtitle, setcurtitle] = useState('')
-  let imagesrc
+  let imagesrc = ''
 
   if(document.getElementById('files-here') && document.getElementById('files-here').childNodes.length > 0){
     imagesrc = document.getElementById('files-here').childNodes[0].src
