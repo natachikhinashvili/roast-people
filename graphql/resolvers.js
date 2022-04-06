@@ -181,8 +181,6 @@ module.exports = {
     //}
     await Post.findByIdAndRemove(id);
     const user = await User.findById(req.userId)
-    console.log(user)
-    user.posts.pull(id)
     await user.save()
     return true
   },
