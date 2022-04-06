@@ -58,7 +58,7 @@ export default function SendMessage(){
       }
   }
   `
-  const  [createmessage, {create_message_data}] = useMutation(graphqlQuery)
+  const  [createmessage] = useMutation(graphqlQuery)
 
   const  {error, loading, data} = useQuery(LOAD_MESSAGES)
   useEffect(() => {
@@ -100,9 +100,9 @@ export default function SendMessage(){
   }
   return (
       <div id='full-messages'>
+      <GoBack id='goback-block'/>
         <header id='chat-header'>
-          <GoBack/>
-          {!otheruserstate ? <FiLoader color="#ffff"/> : <div id='chat-otheruser-topbar'><img alt='profile' id='chat-otheruser-topbar-profilepic' src={otheruserstate.pic}/><h1 id='chat-header-username' style={{color:"white"}}>{otheruserstate.name}</h1></div>}
+          {!otheruserstate ? <FiLoader color="#ffff"/> : <div id='chat-otheruser-topbar'><div id="othersuser-chat-container"><img alt='profile' id='chat-otheruser-topbar-profilepic' src={otheruserstate.pic}/><h1 id='chat-header-username' style={{color:"white"}}>{otheruserstate.name}</h1></div></div>}
         </header>
         <div id='current-chat'>
           <div id='messages-container'>

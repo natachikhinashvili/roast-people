@@ -23,12 +23,14 @@ function ChatList(){
     useEffect(() => {
         if(data){
             let filteredusers = []
+            let messplace;
             data.users.map(user => {
                 data.messages.map(mess => {
-                    if(mess.place.split('-')[0] === user._id && user._id !== userId){
-                        filteredusers.push(user)
-                    }
+                    messplace = mess.place.split('-')[0]
                 })
+                if(messplace === user._id && user._id !== userId){
+                    filteredusers.push(user)
+                }
             })
             setUsers(filteredusers)
         }

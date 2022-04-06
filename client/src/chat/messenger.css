@@ -59,8 +59,17 @@
   height: 7vh;
   max-height: 10vh;
 }
+#goback-block{
+  margin-bottom: 5vh;
+}
+#othersuser-chat-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left:calc(2vw + 30px);
+}
 #chat-header-username{
-  margin-left: 5vw;
   font-size: 1.3rem;
 }
 #send-btn{
@@ -348,5 +357,8 @@ video::-webkit-media-controls {
     width: 8vh;
     height: 8vh;
     object-fit: cover;
+  }
+  #chat-otheruser-topbar{
+    margin-left: 10vw;
   }
 }

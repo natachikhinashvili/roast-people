@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import  { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './post.css'
 import {gql, useQuery, useMutation} from '@apollo/client'
 import { FiThumbsUp } from 'react-icons/fi'
@@ -8,6 +9,7 @@ const Post = ({ creatorid, post, user, profile }) => {
     const token = useSelector((state) => state.token.token);
     const [like, setlike] = useState(0)
     const userId = localStorage.getItem('userid')
+    const navigate = useNavigate()
     const loadlikegraphqlQuery = gql`
             query {
                 post(id: "${post._id}"){
@@ -17,9 +19,7 @@ const Post = ({ creatorid, post, user, profile }) => {
         `
     const deletepostquery = gql`
             mutation DeletePost{
-                deletePost(id: "${post._id}"){
-                    status
-                }
+                deletePost(id: "${post._id}")
             }
         `
     const likeQuery = gql`
@@ -30,7 +30,7 @@ const Post = ({ creatorid, post, user, profile }) => {
             }
         `
     const  {error, loading, data} = useQuery(loadlikegraphqlQuery)
-    const [deletePost] = useMutation(deletepostquery)
+    const [deletePost, {errdata}] = useMutation(deletepostquery)
     const [likepost] = useMutation(likeQuery)
     useEffect(() => {
         if(data){
@@ -42,6 +42,9 @@ const Post = ({ creatorid, post, user, profile }) => {
     }
     function deletehandler(){
         deletePost()
+        if(errdata){
+            console.log(errdata)
+        }
     }
     return (
         <div id='post'>

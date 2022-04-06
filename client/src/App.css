@@ -18,8 +18,8 @@ button{
   background-color: #9f6cff;
   color: white;
   border: none;
-  border-radius: 10vw;
-  padding: 1vw;
+  border-radius: 1vw;
+  padding: 2vw;
   cursor: pointer;
 }
 
@@ -72,7 +72,7 @@ button{
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  height: 90vh; 
+  height: 100vh; 
   animation: 10s linear 1s infinite;
   width: 100vw;
   background-color: black;
