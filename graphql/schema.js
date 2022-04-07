@@ -6,7 +6,7 @@ module.exports = buildSchema(`
         title: String
         imageUrl: String
         creator: User!
-        likes: Int!
+        likes: [User!]
         createdAt: String!
         updatedAt: String!
     }
@@ -34,7 +34,6 @@ module.exports = buildSchema(`
         status: String!
         posts: [Post!]! 
         likedposts: [Post]
-        roasts: [User!]
     }
 
     type PostData {

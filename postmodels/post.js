@@ -19,16 +19,12 @@ const postSchema = new Schema({
         ref: 'User',
         required: true
     },
-    like: {
-        type: Number,
-        required: true
-    },
-    likers: [
+    likes: [
         {
             type: Schema.Types.ObjectId,
             ref: 'User'
         }
-    ]
+    ],
 }, {timestamps: true})
 
 module.exports = mongoose.model('Post', postSchema)

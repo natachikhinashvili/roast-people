@@ -124,9 +124,7 @@ button{
     background-color: rgb(0, 0, 0);
     flex-direction: row;
     height: 10vh;
-    position: absolute;
     width: 100vw;
-    bottom: 0;
   }
   #posts-container{
     height: 80vh;

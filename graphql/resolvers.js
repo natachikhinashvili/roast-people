@@ -223,11 +223,9 @@ otheruser: async function({id}, req){
 likepost: async function({userid, postid}, req){
   const foundpost = await Post.findById(postid)
   const user = await User.findById(userid)
-  foundpost.likers.push(user)
-  foundpost.likers.filter(likeruser => likeruser._id.toString() !== userid)
-  return {
-    likes : foundpost.likers
-  }
+  foundpost.likes.push(user)
+  foundpost.likes.filter(likeruser => likeruser._id.toString() !== userid)
+  return foundpost.likes
 },
   comments: async function({id}, req){
     const comments = await Comment.find({place: id}).populate('creator')

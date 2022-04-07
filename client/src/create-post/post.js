@@ -38,7 +38,7 @@ const Post = ({ creatorid, post, user, profile }) => {
         likepost()
     }
     async function deletehandler(){
-        deletePost()
+        await deletePost()
         window.location.reload();
     }
     return (
