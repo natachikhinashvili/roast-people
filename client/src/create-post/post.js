@@ -10,7 +10,9 @@ const Post = ({ creatorid, post, user, profile }) => {
     const loadlikegraphqlQuery = gql`
             query {
                 post(id: "${post._id}"){
-                    likes
+                    likes {
+                        name
+                    }
                 }
             }
         `
@@ -22,7 +24,9 @@ const Post = ({ creatorid, post, user, profile }) => {
     const likeQuery = gql`
             mutation Likepost{
                 likepost(userid: "${userId}", postid: "${post._id}"){
-                    likers
+                    likes {
+                        name
+                    }
                 }
             }
         `
@@ -31,7 +35,9 @@ const Post = ({ creatorid, post, user, profile }) => {
     const [likepost] = useMutation(likeQuery)
     useEffect(() => {
         if(data){
+            console.log(error)
             setlike(data.post.likes)
+            console.log(like)
         }
     }, [post._id, likepost,data,loading,error,like])
     function likehandler(){
