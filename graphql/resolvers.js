@@ -162,23 +162,12 @@ module.exports = {
     updatedAt: updatedPost.updatedAt.toISOString() }
   },
   deletePost: async function({id, userid}, req){
-    //const token = localStorage.getItem('token')
-    //if(!req.isAuth & !token){
-    //  const error = new Error('Not authenticated!')
-    //  error.code = 401;
-    //  throw error
-    //}
     const post = await Post.findById(id)
     if(!post) {
       const error = new Error('No post found!')
       error.code = 404
       throw error
     } 
-    //if(post.creator.toString() === req.userId.toString()){
-    //  const error = new Error('Not authorized!')
-    //  error.code = 403;
-    //  throw error
-    //}
     await Post.findByIdAndRemove(id);
     const user = await User.findById(userid)
     user.posts.pull(id)
@@ -186,12 +175,6 @@ module.exports = {
     return true
   },
   user: async function({id}, req){ 
-
-    //if(!req.isAuth){
-    //  const error = new Error('Not authenticated!')
-    //   error.code = 401;
-    //  throw error
-    //}
     console.log(id)
     const user = await User.findById(id)
     if(!user) {
@@ -204,39 +187,12 @@ module.exports = {
      _id: user._id.toString()
     }
   },
-  updateStatus: async function({status}, req){
-
-    if(!req.isAuth){
-      const error = new Error('Not authenticated!')
-      error.code = 401;
-      throw error
-    }
-    const user = await User.findById(req.userId)
-    if(!user) {
-      const error = new Error('user not found!')
-      error.code = 404
-      throw error
-    }
-    user.status = status
-    await user.save() 
-
-    return {
-      ...user._doc,
-      _id: user._id.toString()
-    }
-  },
-
   posts: async function(args, req){
   const posts = await Post.find().populate('creator');
   return posts
   },
 
   post: async function({id}, req){
- //   if(!req.isAuth){
- //     const error = new Error('Not authenticated!')
- //     error.code = 401;
- //     throw error
- // }
   const post = await Post.findById(id).populate('creator')
   if(!post) {
     const error = new Error('No post found!')
@@ -264,24 +220,13 @@ otheruser: async function({id}, req){
    posts: posts
   }
 },
-likepost: async function({id, userid}, req){
-  const foundpost = await Post.findById(id)
+likepost: async function({userid, postid}, req){
+  const foundpost = await Post.findById(postid)
   const user = await User.findById(userid)
-  let liked = false;
-  user.likedposts.map(post => {
-   liked = post._id.toString() === id
-  })
-  if(!liked){
-    foundpost.like++;
-    user.likedposts.push(foundpost)
-  }else{
-    foundpost.like--
-    user.likedposts.splice(user.likedposts.indexOf(foundpost),1)
-  }
-  const saved = await foundpost.save()
-  await user.save()
+  foundpost.likers.push(user)
+  foundpost.likers.filter(likeruser => likeruser._id.toString() !== userid)
   return {
-    likes : saved.like
+    likes : foundpost.likers
   }
 },
   comments: async function({id}, req){

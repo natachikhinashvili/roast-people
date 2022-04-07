@@ -1,6 +1,5 @@
 import './profile.css'
-import image from '../arrow.png'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import {FiLoader,FiSettings} from "react-icons/fi";
@@ -27,7 +26,6 @@ const LOAD_user = gql`
 `
 function Profile(){
     const [state, setState] = useState({name : '', posts: [], imagesrc: ''})
-    const navigate = useNavigate()
     const {error, loading, data} = useQuery(LOAD_user)
     useEffect(() => {  
         if(error){
@@ -36,8 +34,7 @@ function Profile(){
         if(data){
             setState({name: data.user.name , posts: data.usersposts, imagesrc: data.user.pic, id: data.user._id})
         }
-    }, [data,loading,error, navigate])
-    
+    }, [data,loading,error])
     return (
         <div id='profile-container'>
         <Link to='/settings'>
@@ -51,7 +48,7 @@ function Profile(){
                 <div id='header'>
                     {state.imagesrc &&<img alt='profile' id='myprofile' src={state.imagesrc}/>}
                     <h1 id='username-profile'>{state.name}</h1>
-                    <div id ='profileposts'>{state.posts.map((post) => <Post creatorid={state.id} user={state.name} profile={state.imagesrc} post={post}/>)}</div>
+                    {state.posts.length === 0 ? <h1>no posts found</h1>:<div id ='profileposts'>{state.posts.map((post) => <Post creatorid={state.id} user={state.name} profile={state.imagesrc} post={post}/>)}</div>}
                 </div>
                 )}      
             </div>

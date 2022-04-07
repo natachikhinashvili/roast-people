@@ -23,10 +23,6 @@ button{
   cursor: pointer;
 }
 
-#reroast:hover, #like:hover{
-  background-color: #383153;
-  cursor: pointer;
-}
 .App-header {
   display: flex;
   color: white;

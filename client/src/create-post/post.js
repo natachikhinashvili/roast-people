@@ -21,8 +21,8 @@ const Post = ({ creatorid, post, user, profile }) => {
         `
     const likeQuery = gql`
             mutation Likepost{
-                likepost(id: "${post._id}", userid: "${userId}"){
-                    likes
+                likepost(userid: "${userId}", postid: "${post._id}"){
+                    likers
                 }
             }
         `
@@ -37,8 +37,9 @@ const Post = ({ creatorid, post, user, profile }) => {
     function likehandler(){
         likepost()
     }
-    function deletehandler(){
+    async function deletehandler(){
         deletePost()
+        window.location.reload();
     }
     return (
         <div id='post'>

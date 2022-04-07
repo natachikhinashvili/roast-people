@@ -101,6 +101,7 @@
         justify-content: flex-start;
         align-items: center;
         width: 90vw;
+        margin-right: 2vw;
     }
     #comment-form{
         position: sticky;
@@ -108,11 +109,6 @@
         bottom: 0;
     }
     #previous-comments{
-        display: inline;
-        overflow: auto;
-        display: flex;
         align-items: center;
-        height: fit-content;
-        justify-content: flex-start;
     }
 }

@@ -78,7 +78,7 @@ module.exports = buildSchema(`
         updatePost(id: ID!,text: String!,place: String!): Post!
         deletePost(id: ID!, userid: ID!): Boolean!
         updateStatus(status : String): User!
-        likepost(id : ID!, userid: ID!): Post!
+        likepost(userid : ID!, postid: ID!): [User!]
         createRoom(userInput: ID!): roomData!
         addComment(text: String!,place: String!,id: ID!): Comment!
     }
