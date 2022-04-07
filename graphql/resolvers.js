@@ -223,9 +223,7 @@ otheruser: async function({id}, req){
 likepost: async function({userid, postid}, req){
   const foundpost = await Post.findById(postid)
   const user = await User.findById(userid)
-  consoel.log(foundpost.likes)
   foundpost.likes = [...foundpost.likes, user]
-  foundpost.likes.push(user)
   foundpost.likes.filter(likeruser => likeruser._id.toString() !== userid)
   await foundpost.save()
   return foundpost.likes
