@@ -221,13 +221,12 @@ otheruser: async function({id}, req){
   }
 },
 likepost: async function({userid, postid}, req){
-  const foundpost = await Post.findById(postid)
+  const post = await Post.findById(postid)
   const user = await User.findById(userid)
-  console.log(foundpost,foundpost.likes)
-  foundpost.likes = [...foundpost.likes, user]
-  foundpost.likes.filter(likeruser => likeruser._id.toString() !== userid)
-  await foundpost.save()
-  return foundpost.likes
+  post.likers.push(user)
+  let filtered = post.likers.filter(likeruser => likeruser._id.toString() !== userid)
+
+  return filtered.length
 },
   comments: async function({id}, req){
     const comments = await Comment.find({place: id}).populate('creator')
@@ -254,5 +253,9 @@ likepost: async function({userid, postid}, req){
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
+  },
+  likes: async function({postid}, req){
+    const post = await Post.findById(postid)
+    return post.likers.length
   }
 };

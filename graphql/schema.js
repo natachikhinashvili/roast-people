@@ -6,7 +6,8 @@ module.exports = buildSchema(`
         title: String
         imageUrl: String
         creator: User!
-        likes: [User!]
+        likes: Int!
+        likers : [User!]
         createdAt: String!
         updatedAt: String!
     }

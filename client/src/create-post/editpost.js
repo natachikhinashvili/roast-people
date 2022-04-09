@@ -44,7 +44,9 @@ export default function EditPost(){
           name
          }
         createdAt
-        likes
+        likes {
+          name
+        }
       }
     }
     `
