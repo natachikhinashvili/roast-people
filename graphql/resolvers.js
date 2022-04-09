@@ -230,8 +230,9 @@ module.exports = {
         liker: user,
         post: foundpost
       });
-      await like.save()
+      const createdlike =await like.save()
       user.like ++;
+      user.likers.push(createdlike)
       await user.save()
       return true
     } 
