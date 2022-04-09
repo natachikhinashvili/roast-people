@@ -226,7 +226,7 @@ likepost: async function({userid, postid}, req){
   let filtered = post.likers.filter(likeruser => likeruser._id.toString() !== userid)
   filtered.push(user)
   post.likers = filtered
-  await post.likers.save()
+  await post.save()
   return filtered
 },
   comments: async function({id}, req){
