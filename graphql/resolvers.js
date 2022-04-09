@@ -223,8 +223,10 @@ otheruser: async function({id}, req){
 likepost: async function({userid, postid}, req){
   const post = await Post.findById(postid)
   const user = await User.findById(userid)
-  post.likers.push(user)
   let filtered = post.likers.filter(likeruser => likeruser._id.toString() !== userid)
+  filtered.push(user)
+  post.likers = filtered
+  await post.likers.save()
   return filtered
 },
   comments: async function({id}, req){
