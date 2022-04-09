@@ -222,16 +222,16 @@ module.exports = {
     }
   },
   likepost: async function({userid, postid}, req){
-    const liked = await Like.find({liker: userid, post: postid})
     const user = await User.findById(userid)
     const foundpost = await Post.findById(postid)
+    const liked = await Like.find({liker: user, post: foundpost})
     if(!liked) {
       const like = new Like({
         liker: user,
         post: foundpost
       });
       await like.save()
-      user.likes ++;
+      user.like ++;
       await user.save()
       return true
     } 
