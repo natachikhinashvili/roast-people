@@ -85,4 +85,8 @@
         margin: 0.3vw;
         margin-top: 1vh;
     }
+    #search{
+        padding: 2.5vw;
+        width: 80vw;
+    }
 }

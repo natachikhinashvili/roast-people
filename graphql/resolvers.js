@@ -225,8 +225,7 @@ likepost: async function({userid, postid}, req){
   const user = await User.findById(userid)
   post.likers.push(user)
   let filtered = post.likers.filter(likeruser => likeruser._id.toString() !== userid)
-
-  return filtered.length
+  return filtered
 },
   comments: async function({id}, req){
     const comments = await Comment.find({place: id}).populate('creator')
