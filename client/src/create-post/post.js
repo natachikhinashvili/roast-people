@@ -10,9 +10,7 @@ const Post = ({ creatorid, post, user, profile }) => {
     const loadlikegraphqlQuery = gql`
             query {
                 post(id: "${post._id}"){
-                    likes {
-                        name
-                    }
+                    likes
                 }
             }
         `
@@ -23,11 +21,7 @@ const Post = ({ creatorid, post, user, profile }) => {
         `
     const likeQuery = gql`
             mutation Likepost{
-                likepost(userid: "${userId}", postid: "${post._id}"){
-                    likes {
-                        name
-                    }
-                }
+                likepost(userid: "${userId}", postid: "${post._id}")
             }
         `
     const  {error, loading, data} = useQuery(loadlikegraphqlQuery)

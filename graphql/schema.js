@@ -6,10 +6,9 @@ module.exports = buildSchema(`
         title: String
         imageUrl: String
         creator: User!
-        likes: Int!
-        likers : [User!]
         createdAt: String!
         updatedAt: String!
+        likes: Int!
     }
     type Message {
         _id: ID!
@@ -18,7 +17,11 @@ module.exports = buildSchema(`
         place: String!
         createdAt: String!
     }
-
+    type Like {
+        _id: ID!
+        post: Post!
+        liker: User!
+    }
     type Comment {
         _id: ID!
         text: String!
@@ -33,8 +36,7 @@ module.exports = buildSchema(`
         email: String!
         password: String
         status: String!
-        posts: [Post!]! 
-        likedposts: [Post]
+        posts: [Post!]!
     }
 
     type PostData {
@@ -64,6 +66,7 @@ module.exports = buildSchema(`
         otheruser(id: ID!): User!
         message : Message
         comments(id: ID!): [Comment!]!
+        likes(postid: ID!, userid: ID!): Int!
     }
 
     type roomData{
@@ -78,7 +81,7 @@ module.exports = buildSchema(`
         updatePost(id: ID!,text: String!,place: String!): Post!
         deletePost(id: ID!, userid: ID!): Boolean!
         updateStatus(status : String): User!
-        likepost(userid : ID!, postid: ID!): [Post!]
+        likepost(userid : ID!, postid: ID!): Boolean!
         createRoom(userInput: ID!): roomData!
         addComment(text: String!,place: String!,id: ID!): Comment!
     }

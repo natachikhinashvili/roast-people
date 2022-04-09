@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../postmodels/user');
 const Post = require('../postmodels/post'); 
 const Comment = require('../postmodels/comments'); 
+const Like = require('../postmodels/like'); 
 const Message = require('../postmodels/message')
 module.exports = {
   createUser: async function({ userInput }, req) {
@@ -205,30 +206,37 @@ module.exports = {
     _id: post._id.toString(),
     likes: post.like
   }
-},
-otheruser: async function({id}, req){
-  const user = await User.findById(id)
-  if(!user) {
-    const error = new Error('No post found!')
-    error.code = 404
-    throw error
-  } 
-  const posts = await Post.find( {creator: id})
-  return {
-    ...user._doc,
-   _id: user._id.toString(),
-   posts: posts
-  }
-},
-likepost: async function({userid, postid}, req){
-  const post = await Post.findById(postid)
-  const user = await User.findById(userid)
-  let filtered = post.likers.filter(likeruser => likeruser._id.toString() !== userid)
-  filtered.push(user)
-  post.likers = filtered
-  await post.save()
-  return filtered
-},
+  },
+  otheruser: async function({id}, req){
+    const user = await User.findById(id)
+    if(!user) {
+      const error = new Error('No post found!')
+      error.code = 404
+      throw error
+    } 
+    const posts = await Post.find( {creator: id})
+    return {
+      ...user._doc,
+     _id: user._id.toString(),
+     posts: posts
+    }
+  },
+  likepost: async function({userid, postid}, req){
+    const liked = await Like.find({liker: userid, post: postid})
+    const user = await User.findById(userid)
+    const foundpost = await Post.findById(postid)
+    if(!liked) {
+      const like = new Like({
+        liker: user,
+        post: foundpost
+      });
+      await like.save()
+      user.likes ++;
+      await user.save()
+      return true
+    } 
+    return false
+  },
   comments: async function({id}, req){
     const comments = await Comment.find({place: id}).populate('creator')
     return comments 
@@ -255,8 +263,11 @@ likepost: async function({userid, postid}, req){
       updatedAt: new Date().toISOString()
     };
   },
-  likes: async function({postid}, req){
-    const post = await Post.findById(postid)
-    return post.likers.length
+  likes: async function({postid, userid}, req){
+    const liked = await Like.find({liker: userid, post: postid})
+    if(!liked){
+      return 0;
+    }
+    return liked.length
   }
 };
