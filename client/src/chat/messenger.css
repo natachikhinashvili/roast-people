@@ -157,16 +157,6 @@
   flex-direction: row-reverse;
   padding-bottom: 0.2vw;
 }
-#no-connections-found{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-  margin: -5vh;
-  min-width: 70vw;
-  color: white;
-}
 #start-roasting-btn{
   background-color: #9f6cff;
   border: none;
