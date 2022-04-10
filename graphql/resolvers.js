@@ -224,6 +224,22 @@ module.exports = {
   likepost: async function({userid, postid}, req){
     const user = await User.findById(userid)
     const foundpost = await Post.findById(postid)
+    const liked = await Like.find({liker: user, post: foundpost})
+    if(!liked) {
+      const like = new Like({
+        liker: user,
+        post: foundpost
+      });
+      const createdlike =await like.save()
+      foundpost.likes ++;
+      await foundpost.save()
+      user.likers.push(createdlike)
+      await user.save()
+      return true
+    } 
+    return false
+    /**    const user = await User.findById(userid)
+    const foundpost = await Post.findById(postid)
     const liked = await Like.find()
     let isliked = liked.filter(onelike => onelike.post === foundpost && onelike.liker === user)
     if(!isliked) {
@@ -238,7 +254,7 @@ module.exports = {
       await user.save()
       return true
     } 
-    return false
+    return false */
   },
   comments: async function({id}, req){
     const comments = await Comment.find({place: id}).populate('creator')
@@ -272,5 +288,9 @@ module.exports = {
       return 0;
     }
     return liked.length
+  },
+  deleteAccount: async function({userid},req){
+    await User.findOneAndRemove(userid)
+    return true
   }
 };

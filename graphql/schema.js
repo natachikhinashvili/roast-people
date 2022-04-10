@@ -84,6 +84,7 @@ module.exports = buildSchema(`
         likepost(userid : ID!, postid: ID!): Boolean!
         createRoom(userInput: ID!): roomData!
         addComment(text: String!,place: String!,id: ID!): Comment!
+        deleteAccount(userid: ID!): Boolean!
     }
 
     schema {
