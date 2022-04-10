@@ -224,8 +224,9 @@ module.exports = {
   likepost: async function({userid, postid}, req){
     const user = await User.findById(userid)
     const foundpost = await Post.findById(postid)
-    const liked = await Like.find({liker: user, post: foundpost})
-    if(!liked) {
+    const liked = await Like.find()
+    let isliked = liked.filter(onelike => onelike.post === foundpost && onelike.liker === user)
+    if(!isliked) {
       const like = new Like({
         liker: user,
         post: foundpost
