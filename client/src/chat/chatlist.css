@@ -1,0 +1,53 @@
+
+#chatlist-users-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 10vh; 
+    align-items: center;
+  }
+  #nofound-h1{
+    font-size: 2rem;
+    margin: 2vw;
+  }
+  #nofound-find{
+    background-color: #9f6cff;
+    border: none;
+    padding: 1vw;
+    border-radius: 100vw;
+    box-shadow: 0px 0px 10px#9f6cff;
+    color: white;
+    margin: 2vw;
+  }
+  #users-list-div-container{
+    margin-top: 3vh;
+    background-color: rgb(4, 1, 10);
+    padding-right: 2vw;
+    padding-left: 2vw;
+    max-height: 100vh;
+    margin-bottom: 3vh;
+    height: 100vh;
+  }
+  #chatlist-username{
+    color: white;
+    padding: 2vw;
+    font-size: 1.5em;
+  }
+  #list{
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+  }
+  @media screen  and (max-width: 960px) {
+  #users-list-div-container{
+    border-left: none;
+    border-right: none;
+    width: 95vw;
+    margin-top: 0;
+    max-height: 100vh;
+    height: 100vh;
+    padding-right: 2vw;
+    padding-top: 5vh;
+  }}

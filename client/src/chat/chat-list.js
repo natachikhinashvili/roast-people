@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import './messenger.css'
+import './chatlist.css'
 import {gql, useQuery} from '@apollo/client'
 import {FiLoader} from "react-icons/fi";
 import GoBack from '../gobackfolder/goback'
@@ -26,9 +26,9 @@ function ChatList(){
             let messplace;
             data.users.map(user => {
                 data.messages.map(mess => {
-                    messplace = mess.place.split('-')[0]
+                    messplace = mess.place.split('-')
                 })
-                if(messplace === user._id && user._id !== userId){
+                if(messplace[0] === user._id && user._id !== userId && messplace[1] === userId){
                     filteredusers.push(user)
                 }
             })

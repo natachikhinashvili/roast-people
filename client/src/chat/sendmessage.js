@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import GoBack from '../gobackfolder/goback'
 
 import './messenger.css';
+import ChatList from "./chat-list";
 
 export default function SendMessage(){
   const myid = localStorage.getItem('userid')
@@ -80,6 +81,7 @@ export default function SendMessage(){
     const params = {id:  myid,txt: messageref.current.value, pic: me.pic, messid:uuidv4(), createdAt: new Date()}
     socket.emit('message' , JSON.stringify(params))
     createmessage()
+    messageref.current.value = ''
   }
   const filtered = []
 
@@ -133,12 +135,12 @@ export default function SendMessage(){
               })
             }
           </div>
-          <div id='message-form'>
             <form id='form-msg' onSubmit={handlesubmit}>
               <input onChange={handlechange} id='message-input' type="text" ref={messageref}/>
-              <button id='send-btn' type='submit'><FiNavigation color='#9f6cff' id='icon'/></button>
+              <button id='send-btn' type='submit'><FiNavigation  size={20} color='#9f6cff' id='icon'/></button>
             </form>
-          </div>
+        </div>
+        <div>
         </div>
     </div>
   )

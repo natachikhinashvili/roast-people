@@ -231,7 +231,8 @@ module.exports = {
         post: foundpost
       });
       const createdlike =await like.save()
-      user.like ++;
+      foundpost.likes ++;
+      await foundpost.save()
       user.likers.push(createdlike)
       await user.save()
       return true
