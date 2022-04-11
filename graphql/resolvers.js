@@ -237,7 +237,7 @@ module.exports = {
       await user.save()
       return true
     } 
-    return false
+    return liked
     /**    const user = await User.findById(userid)
     const foundpost = await Post.findById(postid)
     const liked = await Like.find()

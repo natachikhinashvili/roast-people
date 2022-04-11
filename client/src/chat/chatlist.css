@@ -51,7 +51,7 @@
     align-items: center;
     height: 100vh;
   }
-  @media screen  and (max-width: 960px) {
+@media screen  and (max-width: 960px) {
   #users-list-div-container{
     border-left: none;
     border-right: none;
@@ -61,4 +61,5 @@
     height: 100vh;
     padding-right: 2vw;
     padding-top: 5vh;
-  }}
+  }
+}
