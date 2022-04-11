@@ -224,7 +224,14 @@ module.exports = {
   likepost: async function({userid, postid}, req){
     const user = await User.findById(userid)
     const foundpost = await Post.findById(postid)
-    const liked = await Like.find({liker: user, post: foundpost})
+    const liked = await Like.find({liker: user, post: foundpost}, function (err, docs) {
+      if (err){
+          console.log(err);
+      }
+      else{
+          console.log("First function call : ", docs);
+      }
+  })
     if(!liked) {
       const like = new Like({
         liker: user,
