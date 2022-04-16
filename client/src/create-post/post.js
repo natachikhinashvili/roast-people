@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import  { Link } from 'react-router-dom';
 import './post.css'
 import {gql, useQuery, useMutation} from '@apollo/client'
+import openSocket from 'socket.io-client'
 import { FiThumbsUp } from 'react-icons/fi'
 const Post = ({ creatorid, post, user, profile }) => {
     const [like, setlike] = useState(0)
+    const socket = openSocket('https://roast-people.herokuapp.com/');
     const userId = localStorage.getItem('userid')
 
     const loadlikegraphqlQuery = gql`
@@ -21,7 +23,11 @@ const Post = ({ creatorid, post, user, profile }) => {
         `
     const likeQuery = gql`
             mutation Likepost{
-                likepost(userid: "${userId}", postid: "${post._id}")
+                likepost(userid: "${userId}", postid: "${post._id}"){
+                    liker{
+                        name
+                    }
+                }
             }
         `
     const  {error, loading, data} = useQuery(loadlikegraphqlQuery)
@@ -29,13 +35,16 @@ const Post = ({ creatorid, post, user, profile }) => {
     const [likepost] = useMutation(likeQuery)
     useEffect(() => {
         if(data){
-            console.log(error)
             setlike(data.post.likes)
-            console.log(like)
         }
     }, [post._id, likepost,data,loading,error,like])
-    function likehandler(){
-        likepost()
+    async function likehandler(){
+        //await likepost()
+        socket.emit('like' , like)
+        socket.once('like', (like) => {
+            setlike(like + 1)
+            return socket.disconnect()
+        })
     }
     async function deletehandler(){
         await deletePost()

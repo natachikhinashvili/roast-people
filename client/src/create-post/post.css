@@ -19,7 +19,9 @@
     align-items: center;
 }
 #post-pic{
-    width: 30vw;
+    width: 450px;
+    height: 450px;
+    object-fit: cover;
 }
 #profile-pic{
     width: 50px;
@@ -112,7 +114,8 @@
         margin-left: 0vw;
     }
     #post-pic{
-        width: 90vw;
+        width: 350px;
+        height: 350px;
     }
     #profilepic-info{
         display: flex;

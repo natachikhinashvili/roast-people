@@ -53,7 +53,7 @@ export default function EditPost(){
   async function handlePost(e){  
     e.preventDefault()
     await createPost()
-    navigate('/feed')
+    window.location.reload();
   }
   return (
     <div id='edit-post-container'>
