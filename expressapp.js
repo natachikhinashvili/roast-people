@@ -7,7 +7,6 @@ const graphqlSchema = require('./graphql/schema')
 const graphqlResolver = require('./graphql/resolvers')
 const auth = require('./middleware/is-auth')
 const routes = require('./routes/feed')
-var wrtc = require('wrtc')
 const authroutes = require('./routes/auth');
 const app = express();
 
@@ -73,7 +72,7 @@ mongoose
       io.emit('comment', `${comment}`)
     })
     socket.on('like', (like)  =>{
-      io.emit('like', `${like + 1}`)
+      io.emit('like', `${like}`)
     })
   })
 })

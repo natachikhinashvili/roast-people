@@ -29,7 +29,6 @@ export default function Comments(){
                         name
                         pic
                     }
-                    likes
                     createdAt
                     imageUrl
                 }

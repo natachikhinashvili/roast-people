@@ -6,6 +6,7 @@ import openSocket from 'socket.io-client'
 import { FiThumbsUp } from 'react-icons/fi'
 const Post = ({ creatorid, post, user, profile }) => {
     const [like, setlike] = useState(0)
+    const [liked, setliked] = useState(false)
     const socket = openSocket('https://roast-people.herokuapp.com/');
     const userId = localStorage.getItem('userid')
 
@@ -40,9 +41,14 @@ const Post = ({ creatorid, post, user, profile }) => {
     }, [post._id, likepost,data,loading,error,like])
     async function likehandler(){
         //await likepost()
-        socket.emit('like' , like)
+        if(liked){
+            socket.emit('like' , setlike(parseInt(like) - 1))
+            setliked(false)
+        }else{
+            socket.emit('like' , setlike(parseInt(like) + 1))
+            setliked(true)
+        }
         socket.once('like', (like) => {
-            setlike(like + 1)
             return socket.disconnect()
         })
     }

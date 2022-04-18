@@ -224,44 +224,19 @@ module.exports = {
   likepost: async function({userid, postid}, req){
     const user = await User.findById(userid)
     const foundpost = await Post.findById(postid)
-    const liked = await Like.find({liker: user, post: foundpost}, function (err, docs) {
-      if (err){
-          console.log(err);
-      }
-      else{
-          console.log("First function call : ", docs);
-      }
-  })
+    return user.likers
+    /*const liked = await Like.find({liker: user, post: foundpost})
     if(!liked) {
       const like = new Like({
         liker: user,
         post: foundpost
       });
-      const createdlike =await like.save()
-      foundpost.likes ++;
-      await foundpost.save()
+      const createdlike = await like.save()
       user.likers.push(createdlike)
       await user.save()
       return true
     } 
-    return liked
-    /**    const user = await User.findById(userid)
-    const foundpost = await Post.findById(postid)
-    const liked = await Like.find()
-    let isliked = liked.filter(onelike => onelike.post === foundpost && onelike.liker === user)
-    if(!isliked) {
-      const like = new Like({
-        liker: user,
-        post: foundpost
-      });
-      const createdlike =await like.save()
-      foundpost.likes ++;
-      await foundpost.save()
-      user.likers.push(createdlike)
-      await user.save()
-      return true
-    } 
-    return false */
+    return liked*/
   },
   comments: async function({id}, req){
     const comments = await Comment.find({place: id}).populate('creator')
@@ -289,12 +264,9 @@ module.exports = {
       updatedAt: new Date().toISOString()
     };
   },
-  likes: async function({postid, userid}, req){
-    const liked = await Like.find({liker: userid, post: postid})
-    if(!liked){
-      return 0;
-    }
-    return liked.length
+  likers: async function({postid, userid}, req){
+    //const likes = await Like.find({liker: userid, post: postid})
+    return postid 
   },
   deleteAccount: async function({userid},req){
     await User.findOneAndRemove(userid)
