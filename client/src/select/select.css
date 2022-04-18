@@ -74,6 +74,21 @@
     height: 50vh;
     object-fit: cover;
 }
+.translate{
+    background-color: blanchedalmond;
+    animation-name: example;
+    animation-duration: 400s;
+    animation-direction: reverse;
+    position: absolute;
+}
+@keyframes example{
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(45deg);
+    }
+}
 @media screen  and (max-width: 960px) {
     #select-card-img{
         width: 60vw;

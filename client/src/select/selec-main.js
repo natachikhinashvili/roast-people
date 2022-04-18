@@ -10,6 +10,7 @@ import GoBack from '../gobackfolder/goback'
 function Select(){
     const [users, setUsers] = useState([])
     const [num, setNum] = useState(0);
+    const [swipe,setswiped] = useState(false)
     const userId = localStorage.getItem('userid')
     const loadusers = gql`
         query {
@@ -27,28 +28,28 @@ function Select(){
             setUsers(filtered)
         }
     }, [data, error, userId, loading])
-    function handleClick(){
-        if(users.length > 1){
-            if(num + 1 > users.length - 1){
-                setNum(0);
-            }else{
-                setNum(prevState => prevState + 1);
-            }
+    function handleClick(event){
+        setswiped(true)
+        if(num + 1 > users.length - 1){
+            setNum(0);
+        }else{
+            setNum(prevState => prevState + 1);
         }
     }
     let name;
     let _id;
     let img;
     if(users[num]){
-     name = users[num].name;
-     _id = users[num]._id;
-     img=users[num].pic
+        name = users[num].name;
+        _id = users[num]._id;
+        img = users[num].pic;
     }
     return (
         <div id='select-page'>
             <GoBack/>
             {!name ? <FiLoader color='#fff'/> : (
-               <div id='person-card'>
+                <div onTouchMove={handleClick} onTouchEnd={() => setswiped(false)} onDragStart={handleClick} onDragEnd={() => setswiped(false)}>
+                <div id='person-card' className={swipe ? 'translate' : ''}>
                     <div id='person-card-header'>
                       <Link to={'/profile/' + _id}>
                         <button id='person-card-viewprofile'>view profile</button>
@@ -62,6 +63,7 @@ function Select(){
                         <button id='select-card-nextbtn' onClick={handleClick}>next</button>
                         <Link to={'/chat/' + _id + '-' + userId}> <button id='select-card-roastbtn'>roast</button> </Link>
                     </div>
+                </div>
                 </div>
             )}
         </div>
