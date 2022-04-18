@@ -24,24 +24,23 @@ function ChatList(){
         if(data){
             let filteredusers = []
             let messplace;
-            data.users.map(user => {
-                data.messages.map(mess => {
-                    messplace = mess.place.split('-')
-                })
+            data.users.map((user) => {
+                data.messages.map(mess => messplace = mess.place.split('-'))
                 if(messplace[0] === user._id && user._id !== userId && messplace[1] === userId){
                     filteredusers.push(user)
                 }
+                return true
             })
             setUsers(filteredusers)
         }
-    }, [data,error, userId])
+    }, [data,error, userId, loading])
     return (
         <div id="list">
             <GoBack/>
             <div id={users ? "users-list-div-container" : 'FiLoader-chatlist-container'} >
                 {users ? users.map(user => {
                     return (
-                        <div id='users-list-div'>
+                        <div key ={user._id} id='users-list-div'>
                             <Link  style={{ textDecoration: 'none' }} key={user._id} to={'/chat/' + user._id + '-' + userId} >
                                 <div id='chatlist-users-container'>
                                     <img src={user.pic} className='pic' alt='profile'/>

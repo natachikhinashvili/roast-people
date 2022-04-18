@@ -4,11 +4,11 @@ import { FiNavigation, FiLoader } from "react-icons/fi";
 import {gql, useQuery, useMutation} from '@apollo/client'
 import openSocket from 'socket.io-client'
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from "react-router-dom";
 
 import GoBack from '../gobackfolder/goback'
 
 import './messenger.css';
-import ChatList from "./chat-list";
 
 export default function SendMessage(){
   const myid = localStorage.getItem('userid')
@@ -17,6 +17,7 @@ export default function SendMessage(){
   const [edit, setedit] = useState([])
   const messageref = useRef()
   const [vars,setvars] = useState('')
+  const navigate = useNavigate()
   const [me,setme] = useState('')
   const slug = useParams()
   const socket = openSocket('https://roast-people.herokuapp.com/');
@@ -74,6 +75,9 @@ export default function SendMessage(){
       setsocetmessages(socetmessages => [...socetmessages,{text: parsed.txt, pic: parsed.pic, _id: parsed.id, place: slug.id,  messid: parsed.messid, createdAt: parsed.createdAt} ])
       return socket.disconnect()
     })
+    if(error){
+      navigate('/error-page')
+    }
   },[data,socetmessages])
 
   function handlesubmit(e){

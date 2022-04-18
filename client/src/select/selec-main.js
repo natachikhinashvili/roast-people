@@ -26,7 +26,7 @@ function Select(){
             let filtered=data.users.filter(user => userId !== user._id)
             setUsers(filtered)
         }
-    }, [data,error, userId])
+    }, [data, error, userId, loading])
     function handleClick(){
         if(users.length > 1){
             if(num + 1 > users.length - 1){

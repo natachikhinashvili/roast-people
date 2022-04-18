@@ -1,12 +1,9 @@
-
 import React, { useState } from 'react';
 import './editpost.css'
-import { useNavigate } from 'react-router-dom';
 import {gql, useMutation} from '@apollo/client'
 import GoBack from '../gobackfolder/goback'
 export default function EditPost(){
   const userid = localStorage.getItem('userid')
-  const navigate = useNavigate()
   const [curtitle, setcurtitle] = useState('')
   let imagesrc = ''
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import './profile.css'
-import image from '../arrow.png'
 import {FiLoader} from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import Post from '../create-post/post';
