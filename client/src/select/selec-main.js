@@ -30,6 +30,9 @@ function Select(){
     }, [data, error, userId, loading])
     function handleClick(event){
         setswiped(true)
+    }
+    function handleend(){
+        setswiped(false)
         if(num + 1 > users.length - 1){
             setNum(0);
         }else{
@@ -48,7 +51,7 @@ function Select(){
         <div id='select-page'>
             <GoBack/>
             {!name ? <FiLoader color='#fff'/> : (
-                <div onTouchMove={handleClick} onTouchEnd={() => setswiped(false)} onDragStart={handleClick} onDragEnd={() => setswiped(false)}>
+                <div onTouchMove={handleClick} onTouchEnd={handleend} onDragStart={handleClick} onDragEnd={handleend}>
                 <div id='person-card' className={swipe ? 'translate' : ''}>
                     <div id='person-card-header'>
                       <Link to={'/profile/' + _id}>
