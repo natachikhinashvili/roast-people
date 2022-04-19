@@ -32,12 +32,12 @@ function Select(){
         setswiped(true)
     }
     function handleend(){
-        setswiped(false)
         if(num + 1 > users.length - 1){
             setNum(0);
         }else{
             setNum(prevState => prevState + 1);
         }
+        setswiped(false)
     }
     let name;
     let _id;
