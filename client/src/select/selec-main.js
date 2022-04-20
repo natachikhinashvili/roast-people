@@ -47,7 +47,7 @@ function Select(){
         _id = users[num]._id;
         img = users[num].pic;
     }
-    return (
+    return ( 
         <div id='select-page'>
             <GoBack/>
             {!name ? <FiLoader color='#fff'/> : (

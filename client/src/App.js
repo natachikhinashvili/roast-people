@@ -21,7 +21,7 @@ import {
   HttpLink,
   from,
   ApolloClient
-} from '@apollo/client'
+} from '@apollo/react-hooks'
 
 const errorLink = onError(({graphqlErrors, networkError}) => {
   if(graphqlErrors){
@@ -33,11 +33,12 @@ const errorLink = onError(({graphqlErrors, networkError}) => {
     console.log(networkError)
   }
 })
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: from([errorLink, new HttpLink({uri: 'https://roast-people.herokuapp.com/graphql'})])
+})
 function App() {
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: from([errorLink, new HttpLink({uri: ' https://roast-people.herokuapp.com/graphql'})])
-  })
   return (
     <div>
       <ApolloProvider client={client}>

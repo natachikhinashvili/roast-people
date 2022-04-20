@@ -78,12 +78,13 @@
     object-fit: cover;
 }
 .translate{
-    background-color: blanchedalmond;
     animation-name: example;
     animation-duration: 1000ms;
     transition: 3000ms linear all;
     animation-direction: reverse;
 }
+
+
 @keyframes example{
     0%{
         margin-top: 40vh;

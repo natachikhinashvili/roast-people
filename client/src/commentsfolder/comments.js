@@ -56,7 +56,6 @@ export default function Comments(){
         `
         const [createcomment] = useMutation(createComment)
         useEffect(() => {
-            console.log(error,loading,data)
             setState(data)
             if(data){
                 setme(data.user)
