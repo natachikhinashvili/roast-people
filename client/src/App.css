@@ -22,7 +22,6 @@ button{
   padding: 2vw;
   cursor: pointer;
 }
-
 .App-header {
   display: flex;
   color: white;
@@ -142,5 +141,8 @@ button{
   }
   .App-header{
     width: 100vw;
+  }
+  #loader-feed{
+    margin-left: 0vw;
   }
 }

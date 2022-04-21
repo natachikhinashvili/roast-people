@@ -8,7 +8,7 @@ module.exports = buildSchema(`
         creator: User!
         createdAt: String!
         updatedAt: String!
-        likes: Int!
+        likers: [Like]
     }
     type Message {
         _id: ID!
@@ -66,7 +66,7 @@ module.exports = buildSchema(`
         otheruser(id: ID!): User!
         message : Message
         comments(id: ID!): [Comment!]!
-        likes(postid: ID!, userid: ID!): Int!
+        likes(postid: ID!): Int!
     }
 
     type roomData{

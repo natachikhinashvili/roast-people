@@ -7,13 +7,13 @@ import { FiThumbsUp } from 'react-icons/fi'
 const Post = ({ creatorid, post, user, profile }) => {
     const [like, setlike] = useState(0)
     const [liked, setliked] = useState(false)
-    const socket = openSocket('https://roast-people.herokuapp.com/');
+    const socket = openSocket('http://localhost:8080/');
     const userId = localStorage.getItem('userid')
 
     const loadlikegraphqlQuery = gql`
             query {
-                post(id: "${post._id}"){
-                    likes
+                likes(postid: "${post._id}") {
+                    _id
                 }
             }
         `
@@ -35,12 +35,13 @@ const Post = ({ creatorid, post, user, profile }) => {
     const [deletePost] = useMutation(deletepostquery)
     const [likepost] = useMutation(likeQuery)
     useEffect(() => {
+        console.log(data)
         if(data){
-            setlike(data.post.likes)
+            setlike(data.post.likers.length)
         }
     }, [post._id, likepost,data,loading,error,like])
     async function likehandler(){
-        await likepost()
+        await likepost().catch(err => console.log(err))
         if(liked){
             socket.emit('like' , setlike(parseInt(like) - 1))
             setliked(false)
