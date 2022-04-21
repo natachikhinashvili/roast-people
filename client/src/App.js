@@ -36,7 +36,7 @@ const errorLink = onError(({graphqlErrors, networkError}) => {
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: from([errorLink, new HttpLink({uri: 'https://roast-people.herokuapp.com/graphql'})])
+  link: from([errorLink, new HttpLink({uri: 'http://localhost:8080/graphql'})])
 })
 function App() {
   return (

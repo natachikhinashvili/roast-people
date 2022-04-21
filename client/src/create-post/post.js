@@ -40,7 +40,7 @@ const Post = ({ creatorid, post, user, profile }) => {
         }
     }, [post._id, likepost,data,loading,error,like])
     async function likehandler(){
-        //await likepost()
+        await likepost()
         if(liked){
             socket.emit('like' , setlike(parseInt(like) - 1))
             setliked(false)

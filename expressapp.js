@@ -5,9 +5,6 @@ const cors = require('cors');
 const path = require('path');
 const graphqlSchema = require('./graphql/schema')
 const graphqlResolver = require('./graphql/resolvers')
-const auth = require('./middleware/is-auth')
-const routes = require('./routes/feed')
-const authroutes = require('./routes/auth');
 const app = express();
 
 if(process.env.NODE_ENV === 'production') {
@@ -24,7 +21,6 @@ app.use((req,res,next) => {
   }
   next();
 })
-app.use(auth)
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 app.use('/graphql', graphqlHttp({
@@ -48,16 +44,13 @@ app.use((error,req,res,next) => {
   const data = error.data;
   res.status(status).json({message: message, data: data})
 })
-app.use(routes)
-app.use('/auth', authroutes)
 app.use('*', (req,res,next) => {
   return res.send('something went wrong')
 })
 mongoose
 .connect('mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages')
 .then(result => {
-  const port = process.env.PORT || 8080   
-  const io = require('socket.io')(app.listen(port), {
+  const io = require('socket.io')(app.listen(8080), {
     cors: {
       origin: '*',
       methods: ['GET', 'POST'],

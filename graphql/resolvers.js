@@ -42,7 +42,6 @@ module.exports = {
   },
   login: async function({ email, password }) {
     const user = await User.findOne({ email: email });
-    console.log('executing')
     if (!user) {
       const error = new Error('User not found.');
       error.code = 401;
@@ -176,7 +175,6 @@ module.exports = {
     return true
   },
   user: async function({id}, req){ 
-    console.log(id)
     const user = await User.findById(id)
     if(!user) {
       const error = new Error('No post found!')
@@ -221,23 +219,6 @@ module.exports = {
      posts: posts
     }
   },
-  likepost: async function({userid, postid}, req){
-    const user = await User.findById(userid)
-    const foundpost = await Post.findById(postid)
-    return user.likers
-    /*const liked = await Like.find({liker: user, post: foundpost})
-    if(!liked) {
-      const like = new Like({
-        liker: user,
-        post: foundpost
-      });
-      const createdlike = await like.save()
-      user.likers.push(createdlike)
-      await user.save()
-      return true
-    } 
-    return liked*/
-  },
   comments: async function({id}, req){
     const comments = await Comment.find({place: id}).populate('creator')
     return comments 
@@ -264,12 +245,25 @@ module.exports = {
       updatedAt: new Date().toISOString()
     };
   },
-  likers: async function({postid, userid}, req){
-    //const likes = await Like.find({liker: userid, post: postid})
-    return postid 
-  },
   deleteAccount: async function({userid},req){
     await User.findOneAndRemove(userid)
     return true
+  },
+  likepost: async function({userid, postid}, req){
+    const user = await User.findById(userid)
+    const foundpost = await Post.findById(postid)
+    const like = new Like({
+      liker: user,
+      post: foundpost
+    });
+    const createdlike = await like.save()
+    console.log(like)
+    foundpost.likers.push(createdlike)
+    await foundpost.save()
+    return true 
+  },
+  likers: async function({postid, userid}, req){
+    const likes = await Like.find({liker: userid, post: postid})
+    return postid 
   }
 };
