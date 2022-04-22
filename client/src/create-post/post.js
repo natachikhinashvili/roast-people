@@ -56,10 +56,12 @@ const Post = ({ creatorid, post, user, profile }) => {
             }
         }else{
             let filtered = like.filter(onelike => onelike.liker._id !== userId)
-            if(filtered.length !== like.length){
+             if(filtered.length !== like.length && !liked){
                 setlikecount(like.length)
+                setliked(true)
             }else{
                 setlikecount(filtered.length)
+                setliked(false)
             }
         }
         socket.once('like', (like) => {

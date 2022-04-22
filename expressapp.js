@@ -6,6 +6,8 @@ const path = require('path');
 const graphqlSchema = require('./graphql/schema')
 const graphqlResolver = require('./graphql/resolvers')
 const app = express();
+const fs = require('fs')
+const mongodb = require('mongodb')
 
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, "./client/build")));
@@ -47,9 +49,10 @@ app.use((error,req,res,next) => {
 app.use('*', (req,res,next) => {
   return res.send('something went wrong')
 })
-mongoose
+ mongoose
 .connect('mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages')
-.then(result => {
+.then(result => 
+  {
   const io = require('socket.io')(app.listen(8080), {
     cors: {
       origin: '*',
@@ -70,3 +73,20 @@ mongoose
   })
 })
 .catch(err => console.log(err));
+
+const client = new mongodb.MongoClient('mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages');
+client.connect(function(error) {
+  console.log(error)
+  const db = client.db('messages');
+
+  var bucket = new mongodb.GridFSBucket(db);
+  console.log(bucket)
+ // fs.createReadStream('./myFile').
+ //    pipe(bucket.openUploadStream('myFile', {
+ //        chunkSizeBytes: 1048576,
+ //        metadata: { field: 'myField', value: 'myValue' }
+ //    }))
+//
+//
+ // // Use bucket...
+});
