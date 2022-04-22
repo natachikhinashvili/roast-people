@@ -8,12 +8,16 @@ const Post = ({ creatorid, post, user, profile }) => {
     const [like, setlike] = useState(0)
     const [liked, setliked] = useState(false)
     const socket = openSocket('http://localhost:8080/');
+    const [likecount, setlikecount] = useState(0)
     const userId = localStorage.getItem('userid')
 
     const loadlikegraphqlQuery = gql`
             query {
                 likes(postid: "${post._id}") {
                     _id
+                    liker {
+                        _id
+                    }
                 }
             }
         `
@@ -35,19 +39,28 @@ const Post = ({ creatorid, post, user, profile }) => {
     const [deletePost] = useMutation(deletepostquery)
     const [likepost] = useMutation(likeQuery)
     useEffect(() => {
-        console.log(data)
         if(data){
-            setlike(data.post.likers.length)
+            setlike(data.likes)
+            setlikecount(like.length)
         }
     }, [post._id, likepost,data,loading,error,like])
     async function likehandler(){
         await likepost().catch(err => console.log(err))
-        if(liked){
-            socket.emit('like' , setlike(parseInt(like) - 1))
-            setliked(false)
-        }else{
-            socket.emit('like' , setlike(parseInt(like) + 1))
+        if(like.length === 0){
+            if(liked){
+                socket.emit('like' , setlikecount(prevstate => prevstate - 1))
+                setliked(false)
+            }else{
+            socket.emit('like' , setlikecount(prevstate => prevstate + 1))
             setliked(true)
+            }
+        }else{
+            let filtered = like.filter(onelike => onelike.liker._id !== userId)
+            if(filtered.length !== like.length){
+                setlikecount(like.length)
+            }else{
+                setlikecount(filtered.length)
+            }
         }
         socket.once('like', (like) => {
             return socket.disconnect()
@@ -74,7 +87,7 @@ const Post = ({ creatorid, post, user, profile }) => {
             </div>
             <div id='post-footer'>
                 <button id='like' onClick={likehandler}>
-                    <FiThumbsUp color='#fff' size={20}></FiThumbsUp> <p id='like-count'>{like}</p>
+                    <FiThumbsUp color='#fff' size={20}></FiThumbsUp> <p id='like-count'>{likecount}</p>
                 </button>
                 <button id='comment-btn'>
                     <Link style={{textDecoration: 'none',color: 'white'}} to={'/post/comments/' + post._id}>

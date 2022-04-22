@@ -266,7 +266,6 @@ module.exports = {
       let filtered = foundpost.likers.filter(like => likefound[0]._id.toString() !== like.toString())
       foundpost.likers = filtered
       await Like.findByIdAndRemove(likefound[0]._id)
-      console.log('removed')
       return false
     }
   },
