@@ -46,13 +46,14 @@ const Post = ({ creatorid, post, user, profile }) => {
     }, [post._id, likepost,data,loading,error,like])
     async function likehandler(){
         await likepost().catch(err => console.log(err))
+        console.log(like)
         if(like.length === 0){
             if(liked){
                 socket.emit('like' , setlikecount(prevstate => prevstate - 1))
                 setliked(false)
             }else{
-            socket.emit('like' , setlikecount(prevstate => prevstate + 1))
-            setliked(true)
+                socket.emit('like' , setlikecount(prevstate => prevstate + 1))
+                setliked(true)
             }
         }else{
             let filtered = like.filter(onelike => onelike.liker._id !== userId)

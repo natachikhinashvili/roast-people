@@ -59,6 +59,7 @@ app.use('*', (req,res,next) => {
       methods: ['GET', 'POST'],
     }
   })
+
   
   io.on('connection', (socket) => {
     socket.on('message', (message)  =>{
@@ -73,20 +74,3 @@ app.use('*', (req,res,next) => {
   })
 })
 .catch(err => console.log(err));
-
-const client = new mongodb.MongoClient('mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages');
-client.connect(function(error) {
-  console.log(error)
-  const db = client.db('messages');
-
-  var bucket = new mongodb.GridFSBucket(db);
-  console.log(bucket)
- // fs.createReadStream('./myFile').
- //    pipe(bucket.openUploadStream('myFile', {
- //        chunkSizeBytes: 1048576,
- //        metadata: { field: 'myField', value: 'myValue' }
- //    }))
-//
-//
- // // Use bucket...
-});

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './editpost.css'
 import {gql, useMutation} from '@apollo/client'
+import openSocket from 'socket.io-client'
 import GoBack from '../gobackfolder/goback'
 export default function EditPost(){
   const userid = localStorage.getItem('userid')
   const [curtitle, setcurtitle] = useState('')
   let imagesrc = ''
+  const socket = openSocket('https://roast-people.herokuapp.com/');
 
   if(document.getElementById('files-here') && document.getElementById('files-here').childNodes.length > 0){
     imagesrc = document.getElementById('files-here').childNodes[0].src
@@ -15,7 +17,7 @@ export default function EditPost(){
 
     if( e.currentTarget.files[0]) {
     const file = e.currentTarget.files[0];
-
+ socket.emit('imageupload', file)
     let fileReader = new FileReader();
     fileReader.onload = () => {
       let image = new Image();      
@@ -30,6 +32,10 @@ export default function EditPost(){
     fileReader.readAsDataURL(file);
   }
 
+  socket.once('imageupload', (params) => {
+    console.log(params)
+    return socket.disconnect()
+  })
   }
     const ADD_POST = gql`
     mutation CreatePost{
@@ -41,10 +47,12 @@ export default function EditPost(){
           name
          }
         createdAt
-        likes
+        likers{
+          _id
+        }
       }
     }
-    `
+    ` 
 
   const [createPost]  = useMutation(ADD_POST)
   async function handlePost(e){  
