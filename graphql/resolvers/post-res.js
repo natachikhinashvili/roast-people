@@ -1,6 +1,9 @@
 const User = require('../../postmodels/user');
 const Post = require('../../postmodels/post');        
 const fs = require('fs');
+const { GridFsStorage } = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
+const multer = require('multer');
 const mongodb = require('mongodb');
 
 module.exports = {
@@ -16,26 +19,11 @@ module.exports = {
         user.posts.push(createdPost);
         await user.save()
         const client = new mongodb.MongoClient('mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages');
-        console.log('her')
-        const uri = 'mongodb://localhost:27017';
+        const db = client.db('messages');
+        const storage = new GridFsStorage({db: client})
         
-        client.connect(function(error) {
-        console.log('still alive')
-          const db = client.db('messages');
-        
-          var bucket = new mongodb.GridFSBucket(db);
-        
-          fs.createReadStream(`./${imageUrl}`).
-            pipe(bucket.openUploadStream(`${imageUrl}`)).
-            on('error', function(error) {
-                console.log(error)
-            }).
-            on('finish', function() {
-              console.log('done!');
-              process.exit(0);
-            });
-        });
-        
+        const upload = multer({ storage });
+        upload.single(`${imageUrl}`)
         return {
             ...createdPost._doc,
             _id: createdPost._id.toString(),
