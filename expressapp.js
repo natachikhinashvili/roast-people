@@ -71,6 +71,10 @@ app.use('*', (req,res,next) => {
     socket.on('like', (like)  =>{
       io.emit('like', `${like}`)
     })
+    socket.on('post', (post)=> {
+      console.log('posted')
+      io.emit('post', `${post}`)
+    })
   })
 })
 .catch(err => console.log(err));

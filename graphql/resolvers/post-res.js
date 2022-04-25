@@ -3,6 +3,7 @@ const Post = require('../../postmodels/post');
 const fs = require('fs');
 const { GridFsStorage } = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
+const mongoose = require('mongoose');
 const multer = require('multer');
 const mongodb = require('mongodb');
 
@@ -18,12 +19,59 @@ module.exports = {
         const createdPost = await post.save()
         user.posts.push(createdPost);
         await user.save()
-        const client = new mongodb.MongoClient('mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages');
-        const db = client.db('messages');
-        const storage = new GridFsStorage({db: client})
+        let gfs;
+        const client = mongoose
+        .connect('mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages')
+        .then(() => {
+            client.on('error', console.error.bind(console, 'connection error:'));
+            client.once('open', () => {
+                console.log(' inconnected');
+                gfs = new Grid(client.db, mongoose.mongo);
+                console.log(gfs)
+            })
+        })
         
-        const upload = multer({ storage });
-        upload.single(`${imageUrl}`)
+client.on('error', console.error.bind(console, 'connection error:'));
+
+client.once('open', () => {
+    console.log('connected');
+    gfs = new Grid(client.db, mongoose.mongo);
+    console.log(gfs)
+})
+        // conn.once('open', () => {
+        //   // Init stream
+        //   console.log('eee')
+        //   
+        //   console.log('uu')
+        //   
+        //   console.log('j')
+        //})
+        //const storage = new GridFsStorage({
+        //    url: client,
+        //    file: (req, file) => {
+        //      return new Promise((resolve, reject) => {
+        //        crypto.randomBytes(16, (err, buf) => {
+        //          if (err) {
+        //            return reject(err);
+        //          }
+        //          const filename = buf.toString('hex') + path.extname(`${imageUrl}`);
+        //          const fileInfo = {
+        //            filename: filename,
+        //            bucketName: 'uploads'
+        //          };
+        //          resolve(fileInfo);
+        //        });
+        //      });
+        //    }
+        //  });
+        //const upload = multer({ storage });
+        //console.log('ggjbbjb')
+        //upload.single(`${imageUrl}`)
+        //console.log('alive', gfs, gfs.files)
+        //const fss = await gfs.files.find()
+        //console.log('al', fss)
+
+
         return {
             ...createdPost._doc,
             _id: createdPost._id.toString(),

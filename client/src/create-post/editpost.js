@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './editpost.css'
 import {gql, useMutation} from '@apollo/client'
 import GoBack from '../gobackfolder/goback'
+import openSocket from 'socket.io-client'
+
 export default function EditPost(){
   const userid = localStorage.getItem('userid')
   const [curtitle, setcurtitle] = useState('')
   let imagesrc = ''
+  const socket = openSocket('https://roast-people.herokuapp.com/');
 
   if(document.getElementById('files-here') && document.getElementById('files-here').childNodes.length > 0){
     imagesrc = document.getElementById('files-here').childNodes[0].src
@@ -50,8 +53,15 @@ export default function EditPost(){
   async function handlePost(e){  
     e.preventDefault()
     await createPost()
-    window.location.reload();
+   // window.location.reload();
   }
+  useEffect(() => {
+    socket.once('post', (params) => {
+      console.log(params)
+      return socket.disconnect()
+    })
+  }, [socket])
+  socket.emit('post' ,'o')
   return (
     <div id='edit-post-container'>
       <GoBack/>
