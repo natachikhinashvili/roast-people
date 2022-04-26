@@ -19,58 +19,46 @@ module.exports = {
         const createdPost = await post.save()
         user.posts.push(createdPost);
         await user.save()
-        let gfs;
-        const client = mongoose
-        .connect('mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages')
-        .then(() => {
-            client.on('error', console.error.bind(console, 'connection error:'));
-            client.once('open', () => {
-                console.log(' inconnected');
-                gfs = new Grid(client.db, mongoose.mongo);
-                console.log(gfs)
-            })
-        })
-        
-client.on('error', console.error.bind(console, 'connection error:'));
 
-client.once('open', () => {
-    console.log('connected');
-    gfs = new Grid(client.db, mongoose.mongo);
-    console.log(gfs)
-})
-        // conn.once('open', () => {
-        //   // Init stream
-        //   console.log('eee')
-        //   
-        //   console.log('uu')
-        //   
-        //   console.log('j')
-        //})
-        //const storage = new GridFsStorage({
-        //    url: client,
-        //    file: (req, file) => {
-        //      return new Promise((resolve, reject) => {
-        //        crypto.randomBytes(16, (err, buf) => {
-        //          if (err) {
-        //            return reject(err);
-        //          }
-        //          const filename = buf.toString('hex') + path.extname(`${imageUrl}`);
-        //          const fileInfo = {
-        //            filename: filename,
-        //            bucketName: 'uploads'
-        //          };
-        //          resolve(fileInfo);
-        //        });
-        //      });
-        //    }
-        //  });
-        //const upload = multer({ storage });
-        //console.log('ggjbbjb')
-        //upload.single(`${imageUrl}`)
-        //console.log('alive', gfs, gfs.files)
-        //const fss = await gfs.files.find()
-        //console.log('al', fss)
-
+        let mongouri = 'mongodb+srv://newuser:p_a_s_w_o_r_d@cluster0.ezcie.mongodb.net/messages'
+        const client = await mongoose.connect(mongouri);
+        let gfs = Grid(client, mongoose.mongo);
+        //const source = fs.createReadStream('image.png', {filename: 'image.png'})
+        //const writeStream = gfs.createWriteStream({
+        //    root: "images",
+        //    filename: "image.png"
+        // });
+        // source.pipe(writeStream)
+        //console.log('d')
+        //fs.createReadStream(`${imageUrl}`).
+        //pipe(bucket.openUploadStream('meistersinger.mp3')).
+        //on('error', function(error) {
+        //  assert.ifError(error);
+        //}).
+        //on('finish', function() {
+        //  console.log('done!');
+        //  process.exit(0);
+        //});
+        const storage = new GridFsStorage({
+            url: mongouri,
+            file: (req, file) => {
+              return new Promise((resolve, reject) => {
+                crypto.randomBytes(16, (err, buf) => {
+                  if (err) {
+                    return reject(err);
+                  }
+                  const filename = buf.toString('hex') + path.extname(file.originalname);
+                  const fileInfo = {
+                    filename: filename,
+                    bucketName: 'images'
+                  };
+                  resolve(fileInfo);
+                });
+              });
+            }
+          });
+        const upload = multer({ storage });
+        upload.single(`${imageUrl}`)
 
         return {
             ...createdPost._doc,
