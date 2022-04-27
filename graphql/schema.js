@@ -76,7 +76,7 @@ module.exports = buildSchema(`
 
     type RootMutation {
         likepost(userid : ID!, postid: ID!): Like!
-        createUser(userInput: UserInputData): User!
+        createUser(userInput: UserInputData): User
         createPost(title: String!,imageUrl: String!, id: ID!): Post!
         createMessage(text: String!,place: String!,id: ID!): Message!
         updatePost(id: ID!,text: String!,place: String!): Post!

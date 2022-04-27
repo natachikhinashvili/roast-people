@@ -44,7 +44,7 @@ const {error,  loading, data} = useQuery(graphqlQuery)
                 <label className='login-labels'>Enter your Email</label>
                 <input id='login-enter-username'onChange={handleChange} ref={emailref} placeholder='email'/>
                 <label id='password-label' className='login-labels'>Enter your password</label>
-                <input id='login-enter-password' onChange={handleChange} ref={passref} placeholder='password'/>
+                <input id='login-enter-password' type='password' onChange={handleChange} ref={passref} placeholder='password'/>
                 <button id='submit-login' type='submit'>Log in</button>
             </form>                    
             <Link to='/create-account'>

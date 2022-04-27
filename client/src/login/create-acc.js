@@ -12,31 +12,28 @@ export default function CreateAcc(){
     const [state, setState] = useState({imagesrc: '',password: '', name: '', email: '', age: 0})
     function onFileLoad(e) {
         //Get current selected or dropped file (it gives you the ability to load multiple images).
-        if( e.currentTarget.files[0]) {
-        const file = e.currentTarget.files[0];
-        //Create instance 
-        let fileReader = new FileReader();
-        //Register event listeners
-        fileReader.onload = () => {
-         let image = new Image();
-         image.src = fileReader.result
-         image.className = 'post-image'
-         document.getElementById('files-here').append(image)
+        if(e.currentTarget.files[0]) {
+            const file = e.currentTarget.files[0];
+            //Create instance 
+            let fileReader = new FileReader();
+            //Register event listeners
+            fileReader.onload = () => {
+                let image = new Image();
+                image.src = fileReader.result
+                image.className = 'post-image'
+                document.getElementById('files-here').append(image)
+            }
+            //Read the file as a Data URL (which gonna give you a base64 encoded image data)
+            fileReader.readAsDataURL(file);
         }
-        //Read the file as a Data URL (which gonna give you a base64 encoded image data)
-        fileReader.readAsDataURL(file);
-    
-        console.log(e.currentTarget.files[0])
-      }
-      }
+    }
     let graphqlQuery = gql`
         mutation CreateUser{
             createUser(userInput: {email: "${state.email}",
             name: "${state.name}",
             password: "${state.password}",
             pic: "${state.imagesrc}"
-            })
-            {
+            }){
                 _id
                 email
             }
@@ -47,7 +44,7 @@ export default function CreateAcc(){
     async function handleSubmit(formval){
         formval.preventDefault()
         await createAccount()
-        navigate('/login')
+        //.then(() => navigate('/login'))
     }
     function handleChange(){
         if(document.getElementById('files-here')){
@@ -66,30 +63,31 @@ export default function CreateAcc(){
         <div id="create-acc-containter">
             <h1 id='c-a-a'>Create An Account</h1>
             <div id='create-acc-profile-pic-zone'>
-                <h1>select profile picture</h1>      <div id='edit-area'>
-                <div id="draggable-container">
+                <h1>select profile picture</h1>      
+                <div id='edit-area'>
+                    <div id="draggable-container">
                         <label className="custom-file-upload">
-                          <input 
-                            type="file"id="files"
-                            name="file-browser-input"
-                            onDragOver={(e) => {
-                            e.preventDefault();
-                               e.stopPropagation();
-                            }}
-                            onDrop={onFileLoad}
-                            onChange={onFileLoad}/>
+                            <input 
+                                type="file" id="files"
+                                name="file-browser-input"
+                                onDragOver={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                }}
+                                onDrop={onFileLoad}
+                                onChange={onFileLoad}/>
                         </label>
                     </div>
                 </div>
                 <div id='files-here'></div>
             </div>
-            <form  id='create-acc-form' noValidate onSubmit={handleSubmit}>
+            <form id='create-acc-form' noValidate onSubmit={handleSubmit}>
                 <label className="create-acc-label" >Full Name</label>
                 <input id='create-acc-name-input' name="name" ref={reference} onChange={handleChange}/>
                 <label className="create-acc-label" >Email</label>
                 <input id='create-acc-email-input' name='email' ref={emailreference} onChange={handleChange}/>
                 <label className="create-acc-label" >password</label>
-                <input id='create-acc-password-input' name='password' ref={passwordreference} onChange={handleChange}/>
+                <input id='create-acc-password-input'  type='password' name='password' ref={passwordreference} onChange={handleChange}/>
                 <label className="create-acc-label" >age</label>
                 <input id='create-acc-age-input' name='age' type='number' ref={ageref} onChange={handleChange}/>
                 <button id='create-btn' type='submit'>create</button>  

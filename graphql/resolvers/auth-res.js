@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../../postmodels/user');
 const validator = require('validator');
+const flash = require('connect-flash')
 
 module.exports = {
     createUser: async function({ userInput }, req) {
@@ -23,8 +24,9 @@ module.exports = {
     }
     const existingUser = await User.findOne({ email: userInput.email });
     if (existingUser) {
-      const error = new Error('User exists already!');
-      throw error;
+      const error = 'User exists already!'
+      console.log('err')
+      throw flash('info', 'flash is not back its black');
     }
     const hashedPw = await bcrypt.hash(userInput.password, 12);
     const user = new User({
