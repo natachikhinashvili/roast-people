@@ -67,6 +67,7 @@
 #edit-area{
   display: flex;
   flex-direction: column;
+  width: 80vw;
   max-width: 90vw;
   align-items: center;
   justify-content: flex-end;

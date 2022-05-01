@@ -28,7 +28,6 @@ export default function EditPost(){
       image.style.maxWidth = '100px'
       document.getElementById('files-here').append(image)
     }
-
     fileReader.readAsDataURL(file);
   }
   }
