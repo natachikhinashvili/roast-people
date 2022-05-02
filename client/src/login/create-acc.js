@@ -3,6 +3,7 @@ import React, {useRef, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import {gql, useMutation} from '@apollo/client'
 import { Link } from 'react-router-dom'
+
 export default function CreateAcc(){
     const navigate = useNavigate()
     const emailreference = useRef()
@@ -10,6 +11,8 @@ export default function CreateAcc(){
     const passwordreference = useRef()
     const ageref = useRef()
     const [state, setState] = useState({imagesrc: '',password: '', name: '', email: '', age: 0})
+    const [show, setshow] = useState(false)
+    const [errorexists, seterrexists] =useState(false)
     function onFileLoad(e) {
         //Get current selected or dropped file (it gives you the ability to load multiple images).
         if(e.currentTarget.files[0]) {
@@ -20,11 +23,12 @@ export default function CreateAcc(){
             fileReader.onload = () => {
                 let image = new Image();
                 image.src = fileReader.result
-                image.className = 'post-image'
+                image.className = 'profile-pic-createacc'
                 document.getElementById('files-here').append(image)
             }
             //Read the file as a Data URL (which gonna give you a base64 encoded image data)
             fileReader.readAsDataURL(file);
+            setshow(true)
         }
     }
     let graphqlQuery = gql`
@@ -43,7 +47,10 @@ export default function CreateAcc(){
     const [createAccount] = useMutation(graphqlQuery)
     async function handleSubmit(formval){
         formval.preventDefault()
-        await createAccount()
+        await createAccount().catch(err => {
+            console.log(err.toString().split(' ').includes('exists'))
+            seterrexists(true)
+        })
         //.then(() => navigate('/login'))
     }
     function handleChange(){
@@ -62,10 +69,10 @@ export default function CreateAcc(){
     return(
         <div id="create-acc-containter">
             <h1 id='c-a-a'>Create An Account</h1>
-            <div id='create-acc-profile-pic-zone'>
-                <h1>select profile picture</h1>      
-                <div id='edit-area'>
-                    <div id="draggable-container">
+            <div id='create-acc-profile-pic-zone'> 
+                   
+                {!show && <><h1>select profile picture</h1>
+                <div id="draggable-container">
                         <label className="custom-file-upload">
                             <input 
                                 type="file" id="files"
@@ -77,11 +84,11 @@ export default function CreateAcc(){
                                 onDrop={onFileLoad}
                                 onChange={onFileLoad}/>
                         </label>
-                    </div>
-                </div>
+                </div></>}
                 <div id='files-here'></div>
             </div>
-            <form id='create-acc-form' noValidate onSubmit={handleSubmit}>
+            {show &&<>
+                <span className={errorexists ? 'show' : 'hd'}>user with this email already exists</span><form id='create-acc-form' noValidate onSubmit={handleSubmit}>
                 <label className="create-acc-label" >Full Name</label>
                 <input id='create-acc-name-input' name="name" ref={reference} onChange={handleChange}/>
                 <label className="create-acc-label" >Email</label>
@@ -94,7 +101,7 @@ export default function CreateAcc(){
                 <Link to='/login'>
                     <button id='login-increateacc-btn'>login</button> 
                 </Link>
-            </form>
+            </form></> }
         </div>
     )
 }

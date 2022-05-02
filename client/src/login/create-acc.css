@@ -10,6 +10,13 @@
 .create-acc-label{
     margin: 1vw;
 }
+.profile-pic-createacc {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    box-shadow: 0px 0px 20px rgb(21, 21, 21);
+    margin: 2vw;
+}
 #create-btn{
     background-color: #9450e2;
     border: none;
@@ -61,6 +68,10 @@
 }
 #create-acc-profile-pic-zone{
     margin-top: 8vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 @media screen  and (max-width: 960px) {
