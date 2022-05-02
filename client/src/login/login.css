@@ -57,6 +57,14 @@
     position: absolute;
     top: 5vh;
   }
+  .show{
+    color: white;
+    display: flex;
+  }
+  .hd{
+    display: none;
+    color: white;
+  }
 
 @media screen  and (max-width: 960px) {
 

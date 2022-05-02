@@ -9,6 +9,7 @@ export default function Login(){
     const emailref = useRef()
     const passref = useRef();
     const [state, setState] = useState({email : '', password: ''})
+    const [show, setshow] = useState(false)
     const graphqlQuery = gql`
         query {
             login(email: "${state.email}", password: "${state.password}")
@@ -19,9 +20,9 @@ export default function Login(){
         }
     ` 
 const {error,  loading, data} = useQuery(graphqlQuery)
-    async function handleSubmit(formval){        
+    async function handleSubmit(formval){     
         if(error){
-            console.log(error)
+            setshow(true)
             //navigate('/error-page')
         }
         formval.preventDefault()
@@ -41,6 +42,7 @@ const {error,  loading, data} = useQuery(graphqlQuery)
         <div id='login-container'>
             <h1 id='login-h1'>Log In</h1>
             <form id='login-form' onSubmit={handleSubmit}>
+                <span className={show ? 'show' : 'hd'}>password or email is incorrect</span>
                 <label className='login-labels'>Enter your Email</label>
                 <input id='login-enter-username'onChange={handleChange} ref={emailref} placeholder='email'/>
                 <label id='password-label' className='login-labels'>Enter your password</label>
