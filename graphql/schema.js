@@ -19,7 +19,7 @@ module.exports = buildSchema(`
     }
     type Like {
         _id: ID!
-        post: Post!
+        post: Post
         liker: User!
     }
     type Comment {

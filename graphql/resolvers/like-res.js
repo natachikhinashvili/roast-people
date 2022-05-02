@@ -1,5 +1,6 @@
 const User = require('../../postmodels/user');
 const Like = require('../../postmodels/like'); 
+const Post = require('../../postmodels/post')
 
 module.exports = {
     likepost: async function({userid, postid}, req){
